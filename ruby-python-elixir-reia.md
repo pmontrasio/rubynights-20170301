@@ -1,3 +1,6 @@
+Licensed under the Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) https://creativecommons.org/licenses/by-sa/4.0/
+
+
 # Introduzione
 
 https://www.theguardian.com/world/2017/jan/10/xiaolu-guo-why-i-moved-from-beijing-to-london
