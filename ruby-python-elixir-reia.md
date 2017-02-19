@@ -414,13 +414,12 @@ Web2py invece usa Python e quindi non si può dire che si tratti di una scelta c
 Però copierei in Rails l'idea dei filtri, immagino come metodi da applicare ad oggetti, ma non l'ho studiata.
 
 
-# Alto livello vs basso livello.
+# __init.py__
 
-Python obbliga a fare un po' del lavoro del compilatore.
-
-Il misterioso file __init.py__ deve essere presente in una directory perché i file al suo interno vengano riconosciuti come moduli. Ogni altro linguaggio noto se la cava tranquillamente senza. Forse qui si vede l'età. Il design di Python è iniziato alla fine degli anni '80 e allora poteva sembrare una buona idea. Chi è arrivato dopo l'ha eliminato e ha fatto in altro modo.
-
-Il due punti in fondo alle righe è inutile andrebbe depracato. La sua origine è in uno studio di usabilità presso sviluppatori principianti: gli rendeva più semplice capire che dopo iniziava un blocco indentato, nonostante ci fosse già l'indentatura.
+Il file ```__init.py__```, misterioso per i principianti, deve essere presente in una directory perché i file al suo interno vengano riconosciuti come moduli. Ogni altro linguaggio noto se la cava tranquillamente senza. Forse qui si vede l'età. Il design di Python è iniziato alla fine degli anni '80 e allora poteva sembrare una buona idea. Chi è arrivato dopo l'ha eliminato e ha fatto in altro modo. Quello a cui serve in Python è spiegato bene a http://chimera.labs.oreilly.com/books/1230000000393/ch10.html
+L'idioma corrispondente Ruby è la creazione di una base class che importa i file nelle sotto directory. Un esempio piuttosto esteso è dato da https://github.com/rails/rails/blob/master/activerecord/lib/active_record.rb
+Come si vede non è necessario dare nomi criptici ai file per ottenere lo stesso risultato.
+Va detto che ```locate __init.py__ | grep directory/de/progetto``` trova istantaneamente tutti i moduli.
 
 # Mixed paradigm
 
@@ -555,7 +554,7 @@ Ruby > (1..20).to_a.join(",").to_s
 SyntaxError: invalid syntax
 ```
 
-Non spiega cosa c'è che non va. E se sa che è syntax error per via dei due punti, perché non li aggiunge da solo e non si fa una PEP per renderli opzionali?
+Non spiega cosa c'è che non va. E se sa che è syntax error per via dei due punti, perché non li aggiunge da solo? :-)
 
 Essendo rumore e non segnale, presto si impara a non vedere i due punti e alle volte capita che restano attaccati in fondo alle righe quando si fa refactoring e si passa ad esempio da un ```if expr:``` a ```return expr```
 
@@ -566,6 +565,8 @@ SyntaxError: invalid syntax
 ```
 
 Sono pure meno visibili di una ```{```, anche perché si tendono a scrivere attaccati alla parentesi.
+
+Mi piacerebbe una PEP per renderli opzionali.
 
 ## La spaziatura
 
