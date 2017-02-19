@@ -501,7 +501,7 @@ end
 ```
 
 
-# Error reporting
+# Error reporting (TODO spostare nella parte relativa ai framework)
 
 Gli errori di Web2py sono quasi inutili. Per qualche ragione non riesce a mostrare la riga di un template in cui è avvenuto l'errore. Riporta quella del file Python in cui è tradotto il template, che serve a poco. E' carina l'autoapertura dei ticket ma in sviluppo sarebbe molto meglio vedere subito il messaggio d'errore.
 
@@ -532,18 +532,25 @@ In un lingua naturale, dove prevale il modo attivo avremmo
 
 ```
 . separa "a.b.c"
-. unisce ["a", "b", "c"]
+. uniscisci ["a", "b", "c"]
 ```
 
 Esperti Python mi dicono che il primo è ```string.join(iterable)``` e sarebbe stato strano forzare ogni iterable ad avere un metodo che ha a che fare con le stringhe. Meglio metterlo in string. In effetti in Ruby join è un metodo di Array e di nient'altro.
 
-```
-Python > ",".join([str(i) for i in range(1,21)])
-'1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20'
+Python
 
-Ruby > (1..20).to_a.join(",").to_s
- => "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"
 ```
+",".join([str(i) for i in range(1, 21)])
+# '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20'
+```
+
+Ruby
+
+```(1..20).to_a.join(",").to_s
+# "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"
+```
+
+Questione di stili.
 
 # Fatiche di sintassi
 
@@ -571,13 +578,7 @@ Mi piacerebbe una PEP per renderli opzionali.
 
 ## La spaziatura
 
-```
-    def match_version(version_matcher, protocol_data):
-                                                     ^
-IndentationError: unindent does not match any outer indentation level
-```
-
-Qual è il problema?
+A tutti sarà capitato almeno una volta
 
 ```
 def find_version(product_matcher, protocol_data):
@@ -589,11 +590,13 @@ def find_version(product_matcher, protocol_data):
      return match_version(version_matcher, protocol_data)
 
  def match_version(version_matcher, protocol_data):
+                                                     ^
+IndentationError: unindent does not match any outer indentation level
 ```
 
-Ah, uno spazio "invisibile" a inizio linea nel def match_version, eredità di un copia e incolla.
+Ah, uno spazio "invisibile" a inizio linea nel ```def match_version```, eredità di un copia e incolla in cui non si è cancellato tutto quel che si doveva.
 
-Altra situazione, quando si copia codice dall'editor alla console interattiva è molto più rapido copiare tutta la linea inclusi gli spazi all'inizio. Peccata che si vada in errore. O si perde tempo a fare un copia e incolla preciso oppure si installa iPython ```pip install ipython```. Ma se occorre un extra per risolvere un problema del linguaggio vuol dire che il design iniziale non era buono. Per contro ```gem install pry``` aggiunge molte cose interessanti a ```irb```, ma si vive anche senza.
+Altra situazione, quando si copia codice dall'editor alla console interattiva è molto più rapido copiare tutta la linea inclusi gli spazi all'inizio. Peccato che si vada in errore. O si perde tempo a fare un copia e incolla preciso oppure si installa iPython ```pip install ipython```. Ma se occorre un extra per risolvere un problema del linguaggio vuol dire che il design iniziale non era buono. Per contro ```gem install pry``` aggiunge molte cose interessanti a ```irb```, ma si vive anche senza.
 
 ## do end
 
