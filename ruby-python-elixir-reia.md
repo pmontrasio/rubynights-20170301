@@ -654,6 +654,23 @@ end
 Di certo nella forma breve non ci sono problemi.
 
 
+## Operatore ternario
+
+Forse per mantenere consistenza con lo stile discorsivo degli operatori booleani ```and or not``` Python (solo dalla 2.5) ha introdotto questo operatore ternario
+
+```
+a if condition else b
+```
+
+dove praticamente ogni altro linguaggio, Ruby incluso, usa
+
+```
+condition ? a : b
+```
+
+Da un lato apprezzo la consistenza dello stile, dall'altro non approvo il render difficile la vita allo sviluppatore.
+Inoltre forse è arrivato un po' tardi perché un paio di mesi fa lo sviluppatore Python a capo di uno dei progetti che seguo mi aveva detto che Python non ha un operatore ternario. Quando si impara che una cosa non esiste, poi non la si cerca più.
+
 # Stile
 
 La raccomandazione di usare la notazione arg=valore senza spazi per i keyword argument e i parametri di default è cattiva perché confonde ed involontariamente provoca la scrittura di codice come questo
