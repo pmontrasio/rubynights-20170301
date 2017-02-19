@@ -629,6 +629,10 @@ if cond: # 1 carattere extra rispetto a Ruby
 
 In Python si scrive di meno. Si paga il prezzo di possibili bug con gli spazi sintattici. De gustibus. Personalmente non disegnerei mai un linguaggio con spazio significativo. Lo spazio è solo per l'occhio, non per il compilatore. Non dopo le schede perforate.
 
+Python obbliga lo sviluppatore ad indentare. Questa critica è sollevata da molti sviluppatori e francamente così formulata sorprende: tutti i linguaggi vanno indentati. Lo sviluppatore che non lo fa va messo al bando :-) A detta degli amici Pythonisti questo è un punto di forza di Python e lo comprendo. Lo svantaggio è che l'editor non ha mai abbastanza informazioni per indentare al nostro posto e dovendolo fare noi ci viene data un'ulteriore occasione per introdurre bug.
+
+Mi è capitato di recente di sistemare una decina di righe Python tra cui un ```if else```, cambiando i livelli di indentazione. Alla fine non ero sicuro se l'ultima riga dell'```else``` in origine fosse dentro o fuori l'```else```. L'avevo già spostata a sinistra o no? Ho dovuto salvare e fare un ```git diff``` per scoprirlo. Un linguaggio con graffe o ```end``` non dà di questi problemi.
+
 
 ## {{ }} e {% %}
 
