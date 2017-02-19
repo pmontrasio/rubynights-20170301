@@ -139,7 +139,7 @@ https://www.quora.com/Is-Ruby-on-Rails-a-truly-MVC-framework
 
 Mi sembra più una questione di nomenclatura che di sostanza. Alla fine il codice in ```views.py``` di Django fa esattamente quel che fa il codice dei controller di Rails e i template Django sono esattamente uguali alle viste Rails, a parte il linguaggio di templating più limitato.
 
-A proposito, anche per Ruby c'è un linguaggio di templating con le restrizioni imposte da Jinja. Si tratta di Liquid di Shopify http://shopify.github.io/liquid/ che per evidenti ragioni non vuole che i suoi clienti possano far girare potenzialmente di tutto sui propri server.
+A proposito, anche per Ruby c'è un linguaggio di templating con le restrizioni imposte dal linguaggio di Jango. Si tratta di Liquid di Shopify http://shopify.github.io/liquid/ che per evidenti ragioni non vuole che i suoi clienti possano far girare potenzialmente di tutto sui propri server.
 
 ## Admin
 
