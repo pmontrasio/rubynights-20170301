@@ -756,9 +756,9 @@ assegno ="attaccato a destra"
 
 Coincidenza?
 
-Altro problema con lo stile, lo smodato uso di underscore in Python, forse altra eredità degli anni 80. Questo si ripercuote lungo tutto l'ecosistema, con convenzioni che dipendono da differenze quasi invisibili, come due underscore invece di uno.
+Altro problema con lo stile, lo smodato uso di underscore in Python, forse altra eredità degli anni '80. Questo si ripercuote lungo tutto l'ecosistema, con convenzioni che dipendono da differenze quasi invisibili, come due underscore invece di uno.
 
-Django
+Esempio d'uso dell'ORM di Django
 
 ```
     def matching_lines(self):
@@ -793,6 +793,8 @@ Lo stesso in Rails
 ```
 
 Rails se la cava semplicemente accorgendosi che ```doc_ids``` è un array e quindi è ovvio che va aggiunta la ```WHERE doc_id in SELECT IN (doc_ids)```. Va detto che la gemma ```squeel``` quasi va in quella direzione e c'è a chi piace.
+
+Altri due ORM Python, SQLAlchemy e peewee, non usano underscore semantici.
 
 ## Eccezioni
 
