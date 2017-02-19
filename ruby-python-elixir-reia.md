@@ -434,45 +434,45 @@ Python ha molte funzioni predefinite. Dati gli anni, forse è stato disegnato co
 Scrivo
 
 ```
->>> print netblocks.keys().sort()
-None
+print netblocks.keys().sort()
+# None
 ```
 
-Perché ```None``` e non la lista ordinata?
-
-Perché ```.sort()``` modifica l'argomento e non lo ritorna.
+Perché ritorna ```None``` e non la lista ordinata? Perché ```.sort()``` modifica l'argomento e non lo ritorna.
 
 Quel che volevo era ```sorted```, una delle funzioni predefinite di Python.
 
 ```
->>> sorted(netblocks.keys())
-[u'1.2.3.0/24', u'1.3.0.0/16', u'2.2.4.0/24', u'3.2.3.0/24', u'4.2.3.0/24']
+sorted(netblocks.keys())
+# [u'1.2.3.0/24', u'1.3.0.0/16', u'2.2.4.0/24', u'3.2.3.0/24', u'4.2.3.0/24']
+
+a = [u'2.2.4.0/24', u'3.2.3.0/24', u'1.3.0.0/16', u'1.2.3.0/24', u'4.2.3.0/24']
+a.sort()
+a
+# [u'1.2.3.0/24', u'1.3.0.0/16', u'2.2.4.0/24', u'3.2.3.0/24', u'4.2.3.0/24']
 ```
 
-È il principio di Least surprise girato al contrario.
-Non si chiamano neppure nello stesso modo, ```sorted``` vs ```sort```.
+```sorted``` è una funzione che accetta un iterable e vi può applicare una funzione di ordinamento.
+Quindi qualsiasi oggetto con un metodo ```__iter__``` può essere ordinato con la funzione sort.
 
-```
->>> a = [u'2.2.4.0/24', u'3.2.3.0/24', u'1.3.0.0/16', u'1.2.3.0/24', u'4.2.3.0/24']
->>> a.sort()
->>> a
-[u'1.2.3.0/24', u'1.3.0.0/16', u'2.2.4.0/24', u'3.2.3.0/24', u'4.2.3.0/24']
-```
+Venendo da Ruby non si capisce la necessità di avere metodo e funzione separati.
+In Ruby una classe che vuole essere ordinabile farebbe un mixin con Enumerable, definirebbe un metodo sort che chiamerebbe quello di Enumerable passandogli il blocco che implementa il confronto tra due elementi. Quel codice va scritto comunque, sia in Ruby che in Python.
+Venendo da Python invece non si capisce perché ogni classe debba definire il proprio metodo sort, dandogli potenzialmente nomi diversi e causando fraintendimenti. Python ha un meccanismo del linguaggio per dare più ordine (pun intented). In Ruby non funzionerebbe per la mancanza di funzioni. Bisognerebbe avere metodi predefiniti di Kernel o di Object da sovrascrivere.
 
 Il metodo ```sort``` di array in Ruby non modifica l'array. Lo modifica ```sort!```
 La convenzione è usare un ```!``` nel nome dei metodi che modificano l'oggetto su cui vengono chiamati.
 
 ```
-> a = ['2.2.4.0/24', '3.2.3.0/24', '1.3.0.0/16', '1.2.3.0/24', '4.2.3.0/24']
- => ["2.2.4.0/24", "3.2.3.0/24", "1.3.0.0/16", "1.2.3.0/24", "4.2.3.0/24"]
-> a.sort
- => ["1.2.3.0/24", "1.3.0.0/16", "2.2.4.0/24", "3.2.3.0/24", "4.2.3.0/24"]
-> a
- => ["2.2.4.0/24", "3.2.3.0/24", "1.3.0.0/16", "1.2.3.0/24", "4.2.3.0/24"]
-> a.sort!
- => ["1.2.3.0/24", "1.3.0.0/16", "2.2.4.0/24", "3.2.3.0/24", "4.2.3.0/24"]
-> a
- => ["1.2.3.0/24", "1.3.0.0/16", "2.2.4.0/24", "3.2.3.0/24", "4.2.3.0/24"]
+a = ['2.2.4.0/24', '3.2.3.0/24', '1.3.0.0/16', '1.2.3.0/24', '4.2.3.0/24']
+# ["2.2.4.0/24", "3.2.3.0/24", "1.3.0.0/16", "1.2.3.0/24", "4.2.3.0/24"]
+a.sort
+# ["1.2.3.0/24", "1.3.0.0/16", "2.2.4.0/24", "3.2.3.0/24", "4.2.3.0/24"]
+a
+# ["2.2.4.0/24", "3.2.3.0/24", "1.3.0.0/16", "1.2.3.0/24", "4.2.3.0/24"]
+a.sort!
+# ["1.2.3.0/24", "1.3.0.0/16", "2.2.4.0/24", "3.2.3.0/24", "4.2.3.0/24"]
+a
+# ["1.2.3.0/24", "1.3.0.0/16", "2.2.4.0/24", "3.2.3.0/24", "4.2.3.0/24"]
 ```
 
 
