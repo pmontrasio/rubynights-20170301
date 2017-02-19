@@ -165,9 +165,149 @@ E se non piace la convenzione? Esempio: in Rails le tabelle sono nomi plurali. I
 
 Django e Web2Py hanno dei default un po' "laschi". Invogliano ad avere un solo controller, la ```app_name/views.py``` di Django e il ```app_name/controllers/default.py``` di Web2py e questo è male. Sarà un caso ma mi sono sempre trovato di fronte a controller di 1000 o 2000 righe. Inducono il principiante in errore e quando arriva uno sviluppatore più esperto il cliente non ha soldi per il refactoring ma solo per le funzionalità per cui l'ha chiamato.
 
-# Legacy?
+# Creazione progetti
 
-Django e Web2Py hanno il concetto di applicazioni, come gli application server Java. Non so se abbia senso dato che non si fa deploy con i war ma con i sorgenti. Forse è un modo per far sentire a casa gli sviluppatori Java del 2005. Di sicuro Rails è andato bene con una sola applicazione per istanza. Se ne serve una seconda sullo stesso server, si lancia un altro interprete Ruby con un'altra applicazione. E' utile anche per il parallelismo, che come in Python è per processo.
+Seguo le istruzioni a https://docs.djangoproject.com/en/1.10/intro/tutorial01/
+
+```
+$ django-admin startproject mysite
+$ find mysite/
+mysite/
+mysite/mysite
+mysite/mysite/__init__.py
+mysite/mysite/settings.py
+mysite/mysite/wsgi.py
+mysite/mysite/urls.py
+mysite/manage.py
+```
+
+Ha creato un progetto ```mysite``` con il minimo indispensabile. Non ci sono ancora né view né template.
+
+Le applicazioni, in Django, sono delle librerie che vanno ad arricchire il progetto.
+Possono essere esterne o interne al progetto, utilizzando il file di requirements.txt.
+```mysite``` dell'esempio è una applicazione interna.
+Anche le applicazioni interno possono risiedere in un loro repository (ad esempio con https://git-scm.com/book/en/v2/Git-Tools-Submodules)
+
+Si aggiungono ad un progetto con
+
+```
+cd mysite
+python manage.py startapp polls
+find polls
+polls/
+polls/__init__.py
+polls/migrations
+polls/migrations/__init__.py
+polls/views.py
+polls/admin.py
+polls/models.py
+polls/tests.py
+```
+
+Ogni applicazione ha le sue view, modelli, migrazioni, controller, test.
+
+Rails ha una sola applicazione in ```app``` con alberatura assai più estesa.
+
+```
+$ rails new demo_rails --skip-bundle
+$ find demo_rails/
+demo_rails/
+demo_rails/.gitignore
+demo_rails/Gemfile
+demo_rails/app
+demo_rails/app/views
+demo_rails/app/views/layouts
+demo_rails/app/views/layouts/application.html.erb
+demo_rails/app/helpers
+demo_rails/app/helpers/application_helper.rb
+demo_rails/app/models
+demo_rails/app/models/concerns
+demo_rails/app/models/concerns/.keep
+demo_rails/app/models/.keep
+demo_rails/app/assets
+demo_rails/app/assets/images
+demo_rails/app/assets/images/.keep
+demo_rails/app/assets/javascripts
+demo_rails/app/assets/javascripts/application.js
+demo_rails/app/assets/stylesheets
+demo_rails/app/assets/stylesheets/application.css
+demo_rails/app/controllers
+demo_rails/app/controllers/application_controller.rb
+demo_rails/app/controllers/concerns
+demo_rails/app/controllers/concerns/.keep
+demo_rails/app/mailers
+demo_rails/app/mailers/.keep
+demo_rails/bin
+demo_rails/bin/rake
+demo_rails/bin/rails
+demo_rails/bin/setup
+demo_rails/bin/bundle
+demo_rails/public
+demo_rails/public/favicon.ico
+demo_rails/public/422.html
+demo_rails/public/robots.txt
+demo_rails/public/500.html
+demo_rails/public/404.html
+demo_rails/vendor
+demo_rails/vendor/assets
+demo_rails/vendor/assets/javascripts
+demo_rails/vendor/assets/javascripts/.keep
+demo_rails/vendor/assets/stylesheets
+demo_rails/vendor/assets/stylesheets/.keep
+demo_rails/Rakefile
+demo_rails/config
+demo_rails/config/application.rb
+demo_rails/config/environments
+demo_rails/config/environments/development.rb
+demo_rails/config/environments/test.rb
+demo_rails/config/environments/production.rb
+demo_rails/config/secrets.yml
+demo_rails/config/initializers
+demo_rails/config/initializers/inflections.rb
+demo_rails/config/initializers/wrap_parameters.rb
+demo_rails/config/initializers/backtrace_silencers.rb
+demo_rails/config/initializers/mime_types.rb
+demo_rails/config/initializers/cookies_serializer.rb
+demo_rails/config/initializers/session_store.rb
+demo_rails/config/initializers/assets.rb
+demo_rails/config/initializers/filter_parameter_logging.rb
+demo_rails/config/locales
+demo_rails/config/locales/en.yml
+demo_rails/config/database.yml
+demo_rails/config/routes.rb
+demo_rails/config/boot.rb
+demo_rails/config/environment.rb
+demo_rails/tmp
+demo_rails/tmp/cache
+demo_rails/tmp/cache/assets
+demo_rails/test
+demo_rails/test/integration
+demo_rails/test/integration/.keep
+demo_rails/test/fixtures
+demo_rails/test/fixtures/.keep
+demo_rails/test/helpers
+demo_rails/test/helpers/.keep
+demo_rails/test/test_helper.rb
+demo_rails/test/models
+demo_rails/test/models/.keep
+demo_rails/test/controllers
+demo_rails/test/controllers/.keep
+demo_rails/test/mailers
+demo_rails/test/mailers/.keep
+demo_rails/README.rdoc
+demo_rails/lib
+demo_rails/lib/tasks
+demo_rails/lib/tasks/.keep
+demo_rails/lib/assets
+demo_rails/lib/assets/.keep
+demo_rails/db
+demo_rails/db/seeds.rb
+demo_rails/config.ru
+demo_rails/log
+demo_rails/log/.keep
+```
+
+È possibile compartimentare sotto applicazioni Rails in gemme. Un esempio è devise che ha i suoi controller, modelli, migrazioni e viste per la gestione dell'autenticazione. Poiché scrivere una gemma ha una maggior frizione di scrivere un'applicazione Django, non è molto frequente dividere un'applicazione Ruby in gemme. Se grazie a questo approccio si riusa effettivamente codice tra progetti Django, l'approccio è più conveniente.
 
 # Il deploy
 
