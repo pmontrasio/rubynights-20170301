@@ -939,6 +939,164 @@ funzione(1)
 funzione(1, arg2=2, arg3=2)
 ```
 
+# yield
+
+Stesso nome per due funzionalità molto diverse.
+
+Python
+
+```
+def firstn(n):
+   num = 0
+   while num < n:
+     yield num
+     num += 1
+
+firstn(3)
+#<generator object firstn at 0x7f9c084866e0>
+[x for x in firstn(3)]
+# [0, 1, 2]
+```
+
+La chiamata a ```firstn(3)``` ritorna un Generator. ```firstn``` inizia davvero ad eseguire quando alla comprehension serve la prima ```x```. Arriva fino a ```yield num``` e ritorna ```0``` e resta sospesa. Poi la comprehension le chiede una seconda ```x``` e ```firstn``` riparte da dove era arrivata, incrementando ```num``` e ritornando ```1```.
+
+Lo stesso codice in Ruby fa una cosa diversa
+
+```
+def firstn(n)
+   num = 0
+   while num < n
+     yield num
+     num += 1
+   end
+end
+```
+
+prova ne è questo errore
+
+```
+firstn(3)
+LocalJumpError: no block given (yield)
+       from (irb):4:in `firstn'
+       from (irb):8
+       from /home/me/.rvm/rubies/ruby-2.3.0/bin/irb:11:in `<main>'
+```
+
+Infatti in Ruby ```firstn``` parte e quando arriva a ```yield``` passa ```num``` ad un blocco di codice, che deve esserle stato passato come argomento. Ad esempio.
+
+```
+firstn(3) {|x| puts x}
+0
+1
+2
+```
+
+oppure
+
+```
+firstn(3) do |x|
+   molte
+   linee
+   di
+   codice
+end
+```
+
+Per creare un generatore in Ruby si usa la classe ```Enumerator```
+
+```
+def firstn(n)
+  Enumerator.new do |enum|
+    num = 0
+    while num < n
+      enum.yield num # metodo yield di Enumerator, non keyword yield di Ruby
+      num +=1
+    end
+  end
+end
+firstn(3)
+#<Enumerator: #<Enumerator::Generator:0x00000000cace98>:each>
+ ```
+
+Adesso
+
+```
+firstn(3).map {|x| x}
+# [0, 1, 2]
+```
+
+come la ```[x for x in firstn(3)]``` di Python.
+
+Viceversa, l'equivalente di una ```yield``` Ruby in Python è il passaggio di una funzione come argomento ad un'altra
+
+```
+def firstn(n, fun):
+   num = 0
+   while num < n:
+     fun(num)
+     num += 1
+
+def pr(n):
+   print(n)
+
+firstn(3, pr)
+0
+1
+2
+```
+
+In Ruby non si può passare il nome del metodo bensì il simbolo corrispondente al suo nome.
+
+```
+def firstn(n, fun)
+   num = 0
+   while num < n
+     send(fun, num)
+     num += 1
+   end
+end
+
+def pr(n)
+   puts n
+end
+
+firstn(3, :pr)
+0
+1
+2
+```
+
+È una conseguenza dell'aver reso facoltative le parentesi: ```pr``` è identico a ```pr()``` ed eseguirebbe il metodo andando in errore per la mancanza del parametro.
+
+```
+firstn(3, pr)
+ArgumentError: wrong number of arguments (given 0, expected 1)
+```
+
+In Python bisogna sempre passare come parametro una funzione definita esplicitamente, a meno che la funzione non si limiti a calcolare un'espressione. In quel caso si può usare una ```lambda```. Le lambda Python non possono contenere statement.
+
+https://docs.python.org/2/reference/expressions.html#lambda
+https://docs.python.org/3/reference/expressions.html#lambda
+
+```
+def fn(n, fun):
+   return fun(n)
+
+fn(2, lambda x: x + 1)
+3
+```
+
+Equivale a
+
+```
+def fn(n)
+  return yield n
+end
+
+fn(2) {|x| x + 1}
+```
+
+
 
 # TODO
 
