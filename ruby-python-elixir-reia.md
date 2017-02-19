@@ -1200,6 +1200,30 @@ Django inoltre pare consumare CPU mentre sta in attesa, forse proprio per tener 
 
 Python non ha i simboli e quindi bisogna definire costanti anche se non ci interessa il loro valore.
 
+Probabilmente conviene usare gli enum.
+
+Sfortunatamente questa sintassi è stata bocciata perché explicit is better than implicit https://www.python.org/dev/peps/pep-0435/
+
+```
+class Color(Enum):
+    red, green, blue
+```
+
+quindi si deve usare
+
+```
+from enum import Enum
+class Color(Enum):
+     red = 1
+     green = 2
+     blue = 3
+```
+
+che ci riporta alla definizione di costanti. Se non altro sono compartimentati in classi e non c'è il rischio che un ```==``` tra due costanti a cui abbiamo dato maldestramente lo stesso valore generi bug.
+
+Dal codice Python che ho visto non c'è però un gran bisogno di usare simboli. In Ruby si usano spesso come chiavi di hash o per il passaggio di argomenti, ma Python ha altri meccanismi per quegli scenari.
+
+
 # Keyword arguments
 
 In Python si usano keyword arguments molto più che in Ruby, forse perché in Ruby siamo stati abituati a simularli usando hash di opzioni e pochi li stanno usando ora che ci sono (Ruby 2.0, 4 anni fa)
