@@ -141,6 +141,20 @@ Mi sembra più una questione di nomenclatura che di sostanza. Alla fine il codic
 
 A proposito, anche per Ruby c'è un linguaggio di templating con le restrizioni imposte da Jinja. Si tratta di Liquid di Shopify http://shopify.github.io/liquid/ che per evidenti ragioni non vuole che i suoi clienti possano far girare potenzialmente di tutto sui propri server.
 
+## Admin
+
+Django ha un admin built in, Rails no. Web2py ce l'ha almeno per la gestione degli errori.
+
+Con Rails bisogna usare gemme tipo http://activeadmin.info/ che nella pratica si usa poco. Si possono creare in fretta applicazioni Rails usando solo ActiveAdmin, ma appen chiede anche solo una piccola cosa in più si impazzisce nel cercar di piegare i default del sistema e viene voglia di rifare tutto in Rails "standard".
+
+Anche senza usare ActiveAdmin, Rails ha uno scaffolding command line molto pratico http://guides.rubyonrails.org/command_line.html#rails-generate
+Lo si usa per creare modelli, controller e viste consistenti tra di loro e dà un CRUD con cui iniziare. Tipicamente poi si aggiungono metodi ai modelli, si modifica un po' il controller e si butta la vista (il template Python) rimpiazzandola con il codice in arrivo dai designer.
+
+L'admin di Django non fa un mero scaffolding, ma mette a disposizione una serie di strumenti "magici", perché nell'admin di magia ce n'è molta.
+L'admin ha già pronto un sistema di ricerca con filtri e con poche righe di codice si riesce a personalizzare parecchio, compresa la granularità di accesso con permessi e ruoli. Ancora, si possono suddividere i dati mostrati in serie, ad esempio anno, mese, giorno.
+
+Grazie alla semplicità nel costruire form, model ecc, molti suggeriscono di partire senza admin e di utilizzarlo solamente lato sviluppo, per aver un controllo backend sui dati e costruire l'applicazione senza legami ad una app di terze parti.
+
 ## ORM
 
 Negli ORM Python si possono creare le tabelle con qualsiasi naming convention. In Rails si devono modificare i default e lo si fa per lavorare su db preesistenti. La convenzione è diversa per ogni progetto e va imparata. Se lo sviluppatore originale non è stato superumano nella disciplina, vanno imparate e ricordate anche le eccezioni.
