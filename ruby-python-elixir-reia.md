@@ -1096,6 +1096,79 @@ end
 fn(2) {|x| x + 1}
 ```
 
+# WAT
+
+Ruby
+
+https://www.destroyallsoftware.com/talks/wat
+
+
+Python
+
+https://youtu.be/sH4XF6pKKmk
+https://github.com/cosmologicon/pywat
+
+# Le basi
+
+## Boolean
+
+Ruby usa la sintassi C per gli operatori booleani con il comportamento che ci si aspetta ```&& || !``` e una sintassi "umana" per quelli con un comportamento sorprendente ```and or not```. Gli ultimi vengono da Perl e in realtà non sono operatori booleani (alla faccia del principio di least surprise).
+Invece si usano per modificare il flusso di controllo del programma, come in
+
+```
+if error
+  manage(error) or puts "Niente da fare"
+  puts "Error #{error}" and return
+end
+```
+
+Nella pratica si sconsiglia di usarli. Le uniche volte in cui capita di incontrarli è quando un principiante ne fraintende l'uso li impiega in espressioni booleane introducendo bug incomprensibili causati dalla mancata conoscenza della reale precedenza dei due set di  operatori. https://ruby-doc.org/core-2.4.0/doc/syntax/precedence_rdoc.html
+
+Esempio:
+
+```
+true || false
+# true
+true or false
+# true
+false || true
+# true
+false or true
+# true
+```
+
+sembrano equivalenti, ma usandoli in un assegnamento ```=```, che è un operatore a maggior precedenza di ```or```
+
+```
+x = true || false; puts x
+# true
+x = true or false; puts x
+# true
+x = false || true; puts x
+# true
+x = false or true; puts x
+# false     # OPS!
+x = (false or true); puts x
+# true     # ma non vogliamo usare le parentesi attorno ad ogni espressione booleana
+```
+
+Quanto a ```not```
+
+```
+!true && false
+# false
+not true && false # equivale a not (true && false)
+# true     # OPS
+```
+
+Dettagli a
+
+* http://www.prestonlee.com/2010/08/04/ruby-on-the-perl-origins-of-and-versus-and-and-or/
+* http://www.virtuouscode.com/2010/08/02/using-and-and-or-in-ruby/
+* http://www.virtuouscode.com/2014/08/26/how-to-use-rubys-english-andor-operators-without-going-nuts/
+
+Python usa ```and or not``` come operatori logici e non ci sono sorprese. Vince Python, anche per la praticità di scrittura.
+
 
 
 # TODO
