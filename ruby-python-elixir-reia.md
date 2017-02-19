@@ -721,6 +721,19 @@ end
 ```with as``` si mappa quasi 1:1 sul ```do |f|``` di Ruby e ```for in``` (che esiste anche in Ruby) è l'equivalente di ```each |line|```.
 
 
+## L'orribile do while Ruby
+
+Non è possibile che un linguaggio non abbia un ```do while``` e costringa a scrivere codice come questo.
+
+```
+loop do
+  # codice
+  break if condition
+end
+```
+
+Si faceva di peggio solo in BASIC sugli home computer negli anni '80.
+
 # Stile
 
 La raccomandazione di usare la notazione arg=valore senza spazi per i keyword argument e i parametri di default è cattiva perché confonde ed involontariamente provoca la scrittura di codice come questo
@@ -1245,6 +1258,10 @@ Python ha liste, tuple, range, set, dict.
 Ruby ha array, range, set, hash. Non ha tuple.
 
 Le liste di Python equivalgono agli array di Ruby. I dict sono hash.
+I dict dalla versione 3.6 di Python sono ordinati e le performance di lookup sono migliorate.
+Hanno migliorato le performance di lookup degli hash anche in Ruby 2.4.
+https://blog.heroku.com/ruby-2-4-features-hashes-integers-rounding#hash-changes
+Gli elementi sono enumerati in ordine di inserimento.
 
 I range sono identici, a parte la sintassi: ```range(6)``` di Python è ```0..5``` di Ruby.
 
@@ -1321,19 +1338,59 @@ RuntimeError: can't modify frozen String
 Una stringa immutabile è praticamente identica ai simboli. Avendo già i simboli l'immutabilità delle stringhe non è un'esigenza particolermente sentita, ma con il proliferare di hash con chiavi di tipo string (JSON) è sicuramente un beneficio per le prestazioni. Probabilmente viene utile anche in vista dell'introduzione della concorrenza tramite ```Guild``` http://olivierlacan.com/posts/concurrency-in-ruby-3-with-guilds/
 
 
+# comprehension, filter, map, reduce
 
-# TODO
-
-* le comprehension, non poi così leggibili e non solo perché ne sbaglio sempre lo spelling :-)
-
-* l'orribile do while Ruby che pareggia il case switch di Python, anche se forse non usato così spesso.
+Dove Ruby di solito itera su array con ```each``` o ```map```, Python usa la list comprehension.
 
 ```
-loop do
-  # some code here
-  break if <condition>
-end
+[x * x for x in [1, 2, 3, 4]]
+# [1, 4, 9, 16]
 ```
+
+È simile alla notazione matematica di "per ogni x in N tale che ..., applica f(x)"
+La parte "tale che" è un filtro
+
+```
+filter(lambda x: x % 2 == 0, [1, 2, 3, 4])
+# [2, 4]
+```
+
+Combinandoli
+
+```
+[x * x for x in filter(lambda x: x % 2 == 0, [1, 2, 3, 4])]
+# [4, 16]
+```
+
+La differenza rispetto alla notazione matematica è che la parte "applica f(x)" viene all'inizio rendendo un po' difficile la lettura.
+Python ha anche ```map``` e ```reduce```. Adottando la notazione funzionale classica la composizione si deve scrivere al contrario rispetto al flusso di esecuzione, come per l'appunto ```f(g(x))``` dove prima si calcola ```g(x)``` e poi ```f```.
+
+```
+from functools import reduce
+reduce(lambda x, sum: sum + x, map(lambda x: x * x, filter(lambda x: x % 2 == 0, [1, 2, 3, 4])))
+# 20
+```
+
+E' meno immediato da leggere rispetto a
+
+```
+[1, 2, 3, 4].select {|n| n % 2 == 0}.map {|n| n * n}.reduce {|sum, n| sum + n}
+# 20
+```
+
+Elixir (inizio a scriverne) evita il problema con lo zucchero sintattico dell'operatore ```|>```, che per altro non è comodo da scrivere.
+
+```
+$ iex
+[1, 2, 3, 4] \
+|> Enum.filter(fn(n) -> rem(n, 2) == 0 end) \
+|> Enum.map(fn(n) -> n * n end) \
+|> Enum.reduce(0, fn(n, sum) -> sum + n end)
+# 20
+```
+
+Dovendo scrivere ogni volta sia il nome del modulo ```Enum``` che ```end```, è il linguaggio più verboso dei tre.
+
 
 * Elixir http://elixir-lang.org/
 
