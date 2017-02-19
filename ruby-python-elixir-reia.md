@@ -322,19 +322,34 @@ In realtà nulla vieta di usare Capistrano anche per Python ma è strano che non
 
 # Migrazioni DRY
 
-Invece è davvero interessante come gli ORM Python cerchino di tenere DRY la modifica del DB. Si descrivono i modelli in Python in ```models/``` invece che in Ruby in ```db/migrations```. Significa avere la truth del modello in un solo file vs averla distribuita in più migrazioni non facilmente identificabili. Questo è positivo. È poi Django a generare le migrazioni in base alle modifiche ai file dei modelli. I file dei modelli di Django si possono mettere ovunque, basta che ci sia un file ```models.py``` (devono stare tutti nello stesso file) e una directory ```migrations/``` con dentro un ```__init.py__```. Dovrebbe farlo Django in automatico. Per fortuna li si possono estrarre in file separati da importare da dentro ```models.py```. Brutto default indurre lo sviluppatore a mettere tutti i modelli insieme. Rails invece fa autodiscovery degli attributi e la sua truth è lo schema del DB.
-Qual è la scelta migliore? Probabilmente sono sbagliate entrambe, chi più, chi meno.
-È corretto che la truth sia il database, perché è l'owner dei dati. È pratico ma non va bene che le migrazioni siano comandate da una delle tante applicazioni che accederanno al database, anche se quella web di solito è l'applicazione principale. Soprattutto in un modo che va verso i microservizi sarebbe meglio avere un repository a parte solo per le migrazioni. Importare la truth dal database quindi è importante (reverse engineering). Il linguaggio che si usa non è importante, anche se Ruby è migliore di Python per i DSL.
+Invece è davvero interessante come gli ORM Python cerchino di tenere DRY la modifica del DB. Si descrivono i modelli in Python in ```models/``` invece che in Ruby in ```db/migrations```. Significa avere la truth del modello in un solo file e non averla distribuita in più migrazioni non facilmente identificabili. Questo è positivo.
+
+È poi Django a generare le migrazioni in base alle modifiche ai file dei modelli. I file dei modelli di Django si possono mettere ovunque, basta che ci sia un file ```models.py``` (devono stare tutti nello stesso file) e una directory ```migrations/``` con dentro un ```__init.py__```. Dovrebbe essere Django a creare la directory in automatico ma non è un grosso problema.
+
+Per fortuna i modelli si possono estrarre in file separati ed importarli dentro a ```models.py```, oppure li si possono importare direttamente, ad esempioil file ```models/unmodello.py``` si importa con ```from models.unmodello import UnModello```. Si veda l'esempio di https://github.com/divio/django-cms/tree/release/3.4.x/cms/models
+
+A mio parere è un brutto default indurre lo sviluppatore a mettere tutti i modelli insieme. Rails obbliga a scriverli in file separati ed aiuta a crearli con lo scaffolding.
+
+Rails invece fa l'autodiscovery degli attributi e la sua truth è lo schema del DB. Questo significa che le migrazioni non sono DRY perché pezzi di codice sono sparsi tra modello e migrazione, tipicamente le relazioni tra i modelli.
+
+Qual è la scelta migliore? Probabilmente sono sbagliate entrambe.
+
+A mio parere è corretto che la truth sia il database, perché è lui l'owner dei dati.
+
+È pratico che le migrazioni siano comandate da una delle tante applicazioni che accederanno al database, ma non va bene. Anche se quella web di solito è l'applicazione principale, in un mondo che va verso i microservizi sarebbe meglio avere un repository a parte solo per la definizione e la gestione del database. Poter importare la truth dal database quindi è importante (reverse engineering).
 
 Notare che benché le migrazioni di Rails siano tutte in ```db/migrations``` e i modelli tutti in ```app/models```, anche con Rails si possono spargere file ovunque. Il metodo standard è creare gemme con le loro migrazioni, controller, modelli, viste, asset etc. È più laborioso che scrivere il codice tutto nell'app principale e quindi Rails non invoglia a farlo. Cattivo default?
 
-Uno dei problemi con l'approccio di Django è che se per caso un modello sparisce per errore, poi ```manage.py makemigrations``` genera la ```DROP TABLE``` e si posso perdere i dati. Con Rails uno sviluppatore deve scrivere esplicitamente il comando di drop.
+Uno dei problemi con l'approccio di Django è che se per caso un modello sparisce per errore, poi ```manage.py makemigrations``` genera la ```DROP TABLE``` e si posso perdere i dati. Con Rails uno sviluppatore deve scrivere esplicitamente il comando di drop. Tipicamente l'errore avviene in sviluppo e non inficia la produzione, però può essere fastidioso. Per evitare problemi di qualsiasi tipo con Rails ho l'abitudine di scrivere un script di seeding che riempie il database da zero con dei dati da usare in sviluppo. Uso la gemma faker. Se anche dovessi fare il drop di una tabella lo posso ricostruire in fretta.
 
 Per disabilitare le migrazioni in Django
 https://docs.djangoproject.com/en/dev/ref/models/options/#managed
 
+Per verificarle si usa l'opzione ```--dry-run```
+
 Web2py ha un approccio molto rischioso alle migrazioni.
-Appena un modello modificato viene eseguito, magari perché si apre la console interattiva, fa la diff tra la definizione nel modello e la tabella e crea ed esegue il codice SQL che allinea la tabella alla definizione. Si possono disabilitare e lo consiglio tantissimo.
+
+Appena un modello modificato viene eseguito, magari perché si apre la console interattiva, fa la diff tra la definizione nel modello e la tabella e crea ed esegue il codice SQL che allinea la tabella alla definizione. Si possono disabilitare e lo consiglio tantissimo. Si indica ```migrate=False``` nel costruttore DAL del database.
 
 
 # Import automatico vs esplicito
