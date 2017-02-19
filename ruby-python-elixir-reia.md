@@ -1169,6 +1169,88 @@ Dettagli a
 
 Python usa ```and or not``` come operatori logici e non ci sono sorprese. Vince Python, anche per la praticità di scrittura.
 
+## Strutture dati di base
+
+Python ha liste, tuple, range, set, dict.
+
+Ruby ha array, range, set, hash. Non ha tuple.
+
+Le liste di Python equivalgono agli array di Ruby. I dict sono hash.
+
+I range sono identici, a parte la sintassi: ```range(6)``` di Python è ```0..5``` di Ruby.
+
+I set sono identici.
+
+Python ha anche degli array, ma sono un modulo a parte e possono contenere solo oggetti di uno stesso tipo, che va dichiarato in fase di creazione https://docs.python.org/2/library/array.html
+
+```
+import array
+x = array.array("i", [1, 2, 3, 4]) # signed int
+x[2]
+# 3
+```
+
+Questo aiuta le performance in casi di oggetti tutti dello stesso tipo. Forse è una delle ragioni per cui c'è un NumPy e non un NumRuby. A dir la verità c'è SciRuby https://github.com/SciRuby/sciruby ma non se la passa altrettanto bene.
+
+In Ruby array e hash sono iterabili praticamente con gli stessi metodi di Enumerator https://ruby-doc.org/core-2.4.0/Enumerator.html
+Esempio sugli hash.
+
+```
+hash = {a: 1, b: 2}
+hash.each {|k, v| puts "#{k} => #{v}"}
+a => 1
+b => 2
+```
+
+o in modo non idiomatico con ```for```
+
+```
+hash = {a: 1, b: 2}
+for k, v in hash do
+  puts "#{k} => #{v}"
+end
+a => 1
+b => 2
+```
+
+Non è idiomatico perché non si può passare un blocco a ```for``` e non lo si può concatenare con altre trasformazioni sui dati ritornati.
+
+Le tuple in Ruby non esistono. Si possono usare OpenStruct o Struct ma è veramente raro usarle. In Ruby si usano array dove ho visto usare tuple in Python. Se proprio si vuole, si può rendere l'array immutabile come una tupla usando ```freeze```, ma in pratica non lo si fa mai.
+
+Python
+```
+[(x, x**2) for x in range(6)]
+[(0, 0), (1, 1), (2, 4), (3, 9), (4, 16), (5, 25)]
+```
+
+Ruby
+```
+(0..5).map {|x| [x, x**2].freeze}
+[[0, 0], [1, 1], [2, 4], [3, 9], [4, 16], [5, 25]]
+```
+
+# Mutabilità e stringhe
+
+Le strutture dati Ruby sono mutabili, a meno che non venga invocato il metodo ```freeze``` su un oggetto.
+
+Le stringhe sono mutabili per default. Le si possono rendere immutabili con il metodo ```freeze```.
+Con Ruby 2.3 si può usare una pragma a inizio file (o in ```irb```) per renderle immutabili per default.
+Saranno immutabili per default con Ruby 3.
+
+```
+$ irb
+2.3.0 :001 > # frozen_string_literal: true
+2.3.0 :002 >   s = 'abc'
+ => "abc"
+2.3.0 :003 > s[0] = '1'
+RuntimeError: can't modify frozen String
+	from (irb):5:in `[]='
+	from (irb):5
+	from /home/montra/.rvm/rubies/ruby-2.3.0/bin/irb:11:in `<main>'
+```
+
+Una stringa immutabile è praticamente identica ai simboli. Avendo già i simboli l'immutabilità delle stringhe non è un'esigenza particolermente sentita, ma con il proliferare di hash con chiavi di tipo string (JSON) è sicuramente un beneficio per le prestazioni. Probabilmente viene utile anche in vista dell'introduzione della concorrenza tramite ```Guild``` http://olivierlacan.com/posts/concurrency-in-ruby-3-with-guilds/
+
 
 
 # TODO
