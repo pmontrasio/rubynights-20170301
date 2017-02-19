@@ -121,6 +121,16 @@ In Rails al file ```app/views/console/editproject_everything.html.erb``` avrebbe
 
 In realtà Rails ti avrebbe invitato a progettare un controller ```console``` con azioni restful e quindi ci sarebbe stato un altro controller ```projects``` con dentro una ```def edit_everything``` o meglio ancora una semplice ```def edit```. Il controller sarebbe stato generato dallo scaffolder e riempito di codice dallo sviluppatore. Più ordinato. Non è una coincidenza che non abbia mai visto progetto Rails con tutte le action in un unico controller.
 
+Gli amici Pythonisti mi danno l'ottima notizia che ora esistono le class based views:
+
+* https://docs.djangoproject.com/en/1.10/topics/class-based-views/
+* https://github.com/brack3t/django-braces
+
+oltre che http://www.django-rest-framework.org/
+
+per cui questi problemi potrebbero essere già scomparsi. Una costante degli ultimi 10 anni è la cross-contamination di tutti i framework web.
+
+
 ## ORM
 
 Negli ORM Python si possono creare le tabelle con qualsiasi naming convention. In Rails si devono modificare i default e lo si fa per lavorare su db preesistenti. La convenzione è diversa per ogni progetto e va imparata. Se lo sviluppatore originale non è stato superumano nella disciplina, vanno imparate e ricordate anche le eccezioni.
