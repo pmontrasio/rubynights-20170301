@@ -1015,13 +1015,31 @@ def metodo(arg1, options = {})
 end
 
 metodo(arg1)
-metodo(arg1, arg2)
-metodo(arg1, arg3)
-metodo(arg1, arg2, arg3)
-metodo(arg1, arg3, arg2)
+metodo(arg1, arg2: 2)
+metodo(arg1, arg3: 3)
+metodo(arg1, arg2: 2, arg3: 3)
+metodo(arg1, arg3: 3, arg2: 2)
 ```
 
-I keyword argument si definiscono così
+Funziona perché quando Ruby vede ```arg3: 3, arg2: 2``` lo collassa in un unico argomento di tipo Hash. L'ultima riga equivale a
+
+```
+metodo(arg1, {arg3: 3, arg2: 2})
+```
+
+Si può anche scrivere così, ma dover usare ```[0]``` per arrivare agli argomenti non è bello
+
+```
+def metodo(arg1, *options)
+    arg2 = options[0][:arg2] || ""
+    arg3 = options[0][:arg3] || ""
+    ...
+end
+```
+
+Quella sintassi si usa quando gli argomenti sono in numero variabile e non sono un Hash.
+
+I keyword argument invece si definiscono così
 
 Ruby
 
