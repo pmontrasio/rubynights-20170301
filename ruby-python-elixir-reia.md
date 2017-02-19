@@ -356,16 +356,20 @@ Appena un modello modificato viene eseguito, magari perché si apre la console i
 
 In Django e Web2Py (e Java, e PHP, e ... ) si deve importare quel che serve  in ogni file. Rails importa tutto da solo. In rare occasioni Rails può dare conflitti (uno o due in 10 anni nel mio caso) mentre Django obbliga a riempire il codice di import. Idem per la shell, che così diventa un po' meno efficiente.
 
+```
 $ python manage.py shell
 from modules.plugins.censys.models import Settings
 x = Settings.objects.get(pk=1)
 x.api_id
+```
 
 E infatti http://stackoverflow.com/questions/4863301/automatically-import-models-on-django-shell-launch
 
-Anche Phoenix è così. Fastidioso...
+Anche Phoenix di Elixir è così.
 
 Anche Ruby richiede ```require``` di tutto, ma Rails risparmia fatica allo sviluppatore.
+
+Gli amici Pythonisti mi fanno notare che uno dei mantra di Python è "explicit is better than implicit", ma la coerenza non è di questo mondo. Un linguaggio esplicito come Python ha i decoratori ed uno che non disdegna essere implicito come Ruby invece non ne vuole sapere di introdurli. Nel caso di Ruby si tratterebbe di zucchero sintattico perché ci sono vari modi di crearli usando gli strumenti già presenti nel linguaggio. Ad esempio https://github.com/fredwu/ruby_decorators ne propone uno, con link ad altri due. Tuttavia un modo standard è sempre meglio che tanti l'uno diverso dall'altro. Va detto che l'esigenza non è molto sentita, forse per via dell'uso dei blocchi.
 
 # Fatica
 
