@@ -581,7 +581,20 @@ Il modo pythonico sarebbe usare un dict, che ricorda tanto una tabella di functi
 }.get(var, funzione_default)(arg)
 ```
 
-Ho come l'impressione che quel giorno il designer fosse un po' stanchino e poiché c'è un workaround si sia riposato :-)
+Oltre ai dizionari si potrebbe scrivere
+
+```
+def func0(arg):
+   ...
+def func1(arg):
+  ...
+
+i_want_func = 'func1'
+globals()[i_want_func]()
+```
+
+e c'è la tecnica object oriented di eliminare ```if``` e ```case``` con le classi.
+https://sourcemaking.com/refactoring/replace-conditional-with-polymorphism
 
 Il modo sano sarebbe stato
 
