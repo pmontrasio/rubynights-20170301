@@ -671,6 +671,31 @@ condition ? a : b
 Da un lato apprezzo la consistenza dello stile, dall'altro non approvo il render difficile la vita allo sviluppatore.
 Inoltre forse è arrivato un po' tardi perché un paio di mesi fa lo sviluppatore Python a capo di uno dei progetti che seguo mi aveva detto che Python non ha un operatore ternario. Quando si impara che una cosa non esiste, poi non la si cerca più.
 
+# Blocchi
+
+Il passaggio di blocchi a metodi caratterizza profondamente Ruby. Python ha qualcosa di simile con ```with```
+
+Un esempio da https://jeffknupp.com/blog/2016/03/07/python-with-context-managers/
+
+```
+with open('what_are_context_managers.txt', 'r') as infile:
+    for line in infile:
+        print('> {}'.format(line))
+```
+
+In Ruby si fa così, usando i blocchi e la cooperazione della classe File che ha un costruttore che accetta un blocco e un enumeratore (perché usa la classe Enumerator, sarebbe un iteratore Python) che ritorna le linee del file
+
+```
+File.open("file", "r") do |f|
+  f.each do |line|
+    puts line
+  end
+end
+```
+
+```with as``` si mappa quasi 1:1 sul ```do |f|``` di Ruby e ```for in``` (che esiste anche in Ruby) è l'equivalente di ```each |line|```.
+
+
 # Stile
 
 La raccomandazione di usare la notazione arg=valore senza spazi per i keyword argument e i parametri di default è cattiva perché confonde ed involontariamente provoca la scrittura di codice come questo
