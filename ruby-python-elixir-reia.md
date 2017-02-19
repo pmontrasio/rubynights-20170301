@@ -371,7 +371,7 @@ Anche Ruby richiede ```require``` di tutto, ma Rails risparmia fatica allo svilu
 
 Gli amici Pythonisti mi fanno notare che uno dei mantra di Python è "explicit is better than implicit", ma la coerenza non è di questo mondo. Un linguaggio esplicito come Python ha i decoratori ed uno che non disdegna essere implicito come Ruby invece non ne vuole sapere di introdurli. Nel caso di Ruby si tratterebbe di zucchero sintattico perché ci sono vari modi di crearli usando gli strumenti già presenti nel linguaggio. Ad esempio https://github.com/fredwu/ruby_decorators ne propone uno, con link ad altri due. Tuttavia un modo standard è sempre meglio che tanti l'uno diverso dall'altro. Va detto che l'esigenza non è molto sentita, forse per via dell'uso dei blocchi.
 
-# Fatica
+# Fatica (TODO rivedere spostando dove ci sono esempi)
 
 In generale ho l'impressione che con Python e i suoi framework web si debba faticare di più rispetto a Ruby e Rails. Forse limitatamente ai framework web, la maggior flessibilità permette di fare più facilmente cose non standard che con Rails richiederebbero una maggior fatica, ma davvero si vuol pagare questo prezzo ogni singola volta? Mi ricorda la click fatigue di Windows e di KDE rispetto a Gnome. Il doppio dei click per lo stesso risultato.
 
