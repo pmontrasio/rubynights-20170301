@@ -407,6 +407,8 @@ vs
 
 Notare tra l'altro il mismatch tra il nome del filtro ```zip``` nel template ed il nome della funzione nella templatetag ```zip_lists```. Il nome della funzione include il tipo degli argomenti. Non è il principio di least surprise.
 
+La soluzione è preparare diversamente nella view la lista da mostrare, magari utilizzando named tuple per evitare di avere due liste di cui fare ```zip```.
+
 Web2py invece usa Python e quindi non si può dire che si tratti di una scelta comune a tutti i framework web di Python. Qui vincono Rails e Web2Py.
 
 Però copierei in Rails l'idea dei filtri, immagino come metodi da applicare ad oggetti, ma non l'ho studiata.
