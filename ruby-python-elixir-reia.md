@@ -640,6 +640,8 @@ case var
 end
 ```
 
+Un difetto di Ruby? Avrebbe potuto usare ```switch``` e ```case``` come gli altri linguaggi.
+
 
 ## Pipe
 
