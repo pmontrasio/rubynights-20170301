@@ -420,6 +420,7 @@ Il file ```__init.py__```, misterioso per i principianti, deve essere presente i
 L'idioma corrispondente Ruby è la creazione di una base class che importa i file nelle sotto directory. Un esempio piuttosto esteso è dato da https://github.com/rails/rails/blob/master/activerecord/lib/active_record.rb
 Come si vede non è necessario dare nomi criptici ai file per ottenere lo stesso risultato.
 Va detto che ```locate __init.py__ | grep directory/de/progetto``` trova istantaneamente tutti i moduli.
+La differenza fondamentale però è che Ruby non ha il concetto di package, ma solo quello di modulo. In effetti ad un Rubysta non è per nulla chiaro perché debba esistere il concetto di package dato che è sufficiente avere i moduli. Per contro Ruby è esplicito nel dichiarare moduli, usando ```module Name ... end```.
 
 # Mixed paradigm
 
