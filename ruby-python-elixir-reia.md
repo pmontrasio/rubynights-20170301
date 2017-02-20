@@ -34,13 +34,26 @@ Per tacere del fatto che se anche lo fosse non è detto che sia un obiettivo rag
 
 Dopo trent'anni di sviluppo di software ormai mi sono fatto un'idea di cosa funzioni meglio e di cosa funzioni peggio.
 
-# Età
+# Età ed eredità
 
-Ruby. Design started on February 24, 1993 first release on December 21, 1995.
-https://en.wikipedia.org/wiki/Ruby_(programming_language)
+Python. Implementazione iniziata nel dicembre dell'1989. Prima release febbraio 1991. Guido Van Rossum si è ispirato al linguaggio ABC a cui aveva lavorato all'inizio degli anni '80. In un'intervista fa due osservazioni interessanti a proposito delle ragioni che hanno decretato l'insuccesso di ABC
+* it was too early for such a high-level language
+* unconventional terminology intended to make beginners more comfortable but instead threw off more experienced users
 
-Python. Implementation started in December 1989. First release on February 1991.
+http://www.onlamp.com/pub/a/python/2002/06/04/guido.html
 https://en.wikipedia.org/wiki/History_of_Python
+https://en.wikipedia.org/wiki/ABC_(programming_language)
+
+Ruby. Progettazione iniziata il 24 febbraio 1993. Prima release il 21 dicembre 1995.
+Ruby è ispirato a Smaltalk e a Perl. È interessante come per certi versi Matz confermi il secondo dei pensieri di Van Rossum
+* before the ruby idioms were formed, there were many things that were borrowed from Perl - nowadays I think many of them weren’t necessary thanks to the ruby and rails idioms.
+
+In pratica ora disegnerebbe Ruby in modo diverso ma all'epoca farlo somigliare un po' a Perl l'ha aiutato a crescere. Adesso Ruby sta trasferendo alcuni dei suoi idiomi ad altri linguaggi. Idem per Rails ed altri framework. E ancora sulla necessità di inserirsi nel flusso dei linguaggi contemporanei:
+
+* Funnily enough there are programming languages written entirely in Japanese. (Zhou [l'intervistatore]: In China there also are programming languages written entirely in Chinese.) In China too? I knew it! No matter how interesting these programming languages are, they will never influence anyone beyond the ones in their own country.
+
+http://fredwu.me/post/36493181321/an-interview-with-yukihiro-matz-matsumotohttp://fredwu.me/post/36493181321/an-interview-with-yukihiro-matz-matsumoto
+https://en.wikipedia.org/wiki/Ruby_(programming_language)
 
 
 # Molte opinioni vs poche opinioni
