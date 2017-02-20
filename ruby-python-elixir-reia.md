@@ -500,21 +500,30 @@ a
 Python:
 
 ```
-for k, v in list.iteritems():
+dizionario = {"a":1, "b":2}
+for k, v in dizionario.iteritems():
     print k,v
 ```
 
 Perché si deve affaticare lo sviluppatore e non si disegna un linguaggio dove basta questo?
 
 ```
-for k, v in list:
+for k, v in dizionario:
     print k,v
+```
+
+Si può però scrivere
+
+```
+for k in dizionario:
+   print k, dizionario[k]
 ```
 
 Ruby:
 
 ```
-for k,v in x do
+hash = {a: 1, b: 2}
+for k,v in hash do
     print k,v
 end
 ```
