@@ -1465,7 +1465,7 @@ fn(2) {|x| x + 1}
 Ruby
 
 https://www.destroyallsoftware.com/talks/wat
-
+http://lucumr.pocoo.org/2008/7/1/whitespace-sensitivity/ (ironicamente)
 
 Python
 
