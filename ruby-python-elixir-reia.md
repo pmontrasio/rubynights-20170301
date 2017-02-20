@@ -509,7 +509,7 @@ Perché si deve affaticare lo sviluppatore e non si disegna un linguaggio dove b
 
 ```
 for k, v in dizionario:
-    print k,v
+    print k, v
 ```
 
 Si può però scrivere
@@ -517,6 +517,14 @@ Si può però scrivere
 ```
 for k in dizionario:
    print k, dizionario[k]
+```
+
+In Python 3
+
+```
+dizionario = {"a":1, "b":2}
+for k, v in dizionario.items():
+    print(k, v)
 ```
 
 Ruby:
