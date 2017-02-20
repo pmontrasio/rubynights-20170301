@@ -964,6 +964,15 @@ end
 
 Si faceva di peggio solo in BASIC sugli home computer negli anni '80.
 
+## Bizzarrie rubiche
+
+Ricordo che come principiante Ruby ero molto perplesso di dover usare il raro ```begin ... end```, il non così raro ```=begin =end``` e i sigil ```@``` ```@@``` ```$```.
+
+Il commento multilinea di Ruby è una mostruosità. È normale che un linguaggio di scripting debba avere commenti a linea singola che inizio con ```#```, per poter fare ```#!/usr/bin/ruby``` su *NIX, ma non è incompatibile con i commenti multilinea tradizionali ```/* */``` né con altri single line ```//``` (per ```#``` ci vuole Shift o Alt, sono comunque 2 tasti).  Usare stringhe come commenti multilinea in Python è un trucco che funziona ma bizzarro. È una funzionalità di base di ogni linguaggio, strano che non ci sia.
+
+I sigil sono un po' strani. Non so come, ma Java riesce a farne a meno. In caso di ambiguità si deve usare ```self```, che ha anche Ruby. Java dichiara le variabili prima, ma usare ```attr``` non è cattiva pratica neppure in Ruby. Forse sono una di quelle cose di cui Matz diceva "there were many things that were borrowed from Perl - nowadays I think many of them weren’t necessary".
+
+
 # Stile
 
 La raccomandazione di usare la notazione arg=valore senza spazi per i keyword argument e i parametri di default è cattiva perché confonde ed involontariamente provoca la scrittura di codice come questo
