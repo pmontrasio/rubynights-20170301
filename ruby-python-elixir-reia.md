@@ -55,6 +55,12 @@ In pratica ora disegnerebbe Ruby in modo diverso ma all'epoca farlo somigliare u
 http://fredwu.me/post/36493181321/an-interview-with-yukihiro-matz-matsumotohttp://fredwu.me/post/36493181321/an-interview-with-yukihiro-matz-matsumoto
 https://en.wikipedia.org/wiki/Ruby_(programming_language)
 
+# Perché questo documento
+
+È soprattutto un confronto tra Ruby e Python. È nato come un insieme disordinato di appunti presi mentre iniziavo ad usare Flask, Django e Web2Py venendo da 10 anni di Rails. Li ho riordinati per una presentazione a Ruby Nights, il gruppo dei rubisti di Milano. Per non farlo diventare una sterile battaglia Ruby contro Python decisa in anticipo dal "campo di battaglia" e dal mio passato di sviluppatore, insieme agli organizzatori di Ruby Nights abbiamo coinvolto la community Python di Milano. Leggendo i miei appunti hanno sollevato molte obiezioni e mi hanno portato a studiare di più Python e in certi casi anche Ruby. Questo documento di sicuro conserva la traccia delle mie preferenze, ma spero che ora sia molto più equilibrato. È stato un percorso di apprendimento interessante che passa per i framework web dei due linguaggi (è innegabile che Ruby si usi soprattutto per Rails) e arriva ad Elixir, un linguaggio ispirato a Ruby con una digressione su Reia, un altro linguaggio ispirato a Ruby che avrebbe meritato miglior sorte.
+
+https://www.meetup.com/Ruby-Nights-Milano/
+https://www.meetup.com/Python-Milano/
 
 # Molte opinioni vs poche opinioni
 
