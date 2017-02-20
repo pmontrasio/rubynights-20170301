@@ -1500,6 +1500,15 @@ https://github.com/cosmologicon/pywat
 
 # Le basi
 
+## Truthy e falsy
+
+In Python sono falsy ```None```,  ```False``` e, sopresa per chi viene da Ruby, ```0``` (di ogni tipo numerico), ogni sequenza vuota (```''```, ```()```, ```[]```), ogni map vuoto (```{}```), ogni oggetto di una classe che definisca dei  ```__nonzero__()``` o ```__len__()``` che ritornino ```0``` o ```False```.
+
+In Ruby sono falsy ```nil``` e ```false```. Tutto il resto è truthy, con sorpresa per chi viene da Python.
+
+https://docs.python.org/2/library/stdtypes.html#truth-value-testing
+https://gist.github.com/jfarmer/2647362
+
 ## Boolean
 
 Ruby usa la sintassi C per gli operatori booleani con il comportamento che ci si aspetta ```&& || !``` e una sintassi "umana" per quelli con un comportamento sorprendente ```and or not```. Gli ultimi vengono da Perl e in realtà non sono operatori booleani (alla faccia del principio di least surprise).
