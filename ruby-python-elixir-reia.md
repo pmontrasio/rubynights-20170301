@@ -184,9 +184,13 @@ Grazie alla semplicità nel costruire form, model ecc, molti suggeriscono di par
 
 ## ORM
 
-Negli ORM Python si possono creare le tabelle con qualsiasi naming convention. In Rails si devono modificare i default e lo si fa per lavorare su db preesistenti. La convenzione è diversa per ogni progetto e va imparata. Se lo sviluppatore originale non è stato superumano nella disciplina, vanno imparate e ricordate anche le eccezioni.
+L'ORM di Django e quello di Rails hanno delle naming convention sui nomi di tabelle e colonne. Le si possono sovrascrivere con le proprie, ad esempio per lavorare su db preesistenti.
 
-E se non piace la convenzione? Esempio: in Rails le tabelle sono nomi plurali. Il professore del Politecnico di un mio cliente insegnava che devono avere nome singolare e forse anche il mio. Gli ORM Python che ho visto usano il singolare. Rails sembra considerare le tabelle come degli array, da cui il plurale. Se il plurale fosse un peccato mortale non conviene usare Rails.
+Web2py ha un ORM che invece fa indicare esplicitamente il nome della tabella e delle singole colonne in fase di definizione del modello.
+
+Quando la convenzione è per default diversa per ogni progetto, se lo sviluppatore originale non è stato superumano nella disciplina, non solo vanno imparate le sue regole ma vanno ricordate anche le eccezioni che gli sono scappate nel design.
+
+E se non piace la convenzione? Esempio: in Rails le tabelle sono nomi plurali. Il professore del Politecnico di un mio cliente insegnava che devono avere nome singolare e forse anche il mio. Gli ORM Python che ho visto usano il singolare. Rails sembra considerare le tabelle come degli array, da cui il plurale. Se pensate che il plurale sia un peccato mortale, non usate Rails.
 
 # I default
 
