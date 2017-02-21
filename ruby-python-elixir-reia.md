@@ -104,9 +104,9 @@ end
 
 Il passare o meno blocchi di codice come argomenti è forse la differenza principale tra i due linguaggi, che impatta maggiormente sulle possibilità espressive. È quello che rende Ruby ottimo per i DSL.
 
-Il ruouting non restful è circa uguale. Ci sono pro e contro ma in Django occhio alle parentesi nelle regexp. Rails sposta la complessità nei constraints facilitando la lettura dell'url.
+Il routing non restful è circa uguale. Ci sono pro e contro ma in Django occhio alle parentesi nelle regexp. Rails sposta la complessità nei constraints facilitando la lettura dell'url.
 
-Django
+Django vedere https://github.com/pmontrasio/rubynights-20170301/issues/2
 
 ```
 url(r'info/detail/(?P<id>[0-9]+)$', 'console.views.detail', name='detail')
@@ -556,34 +556,36 @@ Gli errori di Web2py sono quasi inutili. Per qualche ragione non riesce a mostra
 # String join e split
 
 ```
-"a.b.c".split(".") # passive verb, string is split by .
+"a.b.c".split(".") # verbo passivo, string è separata da .
 ['a', 'b', 'c']
 ```
 
 ma
 
 ```
-".".join(["a", "b", "c"]) # active verb: . joins array
+".".join(["a", "b", "c"]) # verbo attivo: . unisce array
 'a.b.c'
 ```
 
 Perchè? In Ruby c'è più consistenza
 
 ```
-"a.b.c".split(".") # passive: string is split by .
+"a.b.c".split(".") # passivo: stringa è separata da by .
 ["a", "b", "c"]
-["a", "b", "c"].join(".") # passive: array is joined by .
+["a", "b", "c"].join(".") # passivo: array è unito da .
 "a.b.c"
 ```
 
-In un lingua naturale, dove prevale il modo attivo avremmo
+In un lingua naturale, dove prevale il modo attivo invece avremmo in entrambi i casi
 
 ```
 . separa "a.b.c"
-. uniscisci ["a", "b", "c"]
+. unisci ["a", "b", "c"]
 ```
 
-Esperti Python mi dicono che il primo è ```string.join(iterable)``` e sarebbe stato strano forzare ogni iterable ad avere un metodo che ha a che fare con le stringhe. Meglio metterlo in string. In effetti in Ruby join è un metodo di Array e di nient'altro.
+ed il linguaggi di programmazione corrispondente avrebbe i due metodi nella classe String. Ruby invece va al passivo.
+
+Esperti Python mi dicono che la join Python è ```string.join(iterable)``` e sarebbe stato strano forzare ogni iterable ad avere un metodo che ha a che fare con le stringhe. Meglio metterlo in string. In effetti in Ruby join è un metodo di Array e di nient'altro.
 
 Python
 
@@ -599,6 +601,11 @@ Ruby
 ```
 
 Questione di stili.
+
+Tra i due contendenti si segnala Java che ha risolto il problema con la sua solita grazia, introducendo in Java 8 la classe StringJoiner.
+http://download.java.net/lambda/b81/docs/api/java/util/StringJoiner.html
+Introduce però anche il metodo String.join che va ad affiancare String.split e quindi forse ne esce come inaspettato vincitore.
+https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#join-java.lang.CharSequence-java.lang.Iterable-
 
 # Fatiche di sintassi
 
