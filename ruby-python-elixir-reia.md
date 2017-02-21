@@ -64,9 +64,19 @@ https://www.meetup.com/Python-Milano/
 
 # Ringraziamenti
 
-E prima di iniziare i ringraziamenti:
+E prima di iniziare i ringraziamenti.
 
-TODO [elenco]
+Gli organizzatori:
+
+* Davide Ghezzi di Ruby Nights
+* Gianluca Randazzo, la mano dietro a tanti eventi a cui partecipo, tra cui Ruby Nights, e il contatto con Python Milano.
+
+Python Milano, per le issue aperte su questo documento, le spiegazioni su Python e di certo anche tanta pazienza:
+
+* Cesare Placanica
+* Christian Strappazzon
+* Pietro Brunetti
+* Raffaele Salmaso
 
 Invito anche a leggere tutte le issue https://github.com/pmontrasio/rubynights-20170301/issues che il gruppo Python ha aperto sul documento originale. Contengono molte annotazioni e spunti interessanti che è stato possibile riportare qui solo in parte.
 
@@ -1745,6 +1755,8 @@ $ iex
 Dovendo scrivere ogni volta sia il nome del modulo ```Enum``` che ```end```, è il linguaggio più verboso dei tre.
 
 
-* Elixir http://elixir-lang.org/
+TODO
+
+* Elixir http://elixir-lang.org/ Cosa manca a Ruby e a Python, cos'ha Elixir e cosa gli manca
 
 * Reia http://reia-lang.org/
