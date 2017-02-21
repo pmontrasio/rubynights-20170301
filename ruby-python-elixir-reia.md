@@ -1664,7 +1664,7 @@ RuntimeError: can't modify frozen String
 	from /home/montra/.rvm/rubies/ruby-2.3.0/bin/irb:11:in `<main>'
 ```
 
-Una stringa immutabile è praticamente identica ai simboli. Avendo già i simboli l'immutabilità delle stringhe non è un'esigenza particolermente sentita, ma con il proliferare di hash con chiavi di tipo string (JSON) è sicuramente un beneficio per le prestazioni. Probabilmente viene utile anche in vista dell'introduzione della concorrenza tramite ```Guild``` http://olivierlacan.com/posts/concurrency-in-ruby-3-with-guilds/
+Una stringa immutabile è praticamente identica ai simboli. Avendo già i simboli l'immutabilità delle stringhe non è un'esigenza particolarmente sentita, ma con il proliferare di hash con chiavi di tipo string (JSON) è sicuramente un beneficio per le prestazioni. Probabilmente viene utile anche in vista dell'introduzione della concorrenza tramite ```Guild``` http://olivierlacan.com/posts/concurrency-in-ruby-3-with-guilds/
 
 A proposito dei mali della mutabilità, ecco un bug dell'interprete introdotto (ma poi risolto) proprio per venire a patti con la mutabilità degli array.
 http://accidentallyquadratic.tumblr.com/post/157496054437/ruby-reject
