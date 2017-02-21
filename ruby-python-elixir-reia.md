@@ -108,11 +108,11 @@ Il passare o meno blocchi di codice come argomenti è forse la differenza princi
 
 Il routing non restful è circa uguale. Ci sono pro e contro ma in Django occhio alle parentesi nelle regexp. Rails sposta la complessità nei constraints facilitando la lettura dell'url.
 
-Django vedere https://github.com/pmontrasio/rubynights-20170301/issues/2
+Django
 
 ```
-url(r'info/detail/(?P<id>[0-9]+)$', 'console.views.detail', name='detail')
-<a href="{% url 'console.views.detail' id %}" target="_blank" rel="noopener noreferrer">{{ label }}</a>
+url(r'info/detail/(?P<id>[0-9]+)$', app.views.detail', name='detail')
+<a href="{% url 'app.views.detail' id %}" target="_blank" rel="noopener noreferrer">{{ label }}</a>
 ```
 
 vs Rails
@@ -126,6 +126,14 @@ oppure per chi vuole fare tutto a mano
 
 ```
 <a href="<%= detail_path(id) %>" target="_blank" rel="noopener noreferrer"><%= label %></a>
+```
+
+Il team di Django però sta lavorando ad una sintassi semplificata
+https://github.com/django/deps/blob/master/draft/0201-simplified-routing-syntax.rst
+del tipo
+
+```
+path('info/detail/<id>/', views.detail)
 ```
 
 A proposito: Target=”_blank” — the most underestimated vulnerability ever
