@@ -72,9 +72,11 @@ Invito anche a leggere tutte le issue https://github.com/pmontrasio/rubynights-2
 
 # Molte opinioni vs poche opinioni
 
-Django è poco opinionato. Poichè mi sono abituato da 10 anni a Rails non è una sorpresa che lo trovi un difetto.
+Da più di 10 anni lavoro con Rails che sposa la filosofia "convention over configuration" ed ha opinioni forti su come vanno organizzati progetto, database, sorgenti, fino ad imporre delle naming convention a cui ci si può sottrarre solo faticando un po'. Django lascia gli sviluppatori molto liberi e si impone poco. Web2py si impone ancor di meno, anche se ha delle componenti preconfezionate per la gestione dei form. Non usandole si perde forse il più grande vantaggio di questo framework, usandole ci si lega molto anche alle scelte di layout di Web2py.
 
-Ogni progetto avrà le sue convenzioni e le sue eccezioni. Questo porta via tempo e costa soldi al cliente che paga a giornate. Oppure riduce il profitto dello sviluppatore che fa offerte a corpo, a meno che non chieda più soldi al cliente. Ma questo lo mette a rischio di perdere le offerte contro chi propone progetti Rails.
+Se non avessi apprezzato le opinioni di Rails lo avrei abbandonato Rails da tempo, quindi non sarà una sorpresa che non consideri positivo lasciare troppa libertà allo sviluppatore. Quando lo sviluppatore è libero ogni progetto ha le sue convenzioni e le sue eccezioni. Nel tipico progetto cresciuto a feature con pause di mesi tra l'una e l'altra ed avvicendamenti di consulenti, convenzioni da imparare ed eccezioni da scoprire creano delle frizioni che portano via tempo e costano soldi al cliente. Oppure riduce il profitto dello sviluppatore che fa offerte a corpo, a meno che non chieda più soldi al cliente. Ma questo lo mette a rischio di perdere le offerte contro chi propone progetti Rails.
+
+In un progetto ben staffato che può andare avanti per anni invece può valer la pena cucirsi su misura un sistema, anche se adottare un framework standard aiuta l'onboarding degli sviluppatori.
 
 ## Il routing
 
