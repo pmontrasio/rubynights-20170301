@@ -1584,7 +1584,7 @@ Python usa ```and or not``` come operatori logici e non ci sono sorprese. Vince 
 
 Python ha liste, tuple, range, set, dict.
 
-Ruby ha array, range, set, hash. Non ha tuple.
+Ruby ha array, range, hash. Non ha tuple. I set sono nella standard library e non nel core del linguaggio.
 
 Le liste di Python equivalgono agli array di Ruby. I dict sono hash.
 I dict dalla versione 3.6 di Python sono ordinati e le performance di lookup sono migliorate.
