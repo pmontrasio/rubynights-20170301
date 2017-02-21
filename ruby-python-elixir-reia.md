@@ -62,6 +62,14 @@ https://en.wikipedia.org/wiki/Ruby_(programming_language)
 https://www.meetup.com/Ruby-Nights-Milano/
 https://www.meetup.com/Python-Milano/
 
+# Ringraziamenti
+
+E prima di iniziare i ringraziamenti:
+
+TODO [elenco]
+
+Invito anche a leggere tutte le issue https://github.com/pmontrasio/rubynights-20170301/issues che il gruppo Python ha aperto sul documento originale. Contengono molte annotazioni e spunti interessanti che è stato possibile riportare qui solo in parte.
+
 # Molte opinioni vs poche opinioni
 
 Django è poco opinionato. Poichè mi sono abituato da 10 anni a Rails non è una sorpresa che lo trovi un difetto.
