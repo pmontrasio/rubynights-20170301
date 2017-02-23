@@ -1,5 +1,63 @@
 Licensed under the Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) https://creativecommons.org/licenses/by-sa/4.0/
 
+# Indice
+
+(sequenza da ristrutturare)
+
+# Introduzione
+# Età ed eredità
+# La storia di questo documento
+# Ringraziamenti
+# Molte opinioni vs poche opinioni
+## Il routing
+## MVC vs MVT
+## Admin
+## ORM
+# I default
+# Creazione progetti
+# Il deploy
+# Migrazioni DRY
+# Import automatico vs esplicito
+# Fatica (TODO rivedere spostando dove ci sono esempi)
+# Templating
+# __init.py__
+# Mixed paradigm
+# Funzioni predefinite
+# Iteratori
+# Error reporting (TODO spostare nella parte relativa ai framework)
+# String join e split
+# Fatiche di sintassi
+## I due punti
+## La spaziatura
+## do end
+## {{ }} e {% %}
+## Chiavi stringa negli hash Ruby / dict Python
+## Switch / case
+## Pipe
+## Operatore ternario
+# Blocchi
+## L'orribile do while Ruby
+## Bizzarrie rubiche
+# Stile
+## Eccezioni
+## La virgola che non si vede
+# Logging
+# Pretty printing
+# Un problema di design
+# Unicode
+# Interpolazione di stringhe
+# Hot reload
+# Simboli
+# Keyword arguments
+# yield
+# WAT
+# Le basi
+## Truthy e falsy
+## Boolean
+## Strutture dati di base
+# Mutabilità e stringhe
+# comprehension, filter, map, reduce
+
 
 # Introduzione
 
@@ -32,11 +90,12 @@ Credo che abbiamo fatto tutti l'esperienza di dire qualcosa aspettandoci che ven
 
 Per tacere del fatto che se anche lo fosse non è detto che sia un obiettivo ragionevole.
 
-Dopo trent'anni di sviluppo di software ormai mi sono fatto un'idea di cosa funzioni meglio e di cosa funzioni peggio.
+Dopo trent'anni di sviluppo di software ormai mi sono fatto un'idea di cosa funzioni meglio e di cosa funzioni peggio. Diamo uno sguardo a Ruby e Python 2 (ho poca esperienza del 3) e cerchiamo di capirne pregi e difetti. Poi vedremo qualcosa di Elixir e di Reia, un tentativo abortito di linguaggio che avrebbe potuto risolvere tanti problemi.
 
 # Età ed eredità
 
 Python. Implementazione iniziata nel dicembre dell'1989. Prima release febbraio 1991. Guido Van Rossum si è ispirato al linguaggio ABC a cui aveva lavorato all'inizio degli anni '80. In un'intervista fa due osservazioni interessanti a proposito delle ragioni che hanno decretato l'insuccesso di ABC
+
 * it was too early for such a high-level language
 * unconventional terminology intended to make beginners more comfortable but instead threw off more experienced users
 
@@ -46,6 +105,7 @@ https://en.wikipedia.org/wiki/ABC_(programming_language)
 
 Ruby. Progettazione iniziata il 24 febbraio 1993. Prima release il 21 dicembre 1995.
 Ruby è ispirato a Smaltalk e a Perl. È interessante come per certi versi Matz confermi il secondo dei pensieri di Van Rossum
+
 * before the ruby idioms were formed, there were many things that were borrowed from Perl - nowadays I think many of them weren’t necessary thanks to the ruby and rails idioms.
 
 In pratica ora disegnerebbe Ruby in modo diverso ma all'epoca farlo somigliare un po' a Perl l'ha aiutato a crescere. Adesso Ruby sta trasferendo alcuni dei suoi idiomi ad altri linguaggi. Idem per Rails ed altri framework. E ancora sulla necessità di inserirsi nel flusso dei linguaggi contemporanei:
@@ -55,7 +115,7 @@ In pratica ora disegnerebbe Ruby in modo diverso ma all'epoca farlo somigliare u
 http://fredwu.me/post/36493181321/an-interview-with-yukihiro-matz-matsumotohttp://fredwu.me/post/36493181321/an-interview-with-yukihiro-matz-matsumoto
 https://en.wikipedia.org/wiki/Ruby_(programming_language)
 
-# Perché questo documento
+# La storia di questo documento
 
 È soprattutto un confronto tra Ruby e Python. È nato come un insieme disordinato di appunti presi mentre iniziavo ad usare Flask, Django e Web2Py venendo da 10 anni di Rails. Li ho riordinati per una presentazione a Ruby Nights, il gruppo dei rubisti di Milano. Per non farlo diventare una sterile battaglia Ruby contro Python decisa in anticipo dal "campo di battaglia" e dal mio passato di sviluppatore, insieme agli organizzatori di Ruby Nights abbiamo coinvolto la community Python di Milano. Leggendo i miei appunti hanno sollevato molte obiezioni e mi hanno portato a studiare di più Python e in certi casi anche Ruby. Questo documento di sicuro conserva la traccia delle mie preferenze, ma spero che ora sia molto più equilibrato. È stato un percorso di apprendimento interessante che passa per i framework web dei due linguaggi (è innegabile che Ruby si usi soprattutto per Rails) e arriva ad Elixir, un linguaggio ispirato a Ruby con una digressione su Reia, un altro linguaggio ispirato a Ruby che avrebbe meritato miglior sorte.
 
