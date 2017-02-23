@@ -533,6 +533,18 @@ Come si vede non è necessario dare nomi criptici ai file per ottenere lo stesso
 Va detto che ```locate __init.py__ | grep directory/de/progetto``` trova istantaneamente tutti i moduli.
 La differenza fondamentale però è che Ruby non ha il concetto di package, ma solo quello di modulo. In effetti ad un Rubysta non è per nulla chiaro perché debba esistere il concetto di package dato che è sufficiente avere i moduli. Per contro Ruby è esplicito nel dichiarare moduli, usando ```module Name ... end```.
 
+Mi segnalano, ma non ho toccato con mano, che dalla 3.3 ```__init__.py``` non è più realmente indispensabile.
+Data questa struttura
+
+```
+mymodule/
+mymodule/__init__.py
+mymodule/utils.py
+```
+
+Se è presente __init__.py allora ```mymodule``` è un modulo (ha un attributo ```mymodule.__path__``` e ```mymodule.__file__```).
+Se non è presente è un namespace (non ha quegli attributi). Il contenuto può essere distribuito in più directory e Python3 ne fa il merge.
+
 # Mixed paradigm
 
 Python è funzionale ed object oriented, anche se a Guido Van Rossum la parte funzionale non piace molto. Non si è obbligati a dichiarare classi o a metter metodi in classi o in moduli come in Ruby. Si possono fare file di sole funzioni che poi vanno importati come moduli andando a ricreare implicitamente con il file system il nome del modulo. I file si possono spostare in altre directory e il nome del modulo cambia senza traccia né dentro al file stesso né in quelli dove è usato. Credo un male. È un linguaggio un po' disordinato...
