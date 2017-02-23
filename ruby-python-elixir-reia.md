@@ -181,8 +181,8 @@ Il routing non restful è circa uguale. Ci sono pro e contro ma in Django occhio
 Django
 
 ```
-url(r'info/detail/(?P<id>[0-9]+)$', views.detail, name=detail')
-<a href="{% url detail' id %}" target="_blank" rel="noopener noreferrer">{{ label }}</a>
+url(r'info/detail/(?P<id>[0-9]+)$', views.detail, name='detail')
+<a href="{% url ùdetail' id %}" target="_blank" rel="noopener noreferrer">{{ label }}</a>
 ```
 
 vs Rails
@@ -232,6 +232,16 @@ Gli amici Pythonisti mi danno l'ottima notizia che ora esistono le class based v
 
 * https://docs.djangoproject.com/en/1.10/topics/class-based-views/
 * https://github.com/brack3t/django-braces
+
+```
+url(r'info/detail/(?P<id>[0-9]+)$', views.DetailView.as_view(), name='detail')
+```
+
+usato così
+
+```
+ <a href="{% url 'detail' id %}" target="_blank" rel="noopener noreferrer">{{ label }}</a>
+ ```
 
 oltre che http://www.django-rest-framework.org/
 
