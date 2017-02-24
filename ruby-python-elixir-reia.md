@@ -4,7 +4,7 @@ Licensed under the Creative Commons Attribution-ShareAlike 4.0 International (CC
 
 (sequenza da ristrutturare)
 
-* [[Introduzione](#introduzione)](#introduzione)
+* [[Introduzione](#introduzione)]
 * [Età ed eredità](#Età)
 * [La storia di questo documento](#La storia)
 * [Ringraziamenti](#Ringraziamenti)
@@ -1398,7 +1398,7 @@ A prima vista però i parametrized formats https://pyformat.info/#param_align se
 Django fa un restart quando si salva un file. È veloce ma spesso il reload dello sviluppatore è più veloce ancora e si ha un errore e si deve ricaricare una seconda volta. Meglio il comportamento di Rails che resta appeso fino al reload (o lo fa ogni volta?) senza dare errori. Anche Web2py non dà problemi.
 Django inoltre pare consumare CPU mentre sta in attesa, forse proprio per tener d'occhio i file e ricaricare. Consuma la batteria e fa girare la ventola.
 Googlando un po' si scopre la soluzione. È ```pip install pynotify``` che usa inotify di Linux ed abbatte i tempi ed i consumi. Non funziona però se si fa girare Django in una VM (es: vagrant) con i sorgenti su un file system condiviso con l'OS host: il file system dello share non supporta bene inotify.
-Rails e Web2Py non hanno problemi già out of the box (usano subito inotify?). Bisognerebbe vedere però se avrebbero problemi in una VM.
+Rails e Web2Py non hanno problemi già out of the box (usano subito inotify?). Bisognerebbe verificare se anche loro hanno problemi in una VM.
 
 
 <a name="Simboli"></a>
