@@ -8,19 +8,7 @@ Licensed under the Creative Commons Attribution-ShareAlike 4.0 International (CC
 * [Età ed eredità](#Età)
 * [La storia di questo documento](#La storia)
 * [Ringraziamenti](#Ringraziamenti)
-
-* [Molte opinioni vs poche opinioni](#Molte opinioni)
-  * [Il routing](#Il routing)
-  * [MVC vs MVT](#MVC)
-  * [Admin](#Admin)
-  * [ORM](#ORM)
-* [I default](#I default)
-* [Creazione progetti](#Creazione)
-* [Il deploy](#Il deploy)
-* [Migrazioni DRY](#Migrazioni)
-* [Import automatico vs esplicito](#Import)
-* [Fatica (TODO rivedere spostando dove ci sono esempi)](#Fatica)
-* [Templating](#Templating)
+* [I linguaggi](#I linguaggi)
 * [\_\_init.py\_\_](#init.py)
 * [Mixed paradigm](#Mixed)
 * [Funzioni predefinite](#Funzioni)
@@ -58,6 +46,18 @@ Licensed under the Creative Commons Attribution-ShareAlike 4.0 International (CC
   * [Strutture dati di base](#Strutture)
 * [Mutabilità e stringhe](#Mutabilità)
 * [comprehension, filter, map, reduce](#comprehension)
+* [I framework web](#I framework)
+  * [Molte opinioni vs poche opinioni](#Molte opinioni)
+  * [Il routing](#Il routing)
+  * [MVC vs MVT](#MVC)
+  * [Admin](#Admin)
+  * [ORM](#ORM)
+  * [Creazione progetti](#Creazione)
+  * [Il deploy](#Il deploy)
+  * [Migrazioni DRY](#Migrazioni)
+  * [Import automatico vs esplicito](#Import)
+  * [Fatica (TODO rivedere spostando dove ci sono esempi)](#Fatica)
+  * [Templating](#Templating)
 
 <a name=Introduzione></a>
 # Introduzione
@@ -144,408 +144,9 @@ Python Milano, per le issue aperte su questo documento, le spiegazioni su Python
 
 Invito anche a leggere tutte le issue https://github.com/pmontrasio/rubynights-20170301/issues che il gruppo Python ha aperto sul documento originale. Contengono molte annotazioni e spunti interessanti che è stato possibile riportare qui solo in parte.
 
-<a name="Molte opinioni"></a>
-# Molte opinioni vs poche opinioni
 
-Da più di 10 anni lavoro con Rails che sposa la filosofia "convention over configuration" ed ha opinioni forti su come vanno organizzati progetto, database, sorgenti, fino ad imporre delle naming convention a cui ci si può sottrarre solo faticando un po'. Django lascia gli sviluppatori molto liberi e si impone poco. Web2py si impone ancor di meno, anche se ha delle componenti preconfezionate per la gestione dei form. Non usandole si perde forse il più grande vantaggio di questo framework, usandole ci si lega molto anche alle scelte di layout di Web2py.
-
-Se non avessi apprezzato le opinioni di Rails lo avrei abbandonato Rails da tempo, quindi non sarà una sorpresa che non consideri positivo lasciare troppa libertà allo sviluppatore. Quando lo sviluppatore è libero ogni progetto ha le sue convenzioni e le sue eccezioni. Nel tipico progetto cresciuto a feature con pause di mesi tra l'una e l'altra ed avvicendamenti di consulenti, convenzioni da imparare ed eccezioni da scoprire creano delle frizioni che portano via tempo e costano soldi al cliente. Oppure riduce il profitto dello sviluppatore che fa offerte a corpo, a meno che non chieda più soldi al cliente. Ma questo lo mette a rischio di perdere le offerte contro chi propone progetti Rails.
-
-In un progetto ben staffato che può andare avanti per anni invece può valer la pena cucirsi su misura un sistema, anche se adottare un framework standard aiuta l'onboarding degli sviluppatori.
-
-<a name="Il routing"></a>
-## Il routing
-
-Uno dei pregi di Rails basta guardare una URL per risalire rapidamente al file controller e al metodo che la implementa, e alla view che la presenta. Con Django e Web2Py bisogna per forza guardare il file delle rotte, che può essere spezzato in più file sparsi per le directory dell'applicazione. Si perde tempo. Si può installare https://github.com/django-extensions/django-extensions ma ci si chiede perché una funzionalità così importante non sia già nel core del progetto, soprattutto quando è così scomodo farlo a mano. Tutto sommato per via delle convenzioni di ```rake routes``` quasi si può fare a meno.
-
-Django può avere file ```urls.py``` sparsi per tutto il progetto, che è molto strano a chi è abituato ad avere tutto in ```config/routes.py```.
-
-Ad onor del vero Rails può avere ```routes.rb``` dentro alle gemme (e pure controller, modelli, migrazioni, view), il concetto se si vuole è simile. Ma l'applicazione principale ha un solo file di rotte. Pure la sintassi è più umana.
-
-Rails già include http://www.django-rest-framework.org/api-guide/routers/ e con una sintassi più compatta grazie al poter passare blocchi di codice ai metodi e all'importare tutto.
-
-```
-from rest_framework import routers
-
-router = routers.SimpleRouter()
-router.register(r'users', UserViewSet)
-urlpatterns = router.urls
-```
-
-vs
-
-```
-Rails.application.routes.draw do
-  resources :users
-end
-```
-
-Il passare o meno blocchi di codice come argomenti è forse la differenza principale tra i due linguaggi, che impatta maggiormente sulle possibilità espressive. È quello che rende Ruby ottimo per i DSL.
-
-Il routing non restful è circa uguale. Ci sono pro e contro ma in Django occhio alle parentesi nelle regexp. Rails sposta la complessità nei constraints facilitando la lettura dell'url.
-
-Django
-
-```
-url(r'info/detail/(?P<id>[0-9]+)$', views.detail, name='detail')
-<a href="{% url ùdetail' id %}" target="_blank" rel="noopener noreferrer">{{ label }}</a>
-```
-
-vs Rails
-
-```
-get 'info/detail/:id', to: "controller.detail", as: :detail, constraints: { id: /[0-9]+/ }
-<%= link_to label, detail_path(id), target:"_blank", rel:"noopener noreferrer" %>
-```
-
-oppure per chi vuole fare tutto a mano
-
-```
-<a href="<%= detail_path(id) %>" target="_blank" rel="noopener noreferrer"><%= label %></a>
-```
-
-Il team di Django però sta lavorando ad una sintassi semplificata del tipo
-
-```
-path('info/detail/<int:id>/', views.detail)
-```
-https://github.com/django/deps/blob/master/draft/0201-simplified-routing-syntax.rst
-
-
-A proposito: Target=”_blank” — the most underestimated vulnerability ever
-https://medium.com/@jitbit/target-blank-the-most-underestimated-vulnerability-ever-96e328301f4c
-
-Immagine per il Phishing: Kenneth Lu
-https://www.flickr.com/photos/toasty/1276202472
-https://creativecommons.org/licenses/by/2.0/
-Scaricata in ```/home/montra/Downloads/1276202472_ce7e194cf2_o.jpg```
-
-Altro caso in cui la convenzione facilita lo sviluppatore:
-
-* vedi una stringa in una pagina HTML nel browser
-* la cerchi nel codice Django
-* la trovi in ```templates/console/editproject_everything.html```
-
-Dove sarà la action corrispondente?
-
-è in ```console/views.py```, insieme a tante altre (1000+ righe nel progetto che ho ereditato), dentro a ```def edit(...)```
-
-In Rails al file ```app/views/console/editproject_everything.html.erb``` avrebbe corrisposto ```app/controllers/console_controller.rb```, ```def editproject_everything```. Più facile.
-
-In realtà Rails ti avrebbe invitato a progettare un controller ```console``` con azioni restful e quindi ci sarebbe stato un altro controller ```projects``` con dentro una ```def edit_everything``` o meglio ancora una semplice ```def edit```. Il controller sarebbe stato generato dallo scaffolder e riempito di codice dallo sviluppatore. Più ordinato. Non è una coincidenza che non abbia mai visto progetto Rails con tutte le action in un unico controller.
-
-Gli amici Pythonisti mi danno l'ottima notizia che ora esistono le class based views (ricordate che le views Django sono i controller Rails)
-
-* https://docs.djangoproject.com/en/1.10/topics/class-based-views/
-* https://github.com/brack3t/django-braces
-
-```
-url(r'info/detail/(?P<id>[0-9]+)$', views.DetailView.as_view(), name='detail')
-```
-
-usato così
-
-```
- <a href="{% url 'detail' id %}" target="_blank" rel="noopener noreferrer">{{ label }}</a>
-```
-
-oltre che http://www.django-rest-framework.org/
-
-per cui questi problemi potrebbero essere già scomparsi. Una costante degli ultimi 10 anni è la cross-contamination di tutti i framework web.
-
-Django e Web2Py hanno dei default che invogliano ad avere un solo controller, la ```app_name/views.py``` di Django e il ```app_name/controllers/default.py``` di Web2py e questo è male. Sarà un caso ma mi sono sempre trovato di fronte a controller di 1000 o 2000 righe. Inducono il principiante in errore e quando arriva uno sviluppatore più esperto il cliente non ha soldi per il refactoring ma solo per le funzionalità per cui l'ha chiamato. Tuttavia, se il principio è dividere il progetto in tante piccole applicazioni, forse corrispondenti al blocco risorsa di Rails (modello + controller + views) allora ci può stare. Chi sbaglia è lo sviluppatore che costruisce un progetto mono applicazione.
-
-
-<a name="MVC"></a>
-## MVC vs MVT
-
-Django dice di essere un framework MVT mentre gli altri due framework dicono di essere MVC. Qualcuno dice che Rails non è MVC
-https://www.quora.com/Is-Ruby-on-Rails-a-truly-MVC-framework
-
-> One of the key characteristics of the MVC pattern is that the Observer pattern is used for the model to communicate state changes directly to the view which Ruby on Rails doesn't do
-
-Mi sembra più una questione di nomenclatura che di sostanza. Alla fine il codice in ```views.py``` di Django fa esattamente quel che fa il codice dei controller di Rails e i template Django sono esattamente uguali alle viste Rails, a parte il linguaggio di templating più limitato.
-
-A proposito, anche per Ruby c'è un linguaggio di templating con le restrizioni imposte dal linguaggio di Jango. Si tratta di Liquid di Shopify http://shopify.github.io/liquid/ che per evidenti ragioni non vuole che i suoi clienti possano far girare potenzialmente di tutto sui propri server.
-
-<a name="Admin"></a>
-## Admin
-
-Django ha un admin built in, Rails no. Web2py ce l'ha almeno per la gestione degli errori.
-
-Con Rails bisogna usare gemme tipo http://activeadmin.info/ che nella pratica si usa poco. Si possono creare in fretta applicazioni Rails usando solo ActiveAdmin, ma appen chiede anche solo una piccola cosa in più si impazzisce nel cercar di piegare i default del sistema e viene voglia di rifare tutto in Rails "standard".
-
-Anche senza usare ActiveAdmin, Rails ha uno scaffolding command line molto pratico http://guides.rubyonrails.org/command_line.html#rails-generate
-Lo si usa per creare modelli, controller e viste consistenti tra di loro e dà un CRUD con cui iniziare. Tipicamente poi si aggiungono metodi ai modelli, si modifica un po' il controller e si butta la vista (il template Python) rimpiazzandola con il codice in arrivo dai designer.
-
-L'admin di Django non fa un mero scaffolding, ma mette a disposizione una serie di strumenti "magici", perché nell'admin di magia ce n'è molta.
-L'admin ha già pronto un sistema di ricerca con filtri e con poche righe di codice si riesce a personalizzare parecchio, compresa la granularità di accesso con permessi e ruoli. Ancora, si possono suddividere i dati mostrati in serie, ad esempio anno, mese, giorno.
-
-Grazie alla semplicità nel costruire form, model ecc, molti suggeriscono di partire senza admin e di utilizzarlo solamente lato sviluppo, per aver un controllo backend sui dati e costruire l'applicazione senza legami ad una app di terze parti.
-
-<a name="ORM"></a>
-## ORM
-
-L'ORM di Django e quello di Rails hanno delle naming convention sui nomi di tabelle e colonne. Le si possono sovrascrivere con le proprie, ad esempio per lavorare su db preesistenti.
-
-Web2py ha un ORM che invece fa indicare esplicitamente il nome della tabella e delle singole colonne in fase di definizione del modello.
-
-Quando la convenzione è per default diversa per ogni progetto, se lo sviluppatore originale non è stato superumano nella disciplina, non solo vanno imparate le sue regole ma vanno ricordate anche le eccezioni che gli sono scappate nel design.
-
-E se non piace la convenzione? Esempio: in Rails le tabelle sono nomi plurali. Il professore del Politecnico di un mio cliente insegnava che devono avere nome singolare e forse anche il mio. Gli ORM Python che ho visto usano il singolare. Rails sembra considerare le tabelle come degli array, da cui il plurale. Se pensate che il plurale sia un peccato mortale, non usate Rails.
-
-<a name="Creazione"></a>
-# Creazione progetti
-
-Seguo le istruzioni a https://docs.djangoproject.com/en/1.10/intro/tutorial01/
-
-```
-$ django-admin startproject mysite
-$ find mysite/
-mysite/
-mysite/mysite
-mysite/mysite/__init__.py
-mysite/mysite/settings.py
-mysite/mysite/wsgi.py
-mysite/mysite/urls.py
-mysite/manage.py
-```
-
-Ha creato un progetto ```mysite``` con il minimo indispensabile. Non ci sono ancora né view né template.
-
-Le applicazioni, in Django, sono delle librerie che vanno ad arricchire il progetto.
-Possono essere esterne o interne al progetto, utilizzando il file di requirements.txt.
-```mysite``` dell'esempio è una applicazione interna.
-Anche le applicazioni interno possono risiedere in un loro repository (ad esempio con https://git-scm.com/book/en/v2/Git-Tools-Submodules)
-
-Si aggiungono ad un progetto con
-
-```
-cd mysite
-python manage.py startapp polls
-find polls
-polls/
-polls/__init__.py
-polls/migrations
-polls/migrations/__init__.py
-polls/views.py
-polls/admin.py
-polls/models.py
-polls/tests.py
-```
-
-Ogni applicazione ha le sue view, modelli, migrazioni, controller, test.
-
-Rails ha una sola applicazione in ```app``` con alberatura assai più estesa.
-
-```
-$ rails new demo_rails --skip-bundle
-$ find demo_rails/
-demo_rails/
-demo_rails/.gitignore
-demo_rails/Gemfile
-demo_rails/app
-demo_rails/app/views
-demo_rails/app/views/layouts
-demo_rails/app/views/layouts/application.html.erb
-demo_rails/app/helpers
-demo_rails/app/helpers/application_helper.rb
-demo_rails/app/models
-demo_rails/app/models/concerns
-demo_rails/app/models/concerns/.keep
-demo_rails/app/models/.keep
-demo_rails/app/assets
-demo_rails/app/assets/images
-demo_rails/app/assets/images/.keep
-demo_rails/app/assets/javascripts
-demo_rails/app/assets/javascripts/application.js
-demo_rails/app/assets/stylesheets
-demo_rails/app/assets/stylesheets/application.css
-demo_rails/app/controllers
-demo_rails/app/controllers/application_controller.rb
-demo_rails/app/controllers/concerns
-demo_rails/app/controllers/concerns/.keep
-demo_rails/app/mailers
-demo_rails/app/mailers/.keep
-demo_rails/bin
-demo_rails/bin/rake
-demo_rails/bin/rails
-demo_rails/bin/setup
-demo_rails/bin/bundle
-demo_rails/public
-demo_rails/public/favicon.ico
-demo_rails/public/422.html
-demo_rails/public/robots.txt
-demo_rails/public/500.html
-demo_rails/public/404.html
-demo_rails/vendor
-demo_rails/vendor/assets
-demo_rails/vendor/assets/javascripts
-demo_rails/vendor/assets/javascripts/.keep
-demo_rails/vendor/assets/stylesheets
-demo_rails/vendor/assets/stylesheets/.keep
-demo_rails/Rakefile
-demo_rails/config
-demo_rails/config/application.rb
-demo_rails/config/environments
-demo_rails/config/environments/development.rb
-demo_rails/config/environments/test.rb
-demo_rails/config/environments/production.rb
-demo_rails/config/secrets.yml
-demo_rails/config/initializers
-demo_rails/config/initializers/inflections.rb
-demo_rails/config/initializers/wrap_parameters.rb
-demo_rails/config/initializers/backtrace_silencers.rb
-demo_rails/config/initializers/mime_types.rb
-demo_rails/config/initializers/cookies_serializer.rb
-demo_rails/config/initializers/session_store.rb
-demo_rails/config/initializers/assets.rb
-demo_rails/config/initializers/filter_parameter_logging.rb
-demo_rails/config/locales
-demo_rails/config/locales/en.yml
-demo_rails/config/database.yml
-demo_rails/config/routes.rb
-demo_rails/config/boot.rb
-demo_rails/config/environment.rb
-demo_rails/tmp
-demo_rails/tmp/cache
-demo_rails/tmp/cache/assets
-demo_rails/test
-demo_rails/test/integration
-demo_rails/test/integration/.keep
-demo_rails/test/fixtures
-demo_rails/test/fixtures/.keep
-demo_rails/test/helpers
-demo_rails/test/helpers/.keep
-demo_rails/test/test_helper.rb
-demo_rails/test/models
-demo_rails/test/models/.keep
-demo_rails/test/controllers
-demo_rails/test/controllers/.keep
-demo_rails/test/mailers
-demo_rails/test/mailers/.keep
-demo_rails/README.rdoc
-demo_rails/lib
-demo_rails/lib/tasks
-demo_rails/lib/tasks/.keep
-demo_rails/lib/assets
-demo_rails/lib/assets/.keep
-demo_rails/db
-demo_rails/db/seeds.rb
-demo_rails/config.ru
-demo_rails/log
-demo_rails/log/.keep
-```
-
-È possibile compartimentare sotto applicazioni Rails in gemme. Un esempio è devise che ha i suoi controller, modelli, migrazioni e viste per la gestione dell'autenticazione. Poiché scrivere una gemma ha una maggior frizione di scrivere un'applicazione Django, non è molto frequente dividere un'applicazione Ruby in gemme. Se grazie a questo approccio si riusa effettivamente codice tra progetti Django, l'approccio è più conveniente.
-
-<a name="Il deploy"></a>
-# Il deploy
-
-Le applicazioni Rails fanno deploy con Capistrano, o mina che mi piace di più per la velocità.
-http://capistranorb.com/
-http://nadarei.co/mina/
-
-Con Django e Web2Py non sembra esserci nulla di equivalente. Ho trovato fabistrano ma non pare essere mainstream.
-Ancora mi chiedo se esista un modo standard per fare deploy e rollback. ```git pull``` e ```rsync``` hanno degli svantaggi come il deploy di file che non hanno senso in produzione (es: i test). ```scp``` ha il problema di non cancellare i file. Il rollback è difficoltoso.
-
-In realtà nulla vieta di usare Capistrano anche per Python ma è strano che non esista uno strumento nativo.
-
-<a name="Migrazioni"></a>
-# Migrazioni DRY
-
-Invece è davvero interessante come gli ORM Python cerchino di tenere DRY la modifica del DB. Si descrivono i modelli in Python in ```models/``` invece che in Ruby in ```db/migrations```. Significa avere la truth del modello in un solo file e non averla distribuita in più migrazioni non facilmente identificabili. Questo è positivo.
-
-È poi Django a generare le migrazioni in base alle modifiche ai file dei modelli. I file dei modelli di Django si possono mettere ovunque, basta che ci sia un file ```models.py``` (devono stare tutti nello stesso file) e una directory ```migrations/``` con dentro un ```__init.py__```. Dovrebbe essere Django a creare la directory in automatico ma non è un grosso problema.
-
-Per fortuna i modelli si possono estrarre in file separati ed importarli dentro a ```models.py```, oppure li si possono importare direttamente, ad esempioil file ```models/unmodello.py``` si importa con ```from models.unmodello import UnModello```. Si veda l'esempio di https://github.com/divio/django-cms/tree/release/3.4.x/cms/models
-
-A mio parere è un brutto default indurre lo sviluppatore a mettere tutti i modelli insieme. Rails obbliga a scriverli in file separati ed aiuta a crearli con lo scaffolding.
-
-Rails invece fa l'autodiscovery degli attributi e la sua truth è lo schema del DB. Questo significa che le migrazioni non sono DRY perché pezzi di codice sono sparsi tra modello e migrazione, tipicamente le relazioni tra i modelli.
-
-Qual è la scelta migliore? Probabilmente sono sbagliate entrambe.
-
-A mio parere è corretto che la truth sia il database, perché è lui l'owner dei dati.
-
-È pratico che le migrazioni siano comandate da una delle tante applicazioni che accederanno al database, ma non va bene. Anche se quella web di solito è l'applicazione principale, in un mondo che va verso i microservizi sarebbe meglio avere un repository a parte solo per la definizione e la gestione del database. Poter importare la truth dal database quindi è importante (reverse engineering).
-
-Notare che benché le migrazioni di Rails siano tutte in ```db/migrations``` e i modelli tutti in ```app/models```, anche con Rails si possono spargere file ovunque. Il metodo standard è creare gemme con le loro migrazioni, controller, modelli, viste, asset etc. È più laborioso che scrivere il codice tutto nell'app principale e quindi Rails non invoglia a farlo. Cattivo default?
-
-Uno dei problemi con l'approccio di Django è che se per caso un modello sparisce per errore, poi ```manage.py makemigrations``` genera la ```DROP TABLE``` e si posso perdere i dati. Con Rails uno sviluppatore deve scrivere esplicitamente il comando di drop. Tipicamente l'errore avviene in sviluppo e non inficia la produzione, però può essere fastidioso. Per evitare problemi di qualsiasi tipo con Rails ho l'abitudine di scrivere un script di seeding che riempie il database da zero con dei dati da usare in sviluppo. Uso la gemma faker. Se anche dovessi fare il drop di una tabella lo posso ricostruire in fretta.
-
-Per disabilitare le migrazioni in Django
-https://docs.djangoproject.com/en/dev/ref/models/options/#managed
-
-Per verificarle si usa l'opzione ```--dry-run```
-
-Web2py ha un approccio molto rischioso alle migrazioni.
-
-Appena un modello modificato viene eseguito, magari perché si apre la console interattiva, fa la diff tra la definizione nel modello e la tabella e crea ed esegue il codice SQL che allinea la tabella alla definizione. Si possono disabilitare e lo consiglio tantissimo. Si indica ```migrate=False``` nel costruttore DAL del database.
-
-
-<a name="Import"></a>
-# Import automatico vs esplicito
-
-In Django e Web2Py (e Java, e PHP, e ... ) si deve importare quel che serve  in ogni file. Rails importa tutto da solo. In rare occasioni Rails può dare conflitti (uno o due in 10 anni nel mio caso) mentre Django obbliga a riempire il codice di import. Idem per la shell, che così diventa un po' meno efficiente.
-
-```
-$ python manage.py shell
-from modules.plugins.censys.models import Settings
-x = Settings.objects.get(pk=1)
-x.api_id
-```
-
-E infatti http://stackoverflow.com/questions/4863301/automatically-import-models-on-django-shell-launch
-
-Anche Phoenix di Elixir è così.
-
-Anche Ruby richiede ```require``` di tutto, ma Rails risparmia fatica allo sviluppatore.
-
-Gli amici Pythonisti mi fanno notare che uno dei mantra di Python è "explicit is better than implicit", ma la coerenza non è di questo mondo. Un linguaggio esplicito come Python ha i decoratori ed uno che non disdegna essere implicito come Ruby invece non ne vuole sapere di introdurli. Nel caso di Ruby si tratterebbe di zucchero sintattico perché ci sono vari modi di crearli usando gli strumenti già presenti nel linguaggio. Ad esempio https://github.com/fredwu/ruby_decorators ne propone uno, con link ad altri due. Tuttavia un modo standard è sempre meglio che tanti l'uno diverso dall'altro. Va detto che l'esigenza non è molto sentita, forse per via dell'uso dei blocchi.
-
-<a name="Fatica"></a>
-# Fatica (TODO rivedere spostando dove ci sono esempi)
-
-In generale ho l'impressione che con Python e i suoi framework web si debba faticare di più rispetto a Ruby e Rails. Forse limitatamente ai framework web, la maggior flessibilità permette di fare più facilmente cose non standard che con Rails richiederebbero una maggior fatica, ma davvero si vuol pagare questo prezzo ogni singola volta? Mi ricorda la click fatigue di Windows e di KDE rispetto a Gnome. Il doppio dei click per lo stesso risultato.
-
-<a name="Templating"></a>
-# Templating
-
-Il linguaggio di templating di Django purtroppo non è Python, ma un linguaggio molto limitato con lo scopo dichiarato di costringere lo sviluppatore a preparare tutti i dati nelle view (il controller) e non angustiare il designer con codici strani per lui. La scelta è curiosa perché praticamente è l'unico posto in cui Django limita lo sviluppatore rispetto a Rails. Non ci sono sviluppatori Rails sani di mente che mettono di proposito query al db nelle viste di Rails.
-
-Il risultato è che si deve imparare un nuovo linguaggio. Una fatica inutile che rallenta lo sviluppo. Mi ricorda tanto le tag libs JSP.
-Altro risultato: si finisce per dover scrivere taglib che implementano funzionalità di base, come un loop su due liste. Quel che si sarebbe fatto in pochi secondi costa dieci minuti tra cercare, pensare, scrivere. Moltiplicandolo per un po' di occorrenze il costo per il cliente sale. Esempio:
-
-http://stackoverflow.com/questions/2415865/iterating-through-two-lists-in-django-templates/14857664#14857664
-
-```
-@register.filter(name='zip')
-def zip_lists(a, b):
-  return zip(a, b)
-
-{% for a, b in first_list|zip:second_list %}
-  {{a}}
-  {{b}}
-{% endfor %}
-```
-
-vs
-
-```
-<% @first_list.each_with_index |a, index| %>
-  <%= a %>
-  <%= second_list[index] %>
-<% end %>
-```
-
-Notare tra l'altro il mismatch tra il nome del filtro ```zip``` nel template ed il nome della funzione nella templatetag ```zip_lists```. Il nome della funzione include il tipo degli argomenti. Non è il principio di least surprise.
-
-La soluzione è preparare diversamente nella view la lista da mostrare, magari utilizzando named tuple per evitare di avere due liste di cui fare ```zip```.
-
-Web2py invece usa Python e quindi non si può dire che si tratti di una scelta comune a tutti i framework web di Python. Qui vincono Rails e Web2Py.
-
-Però copierei in Rails l'idea dei filtri, immagino come metodi da applicare ad oggetti, ma non l'ho studiata.
+<a name="I linguaggi"></a>
+# I linguaggi
 
 <a name="init.py"></a>
 # \_\_init.py\_\_
@@ -1883,6 +1484,413 @@ $ iex
 ```
 
 Dovendo scrivere ogni volta sia il nome del modulo ```Enum``` che ```end```, è il linguaggio più verboso dei tre.
+
+
+<a name="I framework"></a>
+# I framework
+
+<a name="Molte opinioni"></a>
+## Molte opinioni vs poche opinioni
+
+Da più di 10 anni lavoro con Rails che sposa la filosofia "convention over configuration" ed ha opinioni forti su come vanno organizzati progetto, database, sorgenti, fino ad imporre delle naming convention a cui ci si può sottrarre solo faticando un po'. Django lascia gli sviluppatori molto liberi e si impone poco. Web2py si impone ancor di meno, anche se ha delle componenti preconfezionate per la gestione dei form. Non usandole si perde forse il più grande vantaggio di questo framework, usandole ci si lega molto anche alle scelte di layout di Web2py.
+
+Se non avessi apprezzato le opinioni di Rails lo avrei abbandonato Rails da tempo, quindi non sarà una sorpresa che non consideri positivo lasciare troppa libertà allo sviluppatore. Quando lo sviluppatore è libero ogni progetto ha le sue convenzioni e le sue eccezioni. Nel tipico progetto cresciuto a feature con pause di mesi tra l'una e l'altra ed avvicendamenti di consulenti, convenzioni da imparare ed eccezioni da scoprire creano delle frizioni che portano via tempo e costano soldi al cliente. Oppure riduce il profitto dello sviluppatore che fa offerte a corpo, a meno che non chieda più soldi al cliente. Ma questo lo mette a rischio di perdere le offerte contro chi propone progetti Rails.
+
+In un progetto ben staffato che può andare avanti per anni invece può valer la pena cucirsi su misura un sistema, anche se adottare un framework standard aiuta l'onboarding degli sviluppatori.
+
+<a name="Il routing"></a>
+## Il routing
+
+Uno dei pregi di Rails basta guardare una URL per risalire rapidamente al file controller e al metodo che la implementa, e alla view che la presenta. Con Django e Web2Py bisogna per forza guardare il file delle rotte, che può essere spezzato in più file sparsi per le directory dell'applicazione. Si perde tempo. Si può installare https://github.com/django-extensions/django-extensions ma ci si chiede perché una funzionalità così importante non sia già nel core del progetto, soprattutto quando è così scomodo farlo a mano. Tutto sommato per via delle convenzioni di ```rake routes``` quasi si può fare a meno.
+
+Django può avere file ```urls.py``` sparsi per tutto il progetto, che è molto strano a chi è abituato ad avere tutto in ```config/routes.py```.
+
+Ad onor del vero Rails può avere ```routes.rb``` dentro alle gemme (e pure controller, modelli, migrazioni, view), il concetto se si vuole è simile. Ma l'applicazione principale ha un solo file di rotte. Pure la sintassi è più umana.
+
+Rails già include http://www.django-rest-framework.org/api-guide/routers/ e con una sintassi più compatta grazie al poter passare blocchi di codice ai metodi e all'importare tutto.
+
+```
+from rest_framework import routers
+
+router = routers.SimpleRouter()
+router.register(r'users', UserViewSet)
+urlpatterns = router.urls
+```
+
+vs
+
+```
+Rails.application.routes.draw do
+  resources :users
+end
+```
+
+Il passare o meno blocchi di codice come argomenti è forse la differenza principale tra i due linguaggi, che impatta maggiormente sulle possibilità espressive. È quello che rende Ruby ottimo per i DSL.
+
+Il routing non restful è circa uguale. Ci sono pro e contro ma in Django occhio alle parentesi nelle regexp. Rails sposta la complessità nei constraints facilitando la lettura dell'url.
+
+Django
+
+```
+url(r'info/detail/(?P<id>[0-9]+)$', views.detail, name='detail')
+<a href="{% url ùdetail' id %}" target="_blank" rel="noopener noreferrer">{{ label }}</a>
+```
+
+vs Rails
+
+```
+get 'info/detail/:id', to: "controller.detail", as: :detail, constraints: { id: /[0-9]+/ }
+<%= link_to label, detail_path(id), target:"_blank", rel:"noopener noreferrer" %>
+```
+
+oppure per chi vuole fare tutto a mano
+
+```
+<a href="<%= detail_path(id) %>" target="_blank" rel="noopener noreferrer"><%= label %></a>
+```
+
+Il team di Django però sta lavorando ad una sintassi semplificata del tipo
+
+```
+path('info/detail/<int:id>/', views.detail)
+```
+https://github.com/django/deps/blob/master/draft/0201-simplified-routing-syntax.rst
+
+
+A proposito: Target=”_blank” — the most underestimated vulnerability ever
+https://medium.com/@jitbit/target-blank-the-most-underestimated-vulnerability-ever-96e328301f4c
+
+Immagine per il Phishing: Kenneth Lu
+https://www.flickr.com/photos/toasty/1276202472
+https://creativecommons.org/licenses/by/2.0/
+Scaricata in ```/home/montra/Downloads/1276202472_ce7e194cf2_o.jpg```
+
+Altro caso in cui la convenzione facilita lo sviluppatore:
+
+* vedi una stringa in una pagina HTML nel browser
+* la cerchi nel codice Django
+* la trovi in ```templates/console/editproject_everything.html```
+
+Dove sarà la action corrispondente?
+
+è in ```console/views.py```, insieme a tante altre (1000+ righe nel progetto che ho ereditato), dentro a ```def edit(...)```
+
+In Rails al file ```app/views/console/editproject_everything.html.erb``` avrebbe corrisposto ```app/controllers/console_controller.rb```, ```def editproject_everything```. Più facile.
+
+In realtà Rails ti avrebbe invitato a progettare un controller ```console``` con azioni restful e quindi ci sarebbe stato un altro controller ```projects``` con dentro una ```def edit_everything``` o meglio ancora una semplice ```def edit```. Il controller sarebbe stato generato dallo scaffolder e riempito di codice dallo sviluppatore. Più ordinato. Non è una coincidenza che non abbia mai visto progetto Rails con tutte le action in un unico controller.
+
+Gli amici Pythonisti mi danno l'ottima notizia che ora esistono le class based views (ricordate che le views Django sono i controller Rails)
+
+* https://docs.djangoproject.com/en/1.10/topics/class-based-views/
+* https://github.com/brack3t/django-braces
+
+```
+url(r'info/detail/(?P<id>[0-9]+)$', views.DetailView.as_view(), name='detail')
+```
+
+usato così
+
+```
+ <a href="{% url 'detail' id %}" target="_blank" rel="noopener noreferrer">{{ label }}</a>
+```
+
+oltre che http://www.django-rest-framework.org/
+
+per cui questi problemi potrebbero essere già scomparsi. Una costante degli ultimi 10 anni è la cross-contamination di tutti i framework web.
+
+Django e Web2Py hanno dei default che invogliano ad avere un solo controller, la ```app_name/views.py``` di Django e il ```app_name/controllers/default.py``` di Web2py e questo è male. Sarà un caso ma mi sono sempre trovato di fronte a controller di 1000 o 2000 righe. Inducono il principiante in errore e quando arriva uno sviluppatore più esperto il cliente non ha soldi per il refactoring ma solo per le funzionalità per cui l'ha chiamato. Tuttavia, se il principio è dividere il progetto in tante piccole applicazioni, forse corrispondenti al blocco risorsa di Rails (modello + controller + views) allora ci può stare. Chi sbaglia è lo sviluppatore che costruisce un progetto mono applicazione.
+
+
+<a name="MVC"></a>
+## MVC vs MVT
+
+Django dice di essere un framework MVT mentre gli altri due framework dicono di essere MVC. Qualcuno dice che Rails non è MVC
+https://www.quora.com/Is-Ruby-on-Rails-a-truly-MVC-framework
+
+> One of the key characteristics of the MVC pattern is that the Observer pattern is used for the model to communicate state changes directly to the view which Ruby on Rails doesn't do
+
+Mi sembra più una questione di nomenclatura che di sostanza. Alla fine il codice in ```views.py``` di Django fa esattamente quel che fa il codice dei controller di Rails e i template Django sono esattamente uguali alle viste Rails, a parte il linguaggio di templating più limitato.
+
+A proposito, anche per Ruby c'è un linguaggio di templating con le restrizioni imposte dal linguaggio di Jango. Si tratta di Liquid di Shopify http://shopify.github.io/liquid/ che per evidenti ragioni non vuole che i suoi clienti possano far girare potenzialmente di tutto sui propri server.
+
+<a name="Admin"></a>
+## Admin
+
+Django ha un admin built in, Rails no. Web2py ce l'ha almeno per la gestione degli errori.
+
+Con Rails bisogna usare gemme tipo http://activeadmin.info/ che nella pratica si usa poco. Si possono creare in fretta applicazioni Rails usando solo ActiveAdmin, ma appen chiede anche solo una piccola cosa in più si impazzisce nel cercar di piegare i default del sistema e viene voglia di rifare tutto in Rails "standard".
+
+Anche senza usare ActiveAdmin, Rails ha uno scaffolding command line molto pratico http://guides.rubyonrails.org/command_line.html#rails-generate
+Lo si usa per creare modelli, controller e viste consistenti tra di loro e dà un CRUD con cui iniziare. Tipicamente poi si aggiungono metodi ai modelli, si modifica un po' il controller e si butta la vista (il template Python) rimpiazzandola con il codice in arrivo dai designer.
+
+L'admin di Django non fa un mero scaffolding, ma mette a disposizione una serie di strumenti "magici", perché nell'admin di magia ce n'è molta.
+L'admin ha già pronto un sistema di ricerca con filtri e con poche righe di codice si riesce a personalizzare parecchio, compresa la granularità di accesso con permessi e ruoli. Ancora, si possono suddividere i dati mostrati in serie, ad esempio anno, mese, giorno.
+
+Grazie alla semplicità nel costruire form, model ecc, molti suggeriscono di partire senza admin e di utilizzarlo solamente lato sviluppo, per aver un controllo backend sui dati e costruire l'applicazione senza legami ad una app di terze parti.
+
+<a name="ORM"></a>
+## ORM
+
+L'ORM di Django e quello di Rails hanno delle naming convention sui nomi di tabelle e colonne. Le si possono sovrascrivere con le proprie, ad esempio per lavorare su db preesistenti.
+
+Web2py ha un ORM che invece fa indicare esplicitamente il nome della tabella e delle singole colonne in fase di definizione del modello.
+
+Quando la convenzione è per default diversa per ogni progetto, se lo sviluppatore originale non è stato superumano nella disciplina, non solo vanno imparate le sue regole ma vanno ricordate anche le eccezioni che gli sono scappate nel design.
+
+E se non piace la convenzione? Esempio: in Rails le tabelle sono nomi plurali. Il professore del Politecnico di un mio cliente insegnava che devono avere nome singolare e forse anche il mio. Gli ORM Python che ho visto usano il singolare. Rails sembra considerare le tabelle come degli array, da cui il plurale. Se pensate che il plurale sia un peccato mortale, non usate Rails.
+
+<a name="Creazione"></a>
+## Creazione progetti
+
+Seguo le istruzioni a https://docs.djangoproject.com/en/1.10/intro/tutorial01/
+
+```
+$ django-admin startproject mysite
+$ find mysite/
+mysite/
+mysite/mysite
+mysite/mysite/__init__.py
+mysite/mysite/settings.py
+mysite/mysite/wsgi.py
+mysite/mysite/urls.py
+mysite/manage.py
+```
+
+Ha creato un progetto ```mysite``` con il minimo indispensabile. Non ci sono ancora né view né template.
+
+Le applicazioni, in Django, sono delle librerie che vanno ad arricchire il progetto.
+Possono essere esterne o interne al progetto, utilizzando il file di requirements.txt.
+```mysite``` dell'esempio è una applicazione interna.
+Anche le applicazioni interno possono risiedere in un loro repository (ad esempio con https://git-scm.com/book/en/v2/Git-Tools-Submodules)
+
+Si aggiungono ad un progetto con
+
+```
+cd mysite
+python manage.py startapp polls
+find polls
+polls/
+polls/__init__.py
+polls/migrations
+polls/migrations/__init__.py
+polls/views.py
+polls/admin.py
+polls/models.py
+polls/tests.py
+```
+
+Ogni applicazione ha le sue view, modelli, migrazioni, controller, test.
+
+Rails ha una sola applicazione in ```app``` con alberatura assai più estesa.
+
+```
+$ rails new demo_rails --skip-bundle
+$ find demo_rails/
+demo_rails/
+demo_rails/.gitignore
+demo_rails/Gemfile
+demo_rails/app
+demo_rails/app/views
+demo_rails/app/views/layouts
+demo_rails/app/views/layouts/application.html.erb
+demo_rails/app/helpers
+demo_rails/app/helpers/application_helper.rb
+demo_rails/app/models
+demo_rails/app/models/concerns
+demo_rails/app/models/concerns/.keep
+demo_rails/app/models/.keep
+demo_rails/app/assets
+demo_rails/app/assets/images
+demo_rails/app/assets/images/.keep
+demo_rails/app/assets/javascripts
+demo_rails/app/assets/javascripts/application.js
+demo_rails/app/assets/stylesheets
+demo_rails/app/assets/stylesheets/application.css
+demo_rails/app/controllers
+demo_rails/app/controllers/application_controller.rb
+demo_rails/app/controllers/concerns
+demo_rails/app/controllers/concerns/.keep
+demo_rails/app/mailers
+demo_rails/app/mailers/.keep
+demo_rails/bin
+demo_rails/bin/rake
+demo_rails/bin/rails
+demo_rails/bin/setup
+demo_rails/bin/bundle
+demo_rails/public
+demo_rails/public/favicon.ico
+demo_rails/public/422.html
+demo_rails/public/robots.txt
+demo_rails/public/500.html
+demo_rails/public/404.html
+demo_rails/vendor
+demo_rails/vendor/assets
+demo_rails/vendor/assets/javascripts
+demo_rails/vendor/assets/javascripts/.keep
+demo_rails/vendor/assets/stylesheets
+demo_rails/vendor/assets/stylesheets/.keep
+demo_rails/Rakefile
+demo_rails/config
+demo_rails/config/application.rb
+demo_rails/config/environments
+demo_rails/config/environments/development.rb
+demo_rails/config/environments/test.rb
+demo_rails/config/environments/production.rb
+demo_rails/config/secrets.yml
+demo_rails/config/initializers
+demo_rails/config/initializers/inflections.rb
+demo_rails/config/initializers/wrap_parameters.rb
+demo_rails/config/initializers/backtrace_silencers.rb
+demo_rails/config/initializers/mime_types.rb
+demo_rails/config/initializers/cookies_serializer.rb
+demo_rails/config/initializers/session_store.rb
+demo_rails/config/initializers/assets.rb
+demo_rails/config/initializers/filter_parameter_logging.rb
+demo_rails/config/locales
+demo_rails/config/locales/en.yml
+demo_rails/config/database.yml
+demo_rails/config/routes.rb
+demo_rails/config/boot.rb
+demo_rails/config/environment.rb
+demo_rails/tmp
+demo_rails/tmp/cache
+demo_rails/tmp/cache/assets
+demo_rails/test
+demo_rails/test/integration
+demo_rails/test/integration/.keep
+demo_rails/test/fixtures
+demo_rails/test/fixtures/.keep
+demo_rails/test/helpers
+demo_rails/test/helpers/.keep
+demo_rails/test/test_helper.rb
+demo_rails/test/models
+demo_rails/test/models/.keep
+demo_rails/test/controllers
+demo_rails/test/controllers/.keep
+demo_rails/test/mailers
+demo_rails/test/mailers/.keep
+demo_rails/README.rdoc
+demo_rails/lib
+demo_rails/lib/tasks
+demo_rails/lib/tasks/.keep
+demo_rails/lib/assets
+demo_rails/lib/assets/.keep
+demo_rails/db
+demo_rails/db/seeds.rb
+demo_rails/config.ru
+demo_rails/log
+demo_rails/log/.keep
+```
+
+È possibile compartimentare sotto applicazioni Rails in gemme. Un esempio è devise che ha i suoi controller, modelli, migrazioni e viste per la gestione dell'autenticazione. Poiché scrivere una gemma ha una maggior frizione di scrivere un'applicazione Django, non è molto frequente dividere un'applicazione Ruby in gemme. Se grazie a questo approccio si riusa effettivamente codice tra progetti Django, l'approccio è più conveniente.
+
+<a name="Il deploy"></a>
+## Il deploy
+
+Le applicazioni Rails fanno deploy con Capistrano, o mina che mi piace di più per la velocità.
+http://capistranorb.com/
+http://nadarei.co/mina/
+
+Con Django e Web2Py non sembra esserci nulla di equivalente. Ho trovato fabistrano ma non pare essere mainstream.
+Ancora mi chiedo se esista un modo standard per fare deploy e rollback. ```git pull``` e ```rsync``` hanno degli svantaggi come il deploy di file che non hanno senso in produzione (es: i test). ```scp``` ha il problema di non cancellare i file. Il rollback è difficoltoso.
+
+In realtà nulla vieta di usare Capistrano anche per Python ma è strano che non esista uno strumento nativo.
+
+<a name="Migrazioni"></a>
+## Migrazioni DRY
+
+Invece è davvero interessante come gli ORM Python cerchino di tenere DRY la modifica del DB. Si descrivono i modelli in Python in ```models/``` invece che in Ruby in ```db/migrations```. Significa avere la truth del modello in un solo file e non averla distribuita in più migrazioni non facilmente identificabili. Questo è positivo.
+
+È poi Django a generare le migrazioni in base alle modifiche ai file dei modelli. I file dei modelli di Django si possono mettere ovunque, basta che ci sia un file ```models.py``` (devono stare tutti nello stesso file) e una directory ```migrations/``` con dentro un ```__init.py__```. Dovrebbe essere Django a creare la directory in automatico ma non è un grosso problema.
+
+Per fortuna i modelli si possono estrarre in file separati ed importarli dentro a ```models.py```, oppure li si possono importare direttamente, ad esempioil file ```models/unmodello.py``` si importa con ```from models.unmodello import UnModello```. Si veda l'esempio di https://github.com/divio/django-cms/tree/release/3.4.x/cms/models
+
+A mio parere è un brutto default indurre lo sviluppatore a mettere tutti i modelli insieme. Rails obbliga a scriverli in file separati ed aiuta a crearli con lo scaffolding.
+
+Rails invece fa l'autodiscovery degli attributi e la sua truth è lo schema del DB. Questo significa che le migrazioni non sono DRY perché pezzi di codice sono sparsi tra modello e migrazione, tipicamente le relazioni tra i modelli.
+
+Qual è la scelta migliore? Probabilmente sono sbagliate entrambe.
+
+A mio parere è corretto che la truth sia il database, perché è lui l'owner dei dati.
+
+È pratico che le migrazioni siano comandate da una delle tante applicazioni che accederanno al database, ma non va bene. Anche se quella web di solito è l'applicazione principale, in un mondo che va verso i microservizi sarebbe meglio avere un repository a parte solo per la definizione e la gestione del database. Poter importare la truth dal database quindi è importante (reverse engineering).
+
+Notare che benché le migrazioni di Rails siano tutte in ```db/migrations``` e i modelli tutti in ```app/models```, anche con Rails si possono spargere file ovunque. Il metodo standard è creare gemme con le loro migrazioni, controller, modelli, viste, asset etc. È più laborioso che scrivere il codice tutto nell'app principale e quindi Rails non invoglia a farlo. Cattivo default?
+
+Uno dei problemi con l'approccio di Django è che se per caso un modello sparisce per errore, poi ```manage.py makemigrations``` genera la ```DROP TABLE``` e si posso perdere i dati. Con Rails uno sviluppatore deve scrivere esplicitamente il comando di drop. Tipicamente l'errore avviene in sviluppo e non inficia la produzione, però può essere fastidioso. Per evitare problemi di qualsiasi tipo con Rails ho l'abitudine di scrivere un script di seeding che riempie il database da zero con dei dati da usare in sviluppo. Uso la gemma faker. Se anche dovessi fare il drop di una tabella lo posso ricostruire in fretta.
+
+Per disabilitare le migrazioni in Django
+https://docs.djangoproject.com/en/dev/ref/models/options/#managed
+
+Per verificarle si usa l'opzione ```--dry-run```
+
+Web2py ha un approccio molto rischioso alle migrazioni.
+
+Appena un modello modificato viene eseguito, magari perché si apre la console interattiva, fa la diff tra la definizione nel modello e la tabella e crea ed esegue il codice SQL che allinea la tabella alla definizione. Si possono disabilitare e lo consiglio tantissimo. Si indica ```migrate=False``` nel costruttore DAL del database.
+
+
+<a name="Import"></a>
+## Import automatico vs esplicito
+
+In Django e Web2Py (e Java, e PHP, e ... ) si deve importare quel che serve  in ogni file. Rails importa tutto da solo. In rare occasioni Rails può dare conflitti (uno o due in 10 anni nel mio caso) mentre Django obbliga a riempire il codice di import. Idem per la shell, che così diventa un po' meno efficiente.
+
+```
+$ python manage.py shell
+from modules.plugins.censys.models import Settings
+x = Settings.objects.get(pk=1)
+x.api_id
+```
+
+E infatti http://stackoverflow.com/questions/4863301/automatically-import-models-on-django-shell-launch
+
+Anche Phoenix di Elixir è così.
+
+Anche Ruby richiede ```require``` di tutto, ma Rails risparmia fatica allo sviluppatore.
+
+Gli amici Pythonisti mi fanno notare che uno dei mantra di Python è "explicit is better than implicit", ma la coerenza non è di questo mondo. Un linguaggio esplicito come Python ha i decoratori ed uno che non disdegna essere implicito come Ruby invece non ne vuole sapere di introdurli. Nel caso di Ruby si tratterebbe di zucchero sintattico perché ci sono vari modi di crearli usando gli strumenti già presenti nel linguaggio. Ad esempio https://github.com/fredwu/ruby_decorators ne propone uno, con link ad altri due. Tuttavia un modo standard è sempre meglio che tanti l'uno diverso dall'altro. Va detto che l'esigenza non è molto sentita, forse per via dell'uso dei blocchi.
+
+<a name="Fatica"></a>
+## Fatica (TODO rivedere spostando dove ci sono esempi)
+
+In generale ho l'impressione che con Python e i suoi framework web si debba faticare di più rispetto a Ruby e Rails. Forse limitatamente ai framework web, la maggior flessibilità permette di fare più facilmente cose non standard che con Rails richiederebbero una maggior fatica, ma davvero si vuol pagare questo prezzo ogni singola volta? Mi ricorda la click fatigue di Windows e di KDE rispetto a Gnome. Il doppio dei click per lo stesso risultato.
+
+<a name="Templating"></a>
+## Templating
+
+Il linguaggio di templating di Django purtroppo non è Python, ma un linguaggio molto limitato con lo scopo dichiarato di costringere lo sviluppatore a preparare tutti i dati nelle view (il controller) e non angustiare il designer con codici strani per lui. La scelta è curiosa perché praticamente è l'unico posto in cui Django limita lo sviluppatore rispetto a Rails. Non ci sono sviluppatori Rails sani di mente che mettono di proposito query al db nelle viste di Rails.
+
+Il risultato è che si deve imparare un nuovo linguaggio. Una fatica inutile che rallenta lo sviluppo. Mi ricorda tanto le tag libs JSP.
+Altro risultato: si finisce per dover scrivere taglib che implementano funzionalità di base, come un loop su due liste. Quel che si sarebbe fatto in pochi secondi costa dieci minuti tra cercare, pensare, scrivere. Moltiplicandolo per un po' di occorrenze il costo per il cliente sale. Esempio:
+
+http://stackoverflow.com/questions/2415865/iterating-through-two-lists-in-django-templates/14857664#14857664
+
+```
+@register.filter(name='zip')
+def zip_lists(a, b):
+  return zip(a, b)
+
+{% for a, b in first_list|zip:second_list %}
+  {{a}}
+  {{b}}
+{% endfor %}
+```
+
+vs
+
+```
+<% @first_list.each_with_index |a, index| %>
+  <%= a %>
+  <%= second_list[index] %>
+<% end %>
+```
+
+Notare tra l'altro il mismatch tra il nome del filtro ```zip``` nel template ed il nome della funzione nella templatetag ```zip_lists```. Il nome della funzione include il tipo degli argomenti. Non è il principio di least surprise.
+
+La soluzione è preparare diversamente nella view la lista da mostrare, magari utilizzando named tuple per evitare di avere due liste di cui fare ```zip```.
+
+Web2py invece usa Python e quindi non si può dire che si tratti di una scelta comune a tutti i framework web di Python. Qui vincono Rails e Web2Py.
+
+Però copierei in Rails l'idea dei filtri, immagino come metodi da applicare ad oggetti, ma non l'ho studiata.
 
 
 TODO
