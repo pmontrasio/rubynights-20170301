@@ -36,14 +36,14 @@ Licensed under the Creative Commons Attribution-ShareAlike 4.0 International (CC
   * [Pipe](#Pipe)
   * [Operatore ternario](#Operatore)
 * [Blocchi](#Blocchi)
-  * [L'orribile do while Ruby](#L'orribile)
+  * [L'orribile do while Ruby](#do while)
   * [Bizzarrie rubiche](#Bizzarrie)
 * [Stile](#Stile)
   * [Eccezioni](#Eccezioni)
-  * [La virgola che non si vede](#La)
+  * [La virgola che non si vede](#La virgola)
 * [Logging](#Logging)
 * [Pretty printing](#Pretty)
-* [Un problema di design](#Un)
+* [Un problema di design](#Un problema)
 * [Unicode](#Unicode)
 * [Interpolazione di stringhe](#Interpolazione)
 * [Hot reload](#Hot)
@@ -152,6 +152,7 @@ Se non avessi apprezzato le opinioni di Rails lo avrei abbandonato Rails da temp
 
 In un progetto ben staffato che può andare avanti per anni invece può valer la pena cucirsi su misura un sistema, anche se adottare un framework standard aiuta l'onboarding degli sviluppatori.
 
+<a name="Il routing"></a>
 ## Il routing
 
 Uno dei pregi di Rails basta guardare una URL per risalire rapidamente al file controller e al metodo che la implementa, e alla view che la presenta. Con Django e Web2Py bisogna per forza guardare il file delle rotte, che può essere spezzato in più file sparsi per le directory dell'applicazione. Si perde tempo. Si può installare https://github.com/django-extensions/django-extensions ma ci si chiede perché una funzionalità così importante non sia già nel core del progetto, soprattutto quando è così scomodo farlo a mano. Tutto sommato per via delle convenzioni di ```rake routes``` quasi si può fare a meno.
@@ -251,6 +252,7 @@ oltre che http://www.django-rest-framework.org/
 
 per cui questi problemi potrebbero essere già scomparsi. Una costante degli ultimi 10 anni è la cross-contamination di tutti i framework web.
 
+<a name="MVC"></a>
 ## MVC vs MVT
 
 Django dice di essere un framework MVT mentre gli altri due framework dicono di essere MVC. Qualcuno dice che Rails non è MVC
@@ -262,6 +264,7 @@ Mi sembra più una questione di nomenclatura che di sostanza. Alla fine il codic
 
 A proposito, anche per Ruby c'è un linguaggio di templating con le restrizioni imposte dal linguaggio di Jango. Si tratta di Liquid di Shopify http://shopify.github.io/liquid/ che per evidenti ragioni non vuole che i suoi clienti possano far girare potenzialmente di tutto sui propri server.
 
+<a name="Admin"></a>
 ## Admin
 
 Django ha un admin built in, Rails no. Web2py ce l'ha almeno per la gestione degli errori.
@@ -276,6 +279,7 @@ L'admin ha già pronto un sistema di ricerca con filtri e con poche righe di cod
 
 Grazie alla semplicità nel costruire form, model ecc, molti suggeriscono di partire senza admin e di utilizzarlo solamente lato sviluppo, per aver un controllo backend sui dati e costruire l'applicazione senza legami ad una app di terze parti.
 
+<a name="ORM"></a>
 ## ORM
 
 L'ORM di Django e quello di Rails hanno delle naming convention sui nomi di tabelle e colonne. Le si possono sovrascrivere con le proprie, ad esempio per lavorare su db preesistenti.
@@ -286,10 +290,12 @@ Quando la convenzione è per default diversa per ogni progetto, se lo sviluppato
 
 E se non piace la convenzione? Esempio: in Rails le tabelle sono nomi plurali. Il professore del Politecnico di un mio cliente insegnava che devono avere nome singolare e forse anche il mio. Gli ORM Python che ho visto usano il singolare. Rails sembra considerare le tabelle come degli array, da cui il plurale. Se pensate che il plurale sia un peccato mortale, non usate Rails.
 
+<a name="I default"></a>
 # I default
 
 Django e Web2Py hanno dei default un po' "laschi". Invogliano ad avere un solo controller, la ```app_name/views.py``` di Django e il ```app_name/controllers/default.py``` di Web2py e questo è male. Sarà un caso ma mi sono sempre trovato di fronte a controller di 1000 o 2000 righe. Inducono il principiante in errore e quando arriva uno sviluppatore più esperto il cliente non ha soldi per il refactoring ma solo per le funzionalità per cui l'ha chiamato.
 
+<a name="Creazione"></a>
 # Creazione progetti
 
 Seguo le istruzioni a https://docs.djangoproject.com/en/1.10/intro/tutorial01/
@@ -434,6 +440,7 @@ demo_rails/log/.keep
 
 È possibile compartimentare sotto applicazioni Rails in gemme. Un esempio è devise che ha i suoi controller, modelli, migrazioni e viste per la gestione dell'autenticazione. Poiché scrivere una gemma ha una maggior frizione di scrivere un'applicazione Django, non è molto frequente dividere un'applicazione Ruby in gemme. Se grazie a questo approccio si riusa effettivamente codice tra progetti Django, l'approccio è più conveniente.
 
+<a name="Il deploy"></a>
 # Il deploy
 
 Le applicazioni Rails fanno deploy con Capistrano, o mina che mi piace di più per la velocità.
@@ -445,6 +452,7 @@ Ancora mi chiedo se esista un modo standard per fare deploy e rollback. ```git p
 
 In realtà nulla vieta di usare Capistrano anche per Python ma è strano che non esista uno strumento nativo.
 
+<a name="Migrazioni"></a>
 # Migrazioni DRY
 
 Invece è davvero interessante come gli ORM Python cerchino di tenere DRY la modifica del DB. Si descrivono i modelli in Python in ```models/``` invece che in Ruby in ```db/migrations```. Significa avere la truth del modello in un solo file e non averla distribuita in più migrazioni non facilmente identificabili. Questo è positivo.
@@ -477,6 +485,7 @@ Web2py ha un approccio molto rischioso alle migrazioni.
 Appena un modello modificato viene eseguito, magari perché si apre la console interattiva, fa la diff tra la definizione nel modello e la tabella e crea ed esegue il codice SQL che allinea la tabella alla definizione. Si possono disabilitare e lo consiglio tantissimo. Si indica ```migrate=False``` nel costruttore DAL del database.
 
 
+<a name="Import"></a>
 # Import automatico vs esplicito
 
 In Django e Web2Py (e Java, e PHP, e ... ) si deve importare quel che serve  in ogni file. Rails importa tutto da solo. In rare occasioni Rails può dare conflitti (uno o due in 10 anni nel mio caso) mentre Django obbliga a riempire il codice di import. Idem per la shell, che così diventa un po' meno efficiente.
@@ -496,11 +505,12 @@ Anche Ruby richiede ```require``` di tutto, ma Rails risparmia fatica allo svilu
 
 Gli amici Pythonisti mi fanno notare che uno dei mantra di Python è "explicit is better than implicit", ma la coerenza non è di questo mondo. Un linguaggio esplicito come Python ha i decoratori ed uno che non disdegna essere implicito come Ruby invece non ne vuole sapere di introdurli. Nel caso di Ruby si tratterebbe di zucchero sintattico perché ci sono vari modi di crearli usando gli strumenti già presenti nel linguaggio. Ad esempio https://github.com/fredwu/ruby_decorators ne propone uno, con link ad altri due. Tuttavia un modo standard è sempre meglio che tanti l'uno diverso dall'altro. Va detto che l'esigenza non è molto sentita, forse per via dell'uso dei blocchi.
 
+<a name="Fatica"></a>
 # Fatica (TODO rivedere spostando dove ci sono esempi)
 
 In generale ho l'impressione che con Python e i suoi framework web si debba faticare di più rispetto a Ruby e Rails. Forse limitatamente ai framework web, la maggior flessibilità permette di fare più facilmente cose non standard che con Rails richiederebbero una maggior fatica, ma davvero si vuol pagare questo prezzo ogni singola volta? Mi ricorda la click fatigue di Windows e di KDE rispetto a Gnome. Il doppio dei click per lo stesso risultato.
 
-
+<a name="Templating"></a>
 # Templating
 
 Il linguaggio di templating di Django purtroppo non è Python, ma un linguaggio molto limitato con lo scopo dichiarato di costringere lo sviluppatore a preparare tutti i dati nelle view (il controller) e non angustiare il designer con codici strani per lui. La scelta è curiosa perché praticamente è l'unico posto in cui Django limita lo sviluppatore rispetto a Rails. Non ci sono sviluppatori Rails sani di mente che mettono di proposito query al db nelle viste di Rails.
@@ -538,7 +548,7 @@ Web2py invece usa Python e quindi non si può dire che si tratti di una scelta c
 
 Però copierei in Rails l'idea dei filtri, immagino come metodi da applicare ad oggetti, ma non l'ho studiata.
 
-
+<a name="init.py"></a>
 # \_\_init.py\_\_
 
 Il file ```__init.py__```, misterioso per i principianti, deve essere presente in una directory perché i file al suo interno vengano riconosciuti come package. Ogni altro linguaggio noto se la cava tranquillamente senza. Forse qui si vede l'età. Il design di Python è iniziato alla fine degli anni '80 e allora poteva sembrare una buona idea. Chi è arrivato dopo l'ha eliminato e ha fatto in altro modo. Quello a cui serve in Python è spiegato bene a http://chimera.labs.oreilly.com/books/1230000000393/ch10.html
@@ -559,10 +569,12 @@ mymodule/utils.py
 Se è presente __init__.py allora ```mymodule``` è un modulo (ha un attributo ```mymodule.__path__``` e ```mymodule.__file__```).
 Se non è presente è un namespace (non ha quegli attributi). Il contenuto può essere distribuito in più directory e Python3 ne fa il merge.
 
+<a name="Mixed"></a>
 # Mixed paradigm
 
 Python è funzionale ed object oriented, anche se a Guido Van Rossum la parte funzionale non piace molto. Non si è obbligati a dichiarare classi o a metter metodi in classi o in moduli come in Ruby. Si possono fare file di sole funzioni che poi vanno importati come moduli andando a ricreare implicitamente con il file system il nome del modulo. I file si possono spostare in altre directory e il nome del modulo cambia senza traccia né dentro al file stesso né in quelli dove è usato. Credo un male. È un linguaggio un po' disordinato...
 
+<a name="Funzioni"></a>
 # Funzioni predefinite
 
 https://docs.python.org/2/library/functions.html
@@ -612,7 +624,7 @@ a
 # ["1.2.3.0/24", "1.3.0.0/16", "2.2.4.0/24", "3.2.3.0/24", "4.2.3.0/24"]
 ```
 
-
+<a name="Iteratori"></a>
 # Iteratori
 
 Python:
@@ -654,11 +666,12 @@ for k,v in hash do
 end
 ```
 
-
+<a name="Error"></a>
 # Error reporting (TODO spostare nella parte relativa ai framework)
 
 Gli errori di Web2py sono quasi inutili. Per qualche ragione non riesce a mostrare la riga di un template in cui è avvenuto l'errore. Riporta quella del file Python in cui è tradotto il template, che serve a poco. E' carina l'autoapertura dei ticket ma in sviluppo sarebbe molto meglio vedere subito il messaggio d'errore.
 
+<a name="String"></a>
 # String join e split
 
 ```
@@ -713,8 +726,10 @@ http://download.java.net/lambda/b81/docs/api/java/util/StringJoiner.html
 Introduce però anche il metodo String.join che va ad affiancare String.split e quindi forse ne esce come inaspettato vincitore.
 https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#join-java.lang.CharSequence-java.lang.Iterable-
 
+<a name="Fatiche"></a>
 # Fatiche di sintassi
 
+<a name="I"></a>
 ## I due punti
 
 ```
@@ -737,6 +752,7 @@ Sono pure meno visibili di una ```{```, anche perché si tendono a scrivere atta
 
 Mi piacerebbe una PEP per renderli opzionali.
 
+<a name="La"></a>
 ## La spaziatura
 
 A tutti sarà capitato almeno una volta
@@ -759,6 +775,7 @@ Ah, uno spazio "invisibile" a inizio linea nel ```def match_version```, eredità
 
 Altra situazione, quando si copia codice dall'editor alla console interattiva è molto più rapido copiare tutta la linea inclusi gli spazi all'inizio. Peccato che si vada in errore. O si perde tempo a fare un copia e incolla preciso oppure si installa iPython ```pip install ipython```. Ma se occorre un extra per risolvere un problema del linguaggio vuol dire che il design iniziale non era buono. Per contro ```gem install pry``` aggiunge molte cose interessanti a ```irb```, ma si vive anche senza.
 
+<a name="do end"></a>
 ## do end
 
 Venendo da C e Java 12 anni fa ```do``` ```end``` mi facevano abbastanza schifo (si può scrivere?). Poi ci si abitua ma non tutto quello a cui ci si abitua fa bene (vedi rumore, inquinamento, etc). In realtà ```do``` si usa relativamente poco. Quel che affatica è ```end```.
@@ -795,6 +812,7 @@ Python obbliga lo sviluppatore ad indentare. Questa critica è sollevata da molt
 Mi è capitato di recente di sistemare una decina di righe Python tra cui un ```if else```, cambiando i livelli di indentazione. Alla fine non ero sicuro se l'ultima riga dell'```else``` in origine fosse dentro o fuori l'```else```. L'avevo già spostata a sinistra o no? Ho dovuto salvare e fare un ```git diff``` per scoprirlo. Un linguaggio con graffe o ```end``` non dà di questi problemi.
 
 
+<a name="parentesi"></a>
 ## {{ }} e {% %}
 
 Il linguaggio di templating di Django usa ```{{ value }}```  per generare HTML e ```{% tag %}``` per comandi e templatetag (gli helper di Rails, organizzati meglio in Django).
@@ -803,6 +821,7 @@ Quando si passa da una all'altra ci sono due punti da modificare, a inizio e fin
 Con ERB ```<%= value %>``` ```<% block %>``` si fa una sola modifica e complessivamente si risparmia tempo perché il carattere extra ERB si recupera subito con i tanti tasti freccia schiacciati in meno.
 
 
+<a name="Chiavi"></a>
 ## Chiavi stringa negli hash Ruby / dict Python
 
 Questo è meglio in Python, perché in Ruby si devono usare le frecce ```=>```
@@ -906,6 +925,7 @@ Peggio anche perché creare una ```OpenStruct``` invalida la cache dei metodi
 https://github.com/charliesome/charlie.bz/blob/master/posts/things-that-clear-rubys-method-cache.md
 Se lo dovete fare fatelo solo quando l'applicazione parte non ad esempio ad ogni chiamata di una URL.
 
+<a name="Switch"></a>
 ## Switch / case
 
 Python non ce l'ha e quindi si trovano alle volte blocchi di 100 linee come queste
@@ -998,6 +1018,7 @@ end
 Un difetto di Ruby? Avrebbe potuto usare ```switch``` e ```case``` come gli altri linguaggi.
 
 
+<a name="Pipe"></a>
 ## Pipe
 
 ```
@@ -1034,6 +1055,7 @@ end
 Di certo nella forma breve non ci sono problemi.
 
 
+<a name="Operatore"></a>
 ## Operatore ternario
 
 Forse per mantenere consistenza con lo stile discorsivo degli operatori booleani ```and or not``` Python (solo dalla 2.5) ha introdotto questo operatore ternario
@@ -1051,6 +1073,7 @@ condition ? a : b
 Da un lato apprezzo la consistenza dello stile, dall'altro non approvo il render difficile la vita allo sviluppatore.
 Inoltre forse è arrivato un po' tardi perché un paio di mesi fa lo sviluppatore Python a capo di uno dei progetti che seguo mi aveva detto che Python non ha un operatore ternario. Quando si impara che una cosa non esiste, poi non la si cerca più.
 
+<a name="Blocchi"></a>
 # Blocchi
 
 Il passaggio di blocchi a metodi caratterizza profondamente Ruby. Python ha qualcosa di simile con ```with```
@@ -1076,6 +1099,7 @@ end
 ```with as``` si mappa quasi 1:1 sul ```do |f|``` di Ruby e ```for in``` (che esiste anche in Ruby) è l'equivalente di ```each |line|```.
 
 
+<a name="do while"></a>
 ## L'orribile do while Ruby
 
 Non è possibile che un linguaggio non abbia un ```do while``` e costringa a scrivere codice come questo.
@@ -1089,6 +1113,7 @@ end
 
 Si faceva di peggio solo in BASIC sugli home computer negli anni '80.
 
+<a name="Bizzarrie"></a>
 ## Bizzarrie rubiche
 
 Ricordo che come principiante Ruby ero molto perplesso di dover usare il raro ```begin ... end```, il non così raro ```=begin =end``` e i sigil ```@``` ```@@``` ```$```.
@@ -1098,6 +1123,7 @@ Il commento multilinea di Ruby è una mostruosità. È normale che un linguaggio
 I sigil sono un po' strani. Non so come, ma Java riesce a farne a meno. In caso di ambiguità si deve usare ```self```, che ha anche Ruby. Java dichiara le variabili prima, ma usare ```attr``` non è cattiva pratica neppure in Ruby. Forse sono una di quelle cose di cui Matz diceva "there were many things that were borrowed from Perl - nowadays I think many of them weren’t necessary".
 
 
+<a name="Stile"></a>
 # Stile
 
 La raccomandazione di usare la notazione arg=valore senza spazi per i keyword argument e i parametri di default è cattiva perché confonde ed involontariamente provoca la scrittura di codice come questo
@@ -1173,6 +1199,7 @@ Rails se la cava semplicemente accorgendosi che ```doc_ids``` è un array e quin
 
 Altri due ORM Python, SQLAlchemy e peewee, non usano underscore semantici.
 
+<a name="Eccezioni"></a>
 ## Eccezioni
 
 Eccezioni, per una volta preferisco la sintassi di Python, a parte i due punti
@@ -1205,7 +1232,7 @@ loop do
 end
 ```
 
-
+<a name="La virgola"></a>
 ## La virgola che non si vede
 
 ```
@@ -1230,6 +1257,7 @@ Inoltre possono avere dei metodi. Sono delle specie di classi.
 http://ruby-doc.org/core-2.4.0/Struct.html
 
 
+<a name="Logging"></a>
 # Logging
 
 Il setup del logging è incredibilmente complicato. Con Web2py non ho ancora capito come si fa a fare logging da un controller. Questo non fa nulla.
@@ -1247,6 +1275,7 @@ Da console python invece funziona e anche in Django va. I framework web invoglia
 Anche Ruby ha i suoi logger, e non sono tanto più semplici. Eppure Rails va avanti da sempre con un solo file di log globale. Se proprio si vuole se ne possono creare altri, ma nessuno lo fa se non in casi particolari. Django complica un affare semplice e fa perdere tempo. Avrebbero dovuto includere un logger globale in ogni view. Forse non lo fa per via del design di base del framework. Le view avrebbero dovuto essere classi derivate da una stessa classe di base, che gestisce il logger. Django invece di base è un insieme di funzioni.
 
 
+<a name="Pretty"></a>
 # Pretty printing
 
 Questo è un hack eppure pare che non si possa fare di meglio.
@@ -1265,6 +1294,7 @@ records = Model.order("field")
 p records[0] # o puts records[0].inspect
 ```
 
+<a name="Un problema"></a>
 # Un problema di design
 
 Il colpevole è Web2py, ma l'insegnamento è generale.
@@ -1304,12 +1334,14 @@ con solo una occasione in cui sbagliare il nome della tabella. Personale prefere
 
 Lesson learned: mai al programmatore l'occasione di sbagliare. La coglierà :-)
 
+<a name="Unicode"></a>
 # Unicode
 
 Meglio non parlarne perché con Python 3 il problema è risolto. Chi deve continuare a lavorare con Python 2 ogni tanto soffre.
 Di Ruby 1.8 si sono quasi perse le tracce.
 
 
+<a name="Interpolazione"></a>
 # Interpolazione di stringhe
 
 La forma Python
@@ -1360,12 +1392,14 @@ Ancora una volta mi sembra una complicazione non necessaria.
 A prima vista però i parametrized formats https://pyformat.info/#param_align sembrano avere qualcosa di più di http://ruby-doc.org/core-2.4.0/Kernel.html#method-i-sprintf
 
 
+<a name="Hot"></a>
 # Hot reload
 
 Django fa un restart quando si salva un file. È veloce ma spesso il reload dello sviluppatore è più veloce ancora e si ha un errore e si deve ricaricare una seconda volta. Meglio il comportamento di Rails che resta appeso fino al reload (o lo fa ogni volta?) senza dare errori. Anche Web2py non dà problemi.
 Django inoltre pare consumare CPU mentre sta in attesa, forse proprio per tener d'occhio i file e ricaricare. Rails e Web2Py non hanno problemi. Abbatte la batteria e fa girare un po' la ventola.
 
 
+<a name="Simboli"></a>
 # Simboli
 
 Python non ha i simboli e quindi bisogna definire costanti anche se non ci interessa il loro valore.
@@ -1394,6 +1428,7 @@ che ci riporta alla definizione di costanti. Se non altro sono compartimentati i
 Dal codice Python che ho visto non c'è però un gran bisogno di usare simboli. In Ruby si usano spesso come chiavi di hash o per il passaggio di argomenti, ma Python ha altri meccanismi per quegli scenari.
 
 
+<a name="Keyword"></a>
 # Keyword arguments
 
 In Python si usano keyword arguments molto più che in Ruby, forse perché in Ruby siamo stati abituati a simularli usando hash di opzioni e pochi li stanno usando ora che ci sono (Ruby 2.0, 4 anni fa)
@@ -1454,6 +1489,7 @@ funzione(1)
 funzione(1, arg2=2, arg3=2)
 ```
 
+<a name="yield"></a>
 # yield
 
 Stesso nome per due funzionalità molto diverse.
@@ -1611,6 +1647,7 @@ end
 fn(2) {|x| x + 1}
 ```
 
+<a name="WAT"></a>
 # WAT
 
 Ruby
@@ -1623,8 +1660,10 @@ Python
 https://youtu.be/sH4XF6pKKmk
 https://github.com/cosmologicon/pywat
 
+<a name="Le"></a>
 # Le basi
 
+<a name="Truthy"></a>
 ## Truthy e falsy
 
 In Python sono falsy ```None```,  ```False``` e, sopresa per chi viene da Ruby, ```0``` (di ogni tipo numerico), ogni sequenza vuota (```''```, ```()```, ```[]```), ogni map vuoto (```{}```), ogni oggetto di una classe che definisca dei  ```__nonzero__()``` o ```__len__()``` che ritornino ```0``` o ```False```.
@@ -1634,6 +1673,7 @@ In Ruby sono falsy ```nil``` e ```false```. Tutto il resto è truthy, con sorpre
 https://docs.python.org/2/library/stdtypes.html#truth-value-testing
 https://gist.github.com/jfarmer/2647362
 
+<a name="Boolean"></a>
 ## Boolean
 
 Ruby usa la sintassi C per gli operatori booleani con il comportamento che ci si aspetta ```&& || !``` e una sintassi "umana" per quelli con un comportamento sorprendente ```and or not```. Gli ultimi vengono da Perl e in realtà non sono operatori booleani (alla faccia del principio di least surprise).
@@ -1693,6 +1733,7 @@ Dettagli a
 
 Python usa ```and or not``` come operatori logici e non ci sono sorprese. Vince Python, anche per la praticità di scrittura.
 
+<a name="Strutture"></a>
 ## Strutture dati di base
 
 Python ha liste, tuple, range, set, dict.
@@ -1757,6 +1798,7 @@ Ruby
 [[0, 0], [1, 1], [2, 4], [3, 9], [4, 16], [5, 25]]
 ```
 
+<a name="Mutabilità"></a>
 # Mutabilità e stringhe
 
 Le strutture dati Ruby sono mutabili, a meno che non venga invocato il metodo ```freeze``` su un oggetto.
@@ -1787,6 +1829,7 @@ A proposito dei mali della mutabilità:
 * ecco una vulnerabilità a cui ci si può esporre con stringhe mutabili
   http://stackoverflow.com/questions/15274874/how-does-java-string-being-immutable-increase-security
 
+<a name="comprehension"></a>
 # comprehension, filter, map, reduce
 
 Dove Ruby di solito itera su array con ```each``` o ```map```, Python usa la list comprehension.
