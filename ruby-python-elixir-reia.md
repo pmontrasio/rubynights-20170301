@@ -4,59 +4,59 @@ Licensed under the Creative Commons Attribution-ShareAlike 4.0 International (CC
 
 (sequenza da ristrutturare)
 
-* [Introduzione](#introduzione)
-* Età ed eredità
-* La storia di questo documento
-* Ringraziamenti
-* Molte opinioni vs poche opinioni
-    * Il routing
-    * MVC vs MVT
-    * Admin
-    * ORM
-* I default
-* Creazione progetti
-* Il deploy
-* Migrazioni DRY
-* Import automatico vs esplicito
-* Fatica (TODO rivedere spostando dove ci sono esempi)
-* Templating
-* \_\_init.py\_\_
-* Mixed paradigm
-* Funzioni predefinite
-* Iteratori
-* Error reporting (TODO spostare nella parte relativa ai framework)
-* String join e split
-* Fatiche di sintassi
-  * I due punti
-  * La spaziatura
-  * do end
-  * {{ }} e {% %}
-  * Chiavi stringa negli hash Ruby / dict Python
-  * Switch / case
-  * Pipe
-  * Operatore ternario
-* Blocchi
-  * L'orribile do while Ruby
-  * Bizzarrie rubiche
-* Stile
-  * Eccezioni
-  * La virgola che non si vede
-* Logging
-* Pretty printing
-* Un problema di design
-* Unicode
-* Interpolazione di stringhe
-* Hot reload
-* Simboli
-* Keyword arguments
-* yield
-* WAT
-* Le basi
-  * Truthy e falsy
-  * Boolean
-  * Strutture dati di base
-* Mutabilità e stringhe
-* comprehension, filter, map, reduce
+* [[Introduzione](#introduzione)](#introduzione)
+* [Età ed eredità](#Età)
+* [La storia di questo documento](#La storia)
+* [Ringraziamenti](#Ringraziamenti)
+* [Molte opinioni vs poche opinioni](#Molte opinioni)
+  * [Il routing](#Il routing)
+  * [MVC vs MVT](#MVC)
+  * [Admin](#Admin)
+  * [ORM](#ORM)
+* [I default](#I default)
+* [Creazione progetti](#Creazione)
+* [Il deploy](#Il deploy)
+* [Migrazioni DRY](#Migrazioni)
+* [Import automatico vs esplicito](#Import)
+* [Fatica (TODO rivedere spostando dove ci sono esempi)](#Fatica)
+* [Templating](#Templating)
+* [\_\_init.py\_\_](#init.py)
+* [Mixed paradigm](#Mixed)
+* [Funzioni predefinite](#Funzioni)
+* [Iteratori](#Iteratori)
+* [Error reporting (TODO spostare nella parte relativa ai framework)](#Error)
+* [String join e split](#String)
+* [Fatiche di sintassi](#Fatiche)
+  * [I due punti](#I due punti)
+* [La spaziatura](#La spaziatura)
+  * [do end](#do end)
+  * [{{ }} e {% %}](#parentesi)
+  * [Chiavi stringa negli hash Ruby / dict Python](#Chiavi)
+  * [Switch / case](#Switch)
+  * [Pipe](#Pipe)
+  * [Operatore ternario](#Operatore)
+* [Blocchi](#Blocchi)
+  * [L'orribile do while Ruby](#L'orribile)
+  * [Bizzarrie rubiche](#Bizzarrie)
+* [Stile](#Stile)
+  * [Eccezioni](#Eccezioni)
+  * [La virgola che non si vede](#La)
+* [Logging](#Logging)
+* [Pretty printing](#Pretty)
+* [Un problema di design](#Un)
+* [Unicode](#Unicode)
+* [Interpolazione di stringhe](#Interpolazione)
+* [Hot reload](#Hot)
+* [Simboli](#Simboli)
+* [Keyword arguments](#Keyword)
+* [yield](#yield)
+* [WAT](#WAT)
+* [Le basi](#Le basi)
+  * [Truthy e falsy](#Truthy)
+  * [Boolean](#Boolean)
+  * [Strutture dati di base](#Strutture)
+* [Mutabilità e stringhe](#Mutabilità)
+* [comprehension, filter, map, reduce](#comprehension)
 
 <a name=Introduzione></a>
 # Introduzione
@@ -92,6 +92,7 @@ Per tacere del fatto che se anche lo fosse non è detto che sia un obiettivo rag
 
 Dopo trent'anni di sviluppo di software ormai mi sono fatto un'idea di cosa funzioni meglio e di cosa funzioni peggio. Diamo uno sguardo a Ruby e Python 2 (ho poca esperienza del 3) e cerchiamo di capirne pregi e difetti. Poi vedremo qualcosa di Elixir e di Reia, un tentativo abortito di linguaggio che avrebbe potuto risolvere tanti problemi.
 
+<a name=Età></a>
 # Età ed eredità
 
 Python. Implementazione iniziata nel dicembre dell'1989. Prima release febbraio 1991. Guido Van Rossum si è ispirato al linguaggio ABC a cui aveva lavorato all'inizio degli anni '80. In un'intervista fa due osservazioni interessanti a proposito delle ragioni che hanno decretato l'insuccesso di ABC
@@ -115,6 +116,7 @@ In pratica ora disegnerebbe Ruby in modo diverso ma all'epoca farlo somigliare u
 http://fredwu.me/post/36493181321/an-interview-with-yukihiro-matz-matsumotohttp://fredwu.me/post/36493181321/an-interview-with-yukihiro-matz-matsumoto
 https://en.wikipedia.org/wiki/Ruby_(programming_language)
 
+<a name=La storia></a>
 # La storia di questo documento
 
 È soprattutto un confronto tra Ruby e Python. È nato come un insieme disordinato di appunti presi mentre iniziavo ad usare Flask, Django e Web2Py venendo da 10 anni di Rails. Li ho riordinati per una presentazione a Ruby Nights, il gruppo dei rubisti di Milano. Per non farlo diventare una sterile battaglia Ruby contro Python decisa in anticipo dal "campo di battaglia" e dal mio passato di sviluppatore, insieme agli organizzatori di Ruby Nights abbiamo coinvolto la community Python di Milano. Leggendo i miei appunti hanno sollevato molte obiezioni e mi hanno portato a studiare di più Python e in certi casi anche Ruby. Questo documento di sicuro conserva la traccia delle mie preferenze, ma spero che ora sia molto più equilibrato. È stato un percorso di apprendimento interessante che passa per i framework web dei due linguaggi (è innegabile che Ruby si usi soprattutto per Rails) e arriva ad Elixir, un linguaggio ispirato a Ruby con una digressione su Reia, un altro linguaggio ispirato a Ruby che avrebbe meritato miglior sorte.
@@ -122,6 +124,7 @@ https://en.wikipedia.org/wiki/Ruby_(programming_language)
 https://www.meetup.com/Ruby-Nights-Milano/
 https://www.meetup.com/Python-Milano/
 
+<a name="Ringraziamenti"></a>
 # Ringraziamenti
 
 E prima di iniziare i ringraziamenti.
@@ -140,6 +143,7 @@ Python Milano, per le issue aperte su questo documento, le spiegazioni su Python
 
 Invito anche a leggere tutte le issue https://github.com/pmontrasio/rubynights-20170301/issues che il gruppo Python ha aperto sul documento originale. Contengono molte annotazioni e spunti interessanti che è stato possibile riportare qui solo in parte.
 
+<a name="Molte opinioni"></a>
 # Molte opinioni vs poche opinioni
 
 Da più di 10 anni lavoro con Rails che sposa la filosofia "convention over configuration" ed ha opinioni forti su come vanno organizzati progetto, database, sorgenti, fino ad imporre delle naming convention a cui ci si può sottrarre solo faticando un po'. Django lascia gli sviluppatori molto liberi e si impone poco. Web2py si impone ancor di meno, anche se ha delle componenti preconfezionate per la gestione dei form. Non usandole si perde forse il più grande vantaggio di questo framework, usandole ci si lega molto anche alle scelte di layout di Web2py.
