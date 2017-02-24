@@ -4,15 +4,15 @@ Licensed under the Creative Commons Attribution-ShareAlike 4.0 International (CC
 
 (sequenza da ristrutturare)
 
-* Introduzione
+* [Introduzione](#introduzione)
 * Età ed eredità
 * La storia di questo documento
 * Ringraziamenti
 * Molte opinioni vs poche opinioni
-** Il routing
-** MVC vs MVT
-** Admin
-** ORM
+    * Il routing
+    * MVC vs MVT
+    * Admin
+    * ORM
 * I default
 * Creazione progetti
 * Il deploy
@@ -20,27 +20,27 @@ Licensed under the Creative Commons Attribution-ShareAlike 4.0 International (CC
 * Import automatico vs esplicito
 * Fatica (TODO rivedere spostando dove ci sono esempi)
 * Templating
-* __init.py__
+* \_\_init.py\_\_
 * Mixed paradigm
 * Funzioni predefinite
 * Iteratori
 * Error reporting (TODO spostare nella parte relativa ai framework)
 * String join e split
 * Fatiche di sintassi
-** I due punti
-** La spaziatura
-** do end
-** {{ }} e {% %}
-** Chiavi stringa negli hash Ruby / dict Python
-** Switch / case
-** Pipe
-** Operatore ternario
+  * I due punti
+  * La spaziatura
+  * do end
+  * {{ }} e {% %}
+  * Chiavi stringa negli hash Ruby / dict Python
+  * Switch / case
+  * Pipe
+  * Operatore ternario
 * Blocchi
-** L'orribile do while Ruby
-** Bizzarrie rubiche
+  * L'orribile do while Ruby
+  * Bizzarrie rubiche
 * Stile
-** Eccezioni
-** La virgola che non si vede
+  * Eccezioni
+  * La virgola che non si vede
 * Logging
 * Pretty printing
 * Un problema di design
@@ -52,13 +52,13 @@ Licensed under the Creative Commons Attribution-ShareAlike 4.0 International (CC
 * yield
 * WAT
 * Le basi
-** Truthy e falsy
-** Boolean
-** Strutture dati di base
+  * Truthy e falsy
+  * Boolean
+  * Strutture dati di base
 * Mutabilità e stringhe
 * comprehension, filter, map, reduce
 
-
+<a name=Introduzione></a>
 # Introduzione
 
 https://www.theguardian.com/world/2017/jan/10/xiaolu-guo-why-i-moved-from-beijing-to-london
@@ -241,7 +241,7 @@ usato così
 
 ```
  <a href="{% url 'detail' id %}" target="_blank" rel="noopener noreferrer">{{ label }}</a>
- ```
+```
 
 oltre che http://www.django-rest-framework.org/
 
@@ -535,7 +535,7 @@ Web2py invece usa Python e quindi non si può dire che si tratti di una scelta c
 Però copierei in Rails l'idea dei filtri, immagino come metodi da applicare ad oggetti, ma non l'ho studiata.
 
 
-# __init.py__
+# \_\_init.py\_\_
 
 Il file ```__init.py__```, misterioso per i principianti, deve essere presente in una directory perché i file al suo interno vengano riconosciuti come package. Ogni altro linguaggio noto se la cava tranquillamente senza. Forse qui si vede l'età. Il design di Python è iniziato alla fine degli anni '80 e allora poteva sembrare una buona idea. Chi è arrivato dopo l'ha eliminato e ha fatto in altro modo. Quello a cui serve in Python è spiegato bene a http://chimera.labs.oreilly.com/books/1230000000393/ch10.html
 L'idioma corrispondente Ruby è la creazione di una base class che importa i file nelle sotto directory. Un esempio piuttosto esteso è dato da https://github.com/rails/rails/blob/master/activerecord/lib/active_record.rb
@@ -698,7 +698,7 @@ Python
 
 Ruby
 
-```(1..20).to_a.join(",").to_s
+```(1..20).to_a.join(&quot;,&quot;).to_s
 # "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"
 ```
 
@@ -1527,7 +1527,7 @@ def firstn(n)
 end
 firstn(3)
 #<Enumerator: #<Enumerator::Generator:0x00000000cace98>:each>
- ```
+```
 
 Adesso
 
@@ -1778,10 +1778,10 @@ Una stringa immutabile è praticamente identica ai simboli. Avendo già i simbol
 A proposito dei mali della mutabilità:
 
 * ecco un bug dell'interprete introdotto (ma poi risolto) proprio per venire a patti con la mutabilità degli array.
-http://accidentallyquadratic.tumblr.com/post/157496054437/ruby-reject
+  http://accidentallyquadratic.tumblr.com/post/157496054437/ruby-reject
 
 * ecco una vulnerabilità a cui ci si può esporre con stringhe mutabili
-http://stackoverflow.com/questions/15274874/how-does-java-string-being-immutable-increase-security
+  http://stackoverflow.com/questions/15274874/how-does-java-string-being-immutable-increase-security
 
 # comprehension, filter, map, reduce
 
