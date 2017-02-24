@@ -4,7 +4,7 @@ Licensed under the Creative Commons Attribution-ShareAlike 4.0 International (CC
 
 (sequenza da ristrutturare)
 
-* [[Introduzione](#introduzione)]
+* [Introduzione](#introduzione)
 * [Età ed eredità](#Età)
 * [Premessa](#Premessa)
 * [Ringraziamenti](#Ringraziamenti)
@@ -62,27 +62,29 @@ Licensed under the Creative Commons Attribution-ShareAlike 4.0 International (CC
 <a name=Introduzione></a>
 # Introduzione
 
-https://www.theguardian.com/world/2017/jan/10/xiaolu-guo-why-i-moved-from-beijing-to-london
+2017-03-01
 
-my grammar book said: “Peter had been painting his house for weeks, but he finally gave up.”
-[...]  the word order “had been” and the added flourishes like “ing” [...] were bizarre decorations that did nothing but obscure a simple, strong building. My instinct was to say something like: “Peter tries to paint his house, but sadness overwhelms him, causing him to lay down his brushes and give up his dream.
+Qualche settimana in [un articolo del Guardian](https://www.theguardian.com/world/2017/jan/10/xiaolu-guo-why-i-moved-from-beijing-to-london) ho letto la storia dei primi anni a Londra di una scrittrice cinese. Ricordando quando stava studiando una lingua molto diversa dalla sua, scrive:
 
-https://www.theguardian.com/books/2016/oct/13/my-writing-day-xiaolu-guo
-Xiaolu Guo: ‘One language is not enough – I write in both Chinese and English’
+> my grammar book said: “Peter had been painting his house for weeks, but he finally gave up.”
 
-http://syndication.theguardian.com/open-licence-terms/
-100 parole
- “Courtesy of Guardian News & Media Ltd”.
+In cinese c'è solo un modo verbale e si aggiungono avverbi per indicare passato e futuro ("domani vado a lavorare")
 
-L'aneddoto di Asimov ed il critico letterario.
+> [...]  the word order “had been” and the added flourishes like “ing” [...] were bizarre decorations that did nothing but obscure a simple, strong building. My instinct was to say something like: “Peter tries to paint his house, but sadness overwhelms him, causing him to lay down his brushes and give up his dream.
 
-http://wiki.c2.com/?AsimovAndTheCritic
-Speaker: Sir, I am an English professor who has been teaching literature for years. What makes you think you know more about it than I?
-Asimov: Because I, sir, am the story's author.
-Speaker: So? Just because you wrote it, what makes you think you know anything about it?
+*“Courtesy of Guardian News & Media Ltd”* [open licence](http://syndication.theguardian.com/open-licence-terms/)
 
-La lingua inglese del primo esempio è un linguaggio a cui vi state avvicinando ed il cinese è uno che avete usato da anni e che conoscete alla perfezione.
-L'autore del secondo esempio è il designer del linguaggio ed il critico è chi sviluppa software da anni usando quello ed altri linguaggi.
+Quando studiamo un nuovo linguaggio di programmazione alle volte abbiamo frustrazioni simili. Quel che ci era facile in una lingua conosciuta ci è difficile in quella nuova e fatichiamo a trovare una giustificazione per le strane scelte del suo designer, ovviamente sbagliate e prese con il solo scopo di intralciarci ;-)
+
+C'è poi un [aneddoto](http://wiki.c2.com/?AsimovAndTheCritic) che vede il famoso scrittore di fantascienza Isaac Asimov alle prese con un critico letterario.
+
+> Speaker: Sir, I am an English professor who has been teaching literature for years. What makes you think you know more about it than I?
+> Asimov: Because I, sir, am the story's author.
+> Speaker: So? Just because you wrote it, what makes you think you know anything about it?
+
+*wiki.c2.com (il wiki originale)*
+
+Asimov fa le veci del designer del linguaggio ed il critico è chi sviluppa software da anni usando quello ed altri linguaggi.
 
 Credo che abbiamo fatto tutti l'esperienza di dire qualcosa aspettandoci che venga capita in un certo modo e invece viene capito tutt'altro.  Chi crea i linguaggi si imbatte nello stesso problema. Fa scelte finalizzate ad uno scopo, ma:
 
@@ -102,8 +104,8 @@ Python. Implementazione iniziata nel dicembre dell'1989. Prima release febbraio 
 > * unconventional terminology intended to make beginners more comfortable but instead threw off more experienced users
 
 [http://www.onlamp.com/pub/a/python/2002/06/04/guido.html](http://www.onlamp.com/pub/a/python/2002/06/04/guido.html)
-https://en.wikipedia.org/wiki/History_of_Python
-https://en.wikipedia.org/wiki/ABC_(programming_language)
+[https://en.wikipedia.org/wiki/History_of_Python](https://en.wikipedia.org/wiki/History_of_Python)
+[https://en.wikipedia.org/wiki/ABC_(programming_language)](https://en.wikipedia.org/wiki/ABC_(programming_language)
 
 Ruby. Progettazione iniziata il 24 febbraio 1993. Prima release il 21 dicembre 1995.
 Ruby è ispirato a Smaltalk e a Perl. È interessante come per certi versi Matz confermi il secondo dei pensieri di Van Rossum
@@ -152,12 +154,17 @@ Invito anche a leggere tutte le issue https://github.com/pmontrasio/rubynights-2
 ## \_\_init.py\_\_
 
 Il file ```__init.py__```, misterioso per i principianti, deve essere presente in una directory perché i file al suo interno vengano riconosciuti come package. Ogni altro linguaggio noto se la cava tranquillamente senza. Forse qui si vede l'età. Il design di Python è iniziato alla fine degli anni '80 e allora poteva sembrare una buona idea. Chi è arrivato dopo l'ha eliminato e ha fatto in altro modo. Quello a cui serve in Python è spiegato bene a http://chimera.labs.oreilly.com/books/1230000000393/ch10.html
+
 L'idioma corrispondente Ruby è la creazione di una base class che importa i file nelle sotto directory. Un esempio piuttosto esteso è dato da https://github.com/rails/rails/blob/master/activerecord/lib/active_record.rb
+
 Come si vede non è necessario dare nomi criptici ai file per ottenere lo stesso risultato.
+
 Va detto che ```locate __init.py__ | grep directory/de/progetto``` trova istantaneamente tutti i moduli.
+
 La differenza fondamentale però è che Ruby non ha il concetto di package, ma solo quello di modulo. In effetti ad un Rubysta non è per nulla chiaro perché debba esistere il concetto di package dato che è sufficiente avere i moduli. Per contro Ruby è esplicito nel dichiarare moduli, usando ```module Name ... end```.
 
 Mi segnalano, ma non ho toccato con mano, che dalla 3.3 ```__init__.py``` non è più realmente indispensabile.
+
 Data questa struttura
 
 ```
@@ -166,7 +173,7 @@ mymodule/__init__.py
 mymodule/utils.py
 ```
 
-Se è presente __init__.py allora ```mymodule``` è un modulo (ha un attributo ```mymodule.__path__``` e ```mymodule.__file__```).
+Se è presente ```__init__.py``` allora ```mymodule``` è un modulo (ha un attributo ```mymodule.__path__``` e ```mymodule.__file__```).
 Se non è presente è un namespace (non ha quegli attributi). Il contenuto può essere distribuito in più directory e Python3 ne fa il merge.
 
 <a name="Mixed"></a>
@@ -341,10 +348,13 @@ a
 Quindi qualsiasi oggetto con un metodo ```__iter__``` può essere ordinato con la funzione sort.
 
 Venendo da Ruby non si capisce la necessità di avere metodo e funzione separati.
+
 In Ruby una classe che vuole essere ordinabile farebbe un mixin con Enumerable, definirebbe un metodo sort che chiamerebbe quello di Enumerable passandogli il blocco che implementa il confronto tra due elementi. Quel codice va scritto comunque, sia in Ruby che in Python.
+
 Venendo da Python invece non si capisce perché ogni classe debba definire il proprio metodo sort, dandogli potenzialmente nomi diversi e causando fraintendimenti. Python ha un meccanismo del linguaggio per dare più ordine (pun intented). In Ruby non funzionerebbe per la mancanza di funzioni. Bisognerebbe avere metodi predefiniti di Kernel o di Object da sovrascrivere.
 
 Il metodo ```sort``` di array in Ruby non modifica l'array. Lo modifica ```sort!```
+
 La convenzione è usare un ```!``` nel nome dei metodi che modificano l'oggetto su cui vengono chiamati.
 
 ```
