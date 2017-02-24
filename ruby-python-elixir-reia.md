@@ -4,59 +4,59 @@ Licensed under the Creative Commons Attribution-ShareAlike 4.0 International (CC
 
 (sequenza da ristrutturare)
 
-# Introduzione
-# Età ed eredità
-# La storia di questo documento
-# Ringraziamenti
-# Molte opinioni vs poche opinioni
-## Il routing
-## MVC vs MVT
-## Admin
-## ORM
-# I default
-# Creazione progetti
-# Il deploy
-# Migrazioni DRY
-# Import automatico vs esplicito
-# Fatica (TODO rivedere spostando dove ci sono esempi)
-# Templating
-# __init.py__
-# Mixed paradigm
-# Funzioni predefinite
-# Iteratori
-# Error reporting (TODO spostare nella parte relativa ai framework)
-# String join e split
-# Fatiche di sintassi
-## I due punti
-## La spaziatura
-## do end
-## {{ }} e {% %}
-## Chiavi stringa negli hash Ruby / dict Python
-## Switch / case
-## Pipe
-## Operatore ternario
-# Blocchi
-## L'orribile do while Ruby
-## Bizzarrie rubiche
-# Stile
-## Eccezioni
-## La virgola che non si vede
-# Logging
-# Pretty printing
-# Un problema di design
-# Unicode
-# Interpolazione di stringhe
-# Hot reload
-# Simboli
-# Keyword arguments
-# yield
-# WAT
-# Le basi
-## Truthy e falsy
-## Boolean
-## Strutture dati di base
-# Mutabilità e stringhe
-# comprehension, filter, map, reduce
+* Introduzione
+* Età ed eredità
+* La storia di questo documento
+* Ringraziamenti
+* Molte opinioni vs poche opinioni
+** Il routing
+** MVC vs MVT
+** Admin
+** ORM
+* I default
+* Creazione progetti
+* Il deploy
+* Migrazioni DRY
+* Import automatico vs esplicito
+* Fatica (TODO rivedere spostando dove ci sono esempi)
+* Templating
+* __init.py__
+* Mixed paradigm
+* Funzioni predefinite
+* Iteratori
+* Error reporting (TODO spostare nella parte relativa ai framework)
+* String join e split
+* Fatiche di sintassi
+** I due punti
+** La spaziatura
+** do end
+** {{ }} e {% %}
+** Chiavi stringa negli hash Ruby / dict Python
+** Switch / case
+** Pipe
+** Operatore ternario
+* Blocchi
+** L'orribile do while Ruby
+** Bizzarrie rubiche
+* Stile
+** Eccezioni
+** La virgola che non si vede
+* Logging
+* Pretty printing
+* Un problema di design
+* Unicode
+* Interpolazione di stringhe
+* Hot reload
+* Simboli
+* Keyword arguments
+* yield
+* WAT
+* Le basi
+** Truthy e falsy
+** Boolean
+** Strutture dati di base
+* Mutabilità e stringhe
+* comprehension, filter, map, reduce
 
 
 # Introduzione
