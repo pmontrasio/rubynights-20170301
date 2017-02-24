@@ -8,6 +8,7 @@ Licensed under the Creative Commons Attribution-ShareAlike 4.0 International (CC
 * [Età ed eredità](#Età)
 * [La storia di questo documento](#La storia)
 * [Ringraziamenti](#Ringraziamenti)
+
 * [Molte opinioni vs poche opinioni](#Molte opinioni)
   * [Il routing](#Il routing)
   * [MVC vs MVT](#MVC)
@@ -233,7 +234,7 @@ In Rails al file ```app/views/console/editproject_everything.html.erb``` avrebbe
 
 In realtà Rails ti avrebbe invitato a progettare un controller ```console``` con azioni restful e quindi ci sarebbe stato un altro controller ```projects``` con dentro una ```def edit_everything``` o meglio ancora una semplice ```def edit```. Il controller sarebbe stato generato dallo scaffolder e riempito di codice dallo sviluppatore. Più ordinato. Non è una coincidenza che non abbia mai visto progetto Rails con tutte le action in un unico controller.
 
-Gli amici Pythonisti mi danno l'ottima notizia che ora esistono le class based views:
+Gli amici Pythonisti mi danno l'ottima notizia che ora esistono le class based views (ricordate che le views Django sono i controller Rails)
 
 * https://docs.djangoproject.com/en/1.10/topics/class-based-views/
 * https://github.com/brack3t/django-braces
@@ -251,6 +252,9 @@ usato così
 oltre che http://www.django-rest-framework.org/
 
 per cui questi problemi potrebbero essere già scomparsi. Una costante degli ultimi 10 anni è la cross-contamination di tutti i framework web.
+
+Django e Web2Py hanno dei default che invogliano ad avere un solo controller, la ```app_name/views.py``` di Django e il ```app_name/controllers/default.py``` di Web2py e questo è male. Sarà un caso ma mi sono sempre trovato di fronte a controller di 1000 o 2000 righe. Inducono il principiante in errore e quando arriva uno sviluppatore più esperto il cliente non ha soldi per il refactoring ma solo per le funzionalità per cui l'ha chiamato. Tuttavia, se il principio è dividere il progetto in tante piccole applicazioni, forse corrispondenti al blocco risorsa di Rails (modello + controller + views) allora ci può stare. Chi sbaglia è lo sviluppatore che costruisce un progetto mono applicazione.
+
 
 <a name="MVC"></a>
 ## MVC vs MVT
@@ -289,11 +293,6 @@ Web2py ha un ORM che invece fa indicare esplicitamente il nome della tabella e d
 Quando la convenzione è per default diversa per ogni progetto, se lo sviluppatore originale non è stato superumano nella disciplina, non solo vanno imparate le sue regole ma vanno ricordate anche le eccezioni che gli sono scappate nel design.
 
 E se non piace la convenzione? Esempio: in Rails le tabelle sono nomi plurali. Il professore del Politecnico di un mio cliente insegnava che devono avere nome singolare e forse anche il mio. Gli ORM Python che ho visto usano il singolare. Rails sembra considerare le tabelle come degli array, da cui il plurale. Se pensate che il plurale sia un peccato mortale, non usate Rails.
-
-<a name="I default"></a>
-# I default
-
-Django e Web2Py hanno dei default un po' "laschi". Invogliano ad avere un solo controller, la ```app_name/views.py``` di Django e il ```app_name/controllers/default.py``` di Web2py e questo è male. Sarà un caso ma mi sono sempre trovato di fronte a controller di 1000 o 2000 righe. Inducono il principiante in errore e quando arriva uno sviluppatore più esperto il cliente non ha soldi per il refactoring ma solo per le funzionalità per cui l'ha chiamato.
 
 <a name="Creazione"></a>
 # Creazione progetti
