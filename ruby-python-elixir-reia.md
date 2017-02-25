@@ -1345,7 +1345,9 @@ Sarebbe fantastico se si potesse fare a meno del ```#``` e si potesse scrivere s
 "Ciao {nome} {cognome}, come stai?"
 ```
 
-Vi si avvicinano i named placeholder https://pyformat.info/ ma non compiono il passo fino in fondo.
+e con la [PEP-498](https://www.python.org/dev/peps/pep-0498/) finalmente Python ci è arrivato nella versione 3.6.
+
+Per le versioni precedenti si possono usare i named placeholder https://pyformat.info/ che però non compiono il passo fino in fondo.
 
 ```
 '{first} {last}'.format(first=primo, last=ultimo')
@@ -1361,16 +1363,9 @@ class Plant(object):
 '{p.type}: {p.kinds[0][name]}'.format(p=Plant())
 ```
 
-Mi chiedo però perché non possano usare direttamente Python dentro le stringhe e scrivere così
+Mi chiedo però perché fin dal 1989 Python non abbia implementato l'unica soluzione sana, senza copiare la printf C.
 
-```
-p = Plant()
-'{p.type}: {p.kinds[0][name]}'
-```
-
-Ancora una volta mi sembra una complicazione non necessaria.
-
-A prima vista però i parametrized formats https://pyformat.info/#param_align sembrano avere qualcosa di più di http://ruby-doc.org/core-2.4.0/Kernel.html#method-i-sprintf
+Se non altro i parametrized formats https://pyformat.info/#param_align sembrano avere qualcosa di più di http://ruby-doc.org/core-2.4.0/Kernel.html#method-i-sprintf
 
 <a name="Simboli"></a>
 ## Simboli
