@@ -38,6 +38,10 @@ Licensed under the Creative Commons Attribution-ShareAlike 4.0 International (CC
   * [Unicode](#Unicode)
   * [Interpolazione di stringhe](#Interpolazione)
   * [Simboli](#Simboli)
+  * [Interpreti multipli](#Interpreti)
+    * [rvm](#rvm)
+    * [pyenv](#pyenv)
+  * [Debugging](#debugging)
   * [WAT](#WAT)
 * [I framework web](#I framework)
   * [Molte opinioni vs poche opinioni](#Molte opinioni)
@@ -1402,24 +1406,12 @@ che ci riporta alla definizione di costanti. Se non altro sono compartimentati i
 Dal codice Python che ho visto non c'è però un gran bisogno di usare simboli. In Ruby si usano spesso come chiavi di hash o per il passaggio di argomenti, ma Python ha altri meccanismi per quegli scenari.
 
 
-<a name="WAT"></a>
-# WAT
-
-Ruby
-
-https://www.destroyallsoftware.com/talks/wat
-http://lucumr.pocoo.org/2008/7/1/whitespace-sensitivity/ (ironicamente)
-
-Python
-
-https://youtu.be/sH4XF6pKKmk
-https://github.com/cosmologicon/pywat
-
-<a name="Interpreti multipli"></a>
+<a name="Interpreti"></a>
 ## Interpreti multipli
 
 Per avere versioni multiple dell'interprete e delle gemme in Ruby si usano ```rvm``` o ```rbenv```. Per Python c'è ```pyenv```, un fork di ```rbenv``` modificato per Python.  Esiste anche ```virtualenv``` che però non è in grado di scaricare ed installare un interprete. Si occupa solo di isolare environment diversi per l'interprete usato per eseguirlo. È simile a ```bundle``` o ai gemset di ```rvm```.  Python 3.3 e successivi includono ```venv```, una versione interna di ```virtualenv```. Dopo aver selezionato un interprete con ```pyenv``` si può usare ```virtualenv``` per creare ambienti separati.
 
+<a name="rvm"></a>
 ### rvm
 
 ```
@@ -1436,6 +1428,7 @@ ruby --version
 # ruby 2.4.0p0 (2016-12-24 revision 57164) [x86_64-linux]
 ```
 
+<a name="pyenv"></a>
 ### pyenv
 
 ```
@@ -1464,6 +1457,30 @@ finalmente = "interpolazione"
 f'{finalmente}'
 # 'interpolazione'
 ```
+
+<a name="Debugging"></a>
+## Debugging
+
+Le IDE hanno i loro metodi, che si appoggiano a quel che offre l'interprete.
+
+Il modo canonico di fare debugging in Ruby da command line è usare le gemme ```byebug``` o ```pry```. Se ne fanno i ```require``` (Rails ci pensa da solo) e si inseriscono i metodi ```byebug``` o ```binding.pry``` nel codice. Quando l'esecuzione li incontra si apre un REPL con lo stato dell'esecuzione e la possibilità di procedere passo a passo. Una volta si usava ```debugger``` (built in) ma è una soluzione inferiore. Non si usa da così tanto che non ricordo neppure il perché.
+
+Per Python si può usare il package ```ipython```, già incontrato in precedenza, fermando l'esecuzione con ```IPython.embed()```. Purtroppo però non permette di fare esecuzione step by step. Si usa allora il package ```ipdb```, con ```ipdb.set_trace()```.
+
+Sia Ruby che Python permettono di fare debugging remoto, collegandosi ad un interprete in esecuzione su un'altra macchina. Non serve una IDE per accedere a queste funzionalità, ma non entro nei dettagli.
+
+<a name="WAT"></a>
+## WAT
+
+Ruby
+
+https://www.destroyallsoftware.com/talks/wat
+http://lucumr.pocoo.org/2008/7/1/whitespace-sensitivity/ (ironicamente)
+
+Python
+
+https://youtu.be/sH4XF6pKKmk
+https://github.com/cosmologicon/pywat
 
 <a name="I framework"></a>
 # I framework
