@@ -1345,7 +1345,13 @@ Sarebbe fantastico se si potesse fare a meno del ```#``` e si potesse scrivere s
 "Ciao {nome} {cognome}, come stai?"
 ```
 
-e con la [PEP-498](https://www.python.org/dev/peps/pep-0498/) finalmente Python ci è arrivato nella versione 3.6.
+e con la [PEP-498](https://www.python.org/dev/peps/pep-0498/) finalmente Python ci è arrivato nella versione 3.6 sia pure con la complicazione delle f-string.
+
+```
+f'Ciao {nome} {cognome}, come stai?'
+```
+
+Per qualche ragione il compilatore non è in grado di capire da solo quel che il programmatore vuole fare.
 
 Per le versioni precedenti si possono usare i named placeholder https://pyformat.info/ che però non compiono il passo fino in fondo.
 
@@ -1409,7 +1415,55 @@ Python
 https://youtu.be/sH4XF6pKKmk
 https://github.com/cosmologicon/pywat
 
+<a name="Interpreti multipli"></a>
+## Interpreti multipli
 
+Per avere versioni multiple dell'interprete e delle gemme in Ruby si usano ```rvm``` o ```rbenv```. Per Python c'è ```pyenv```, un fork di ```rbenv``` modificato per Python.  Esiste anche ```virtualenv``` che però non è in grado di scaricare ed installare un interprete. Si occupa solo di isolare environment diversi per l'interprete usato per eseguirlo. È simile a ```bundle``` o ai gemset di ```rvm```.  Python 3.3 e successivi includono ```venv```, una versione interna di ```virtualenv```. Dopo aver selezionato un interprete con ```pyenv``` si può usare ```virtualenv``` per creare ambienti separati.
+
+### rvm
+
+```
+gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+\curl -sSL https://get.rvm.io | bash -s stable
+source ~/.bash_profile
+rvm list known
+# lista di tutti gli interpreti noti
+rvm install ruby-2.4.0 # molti interpreti sono precompilati
+rvm list
+# gli interpreti locali
+rvm use ruby-2.4.0
+ruby --version
+# ruby 2.4.0p0 (2016-12-24 revision 57164) [x86_64-linux]
+```
+
+### pyenv
+
+```
+curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash
+cat >> ~/.bash_profile <<EOF
+export PATH="/home/montra/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+EOF
+source ~/.bash_profile
+pyenv update
+pyenv install --list
+# lista di tutti gli interpreti noti
+pyenv install 3.6.0 # gli interpreti non sono precompilati
+# WARNING: The Python bz2 extension was not compiled. Missing the bzip2 lib?
+sudo apt install libbz2-dev
+pyenv install 3.6.0 # di nuovo
+pyenv versions
+# gli interpreti locali
+pyenv global 3.6.0
+python
+# Python 3.6.0 (default, Feb 25 2017, 11:31:30)
+# [GCC 5.4.0 20160609] on linux
+# Type "help", "copyright", "credits" or "license" for more information.
+finalmente = "interpolazione"
+f'{finalmente}'
+# 'interpolazione'
+```
 
 <a name="I framework"></a>
 # I framework
