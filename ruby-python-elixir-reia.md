@@ -23,6 +23,7 @@ Licensed under the Creative Commons Attribution-ShareAlike 4.0 International (CC
   * [do end](#do end)
   * [Chiavi stringa negli hash Ruby / dict Python](#Chiavi)
   * [Switch / case](#Switch)
+  * [Classi, self, aggiunta di metodi e variabili, mixin](#Class)
   * [Pipe](#Pipe)
   * [Operatore ternario](#Operatore)
   * [Blocchi](#Blocchi)
@@ -58,8 +59,9 @@ Licensed under the Creative Commons Attribution-ShareAlike 4.0 International (CC
   * [Hot reload](#Hot)
   * [Logging](#Logging)
   * [Il deploy](#Il deploy)
+  * [Testing](#Testing)
   * [Bucce di banana](#Un problema)
-* [TL;DR](#tldr)
+* [Riassumendo](#riassumendo)
 * [Elixir](#Elixir)
 * [Reia](#Reia)
 
@@ -785,6 +787,185 @@ end
 
 Un difetto di Ruby? Avrebbe potuto usare ```switch``` e ```case``` come gli altri linguaggi.
 
+<a name="Class"></a>
+## Classi, self, aggiunta di metodi e variabili, mixin
+
+Python richiede il passaggio di ```self``` negli argomenti della definizione dei metodi delle classi.
+
+```
+class Classe:
+  def metodo(self, arg):
+     self.instance_variable = arg
+     print(arg)
+
+oggetto = Classe()
+oggetto.metodo(1)
+# 1
+```
+
+Tutti i linguaggi successivi ne fanno a meno. È lavoro dell'interprete assicurare la presenza di ```self``` e lo stesso sviluppatore che ricorda la sua presenza in Java o Ruby se la può ricordare anche Python.
+
+Si possono aggiungere variabili e metodi ad un oggetto, come si potrebbe fare in JavaScript
+
+```
+oggetto.instance_variable_2 = 2
+print(oggetto.instance_variable_2)
+# 2
+```
+
+Allo stesso modo si aggiunge anche un metodo
+
+```
+def m2():
+   print("nuovo")
+
+oggetto.nuovo_metodo = m2
+print(oggetto.nuovo_metodo())
+# nuovo
+```
+
+Il monkey patching della classe si fa aggiungendo variabili e metodi alla classe e non all'oggetto:
+
+```
+Classe.instance_variable_2 = 2
+def m3(self):
+  print("nuovo 3")
+
+Classe.nuovo_metodo = m3 # m2 non ha la signature corretta
+oggetto = Classe()
+oggetto.instance_variable_2
+# 2
+oggetto.nuovo_metodo()
+# nuovo
+```
+
+Ruby richiede una definizione esplicita di metodi e variabili.
+
+```
+class Classe
+  def metodo(arg)
+    # se si usa self.instance_variable = bisogna dichiarare la variabile con attr_accessor
+    @instance_variable = arg
+    puts arg
+  end
+end
+
+oggetto = Classe.new
+puts oggetto.metodo(1)
+# 1
+```
+
+Per aggiungere variabili e metodi ad un oggetto
+
+```
+def oggetto.sqr(n)
+  n * n
+end
+oggetto.sqr(2)
+# 4
+```
+
+Per aggiungerli alla classe la si può riaprire: la ridefinizione non sostituisce la prima ma vi aggiunge.
+
+```
+class Classe
+  attr_accessor :instance_variable_2
+  def initialize
+    self.instance_variable_2 = 2
+  end
+  def m3
+    puts "nuovo 3"
+  end
+end
+
+oggetto = Classe.new
+oggetto.instance_variable_2
+# 2
+puts oggetto.m3
+# nuovo 3
+```
+
+oppure per aggiungere solo un metodo si può chiamare il metodo privato ```define_method``` di ```Class```
+
+```
+# si usa send per arrivare al metodo privato
+Classe.send(:define_method, :m4) { puts "nuovo 4" }
+oggetto = Classe.new
+oggetto.m4
+# m4
+Classe.class.send(:define_method, :m5) { puts "nuovo 5" }
+Classe.m5
+# nuovo 5
+
+```
+
+In Python la riapertura della classe non è possibile ma la notazione è più compatta non dovendo fare ```send``` a ```define_method```.
+
+È consigliabile leggersi tutta la documentazione di [Module](https://ruby-doc.org/core-2.4.0/Module.html) e di [Class](https://ruby-doc.org/core-2.4.0/Class.html)
+
+In Ruby è possibile importare metodi anche con il meccanismo dei mixin. Notare la differenza tra ```include``` ed ```extend```
+
+```
+module MixinInclude
+  def for_the_instance()
+     puts "instance"
+  end
+end
+
+module MixinExtend
+  def for_the_class()
+     puts "class"
+  end
+end
+
+class Classe
+   include MixinInclude
+   extend MixinExtend
+end
+
+o = Classe.new
+o.for_the_instance
+# instance
+o.for_the_class
+# NoMethodError: undefined method `for_the_class' for #<Classe:0x000000020258f8>
+Classe.for_the_instance
+# NoMethodError: undefined method `for_the_instance' for Classe:Class
+Classe.for_the_class
+# class
+```
+
+In Python i mixin si fanno tra classi. In pratica sono un modo per fare ereditarietà multipla e in un certo senso lo sono anche in Ruby, che di suo non ce l'ha. Il comportamento è un po' diverso da quello Ruby.
+
+```
+class MixinInstance:
+  def for_the_instance(self):
+     print("instance")
+
+class MixinClass:
+  @classmethod
+  def for_the_class(klass): # questa è una referenza alla classe e non all'instanza
+     print("class")
+
+class Classe(MixinInstance, MixinClass):
+  def m(self):
+    print("m")
+
+o = Classe()
+o.for_the_instance()
+# instance
+o.for_the_class() # funziona sia in Python 2 che 3, in Ruby no
+# class
+Classe.for_the_instance() # non funziona né in Python 2 né nel 3 né in Ruby
+# TypeError: for_the_instance() missing 1 required positional argument: 'self'
+Classe.for_the_instance(1000) # questo però funziona in Python 3, in Python 2 e in Ruby no
+# instance
+Classe.for_the_class()
+# class
+```
+
+Non so se sia concettualmente corretto che metodi di classe funzionino sulle istanze, ma così è.
+
+Googlate le annotazioni Python ```@staticmethod``` e ```@abc.abstractmethod``` e leggete [questo post](https://julien.danjou.info/blog/2013/guide-python-static-class-abstract-methods)
 
 <a name="Pipe"></a>
 ## Pipe
@@ -1923,6 +2104,120 @@ Ancora mi chiedo se esista un modo standard per fare deploy e rollback. ```git p
 
 In realtà nulla vieta di usare Capistrano anche per Python ma è strano che non esista uno strumento nativo.
 
+<a name="Testing"></a>
+## Testing
+
+Il test non riguarda solo le applicazioni web, ma da sviluppatore web lo uso praticamente solo in quel contesto.
+
+Ci sono vari framework di test. Questa sezione è sbilanciata come estensione verso il mondo Ruby per ragioni di esperienza. Non ci sono particolari differenze tra Ruby e Python per quel che ho visto fino ad ora.
+
+Rails nativamente usa [minitest](https://github.com/seattlerb/minitest) (vedere la [guida](http://guides.rubyonrails.org/testing.html)). Personalmente preferisco [rspec](http://rspec.info/) perché minitest la sua sintassi simil-rspec è arrivata dopo rspec (ma va!) e prima di allora rspec era semplicemente troppo più espressivo. Di rspec uso la vecchia sintassi ```.should``` anziché la nuova ```expect```, per questioni di leggibilità.
+
+Esempio basato sulla documentazione RSpec:
+
+```
+RSpec.describe Order do
+  it "sums the prices of its line items" do
+    order = Order.new
+
+    item_1_50 = Item.new(price: Money.new(1.50, :EUR))
+    item_2_40x2 = Item.new(price: Money.new(2.40, :EUR), quantity: 2)
+    order.add_entry(LineItem.new(item: item_1_50)
+    order.add_entry(LineItem.new(item: item_2_40x2)
+
+    expect(order.total).to eq(Money.new(6.30, :EUR))
+    # order.total.should == Money.new(6.30, :EUR)
+  end
+end
+```
+
+Con ```minitest``` avremmo
+
+```
+class OrderTest < ActiveSupport::TestCase
+  test "sums the prices of its line items" do
+    order = Order.new
+
+    item_1_50 = Item.new(price: Money.new(1.50, :EUR))
+    item_2_40x2 = Item.new(price: Money.new(2.40, :EUR), quantity: 2)
+    order.add_entry(LineItem.new(item: item_1_50)
+    order.add_entry(LineItem.new(item: item_2_40x2)
+
+    assert order.total == Money.new(6.30, :EUR)
+  end
+end
+```
+
+Praticamente uguale, soprattutto usando ```minitest/spec```. C'è qualche differenza nel setup e teardown dei test e nell'uso delle fixtures. Personalmente uso [factory_girl](https://github.com/thoughtbot/factory_girl) per creare i record nel database e li popolo con dati usando [faker](https://github.com/stympy/faker). Non faccio quasi mai mocking, se non per schermare API esterne.
+
+Ci sono poi i test di integrazione. Lo standard è usare capybara oppure cucumber.
+
+Capybara pilota Selenium, che a sua volta pilota Chrome o Firefox. L'ideale è fare test un po' con l'uno ed un po' con l'altro.
+Capybara si può usare nativamente, oppure dentro a RSpec o minitest o cucumber.
+
+Con RSpec
+
+```
+it "signs in" do
+  visit "/sessions/new"
+  within("#session") do
+    fill_in "Login", with: 'user@example.com'
+    fill_in "Password", with: 'password'
+  end
+  click_link "Sign in"
+  page.should have_content "Success"
+end
+```
+
+Come odio dover perder tempo a scrivere ```with:``` tutte le volte. E che altro mai dovrebbe essere quel parametro?
+
+[Cucumber](https://cucumber.io/) che implementa una sintassi in linguaggio naturale. Si scrive un test del tipo
+
+```
+Scenario: Sign in
+When I sign in
+Then I should see my profile
+```
+
+Che però va tradotto in codice:
+
+```
+When /I sign in/ do
+  within("#session") do
+    fill_in "Email", with: "user@example.com"
+    fill_in "Password", with: "password"
+  end
+  click_button "Sign in"
+end
+
+Then /I should see my profile/ do
+  page.should have_content("Welcome user@example.com")
+  page.should have_content("Profile")
+end
+```
+
+È utile se si vuol far scrivere la definizione dei test ad un cliente non tecnico, che però va addestrato a pensare a step che si possano programmare. Personalmente l'ho provato una volta e poi ho riscritto tutto in RSpec, dato che nei miei progetti sono i tecnici a scrivere tutto.
+
+Con Django non sono andato oltre sistema di test di default.
+
+```
+from django.test import TestCase
+from modules.to_be_tested import function1
+
+class ToBeTestedTestCase(TestCase):
+
+    def test_function1(self):
+        asset_group = read_asset_group("data/test_M1wsMYnq8mMIZWtw.xlsx")
+        netblocks = sorted(asset_group.keys())
+        self.assertEqual(len(netblocks), 5)
+        self.assertEqual(asset_group["1.2.3.0/24"], ["Type 1", "Location 1"])
+```
+
+La caratteristica di Rails è di raggruppare tutti i test sotto un'unica directory, ```test``` per minitest, ```spec``` per rspec (al cui interno uso anche capybara), ```features``` per cucumber. Quella di Django è avere test sparsi per le directory, conseguenza della frammentazione del progetto in applicazioni. Sia in Rails che in Django si possono far girare tutti i test, solo quelli di una directory, solo un file. Entrambi hanno il concetto di ambiente di test, con database che viene azzerato e ricostruito per evitare side effect. Rails randomizza l'ordine dei test ma permette di riprodurre il particolare ordine che ha dato luogo a degli errori. [A quanto pare](https://code.djangoproject.com/ticket/24522) Django non lo fa.
+
+I test di integrazione in realtà sono indipendenti dal framework, perché vanno a pilotare il browser. Si potrebbero scrivere in un linguaggio qualsiasi. Poiché la norma è che sia lo stesso sviluppatore a scriverli, per comodità li si scrivono nel linguaggio con cui si sviluppa l'applicazione. Per Python l'equivalente di ```capybara``` è
+
+
 <a name="Un problema"></a>
 ## Bucce di banana
 
@@ -1963,12 +2258,42 @@ con solo una occasione in cui sbagliare il nome della tabella. Personale prefere
 
 Lesson learned: mai al programmatore l'occasione di sbagliare. La coglierà :-)
 
-<a name="tldr"></a>
-# TL;DR
+<a name="Riassumento"></a>
+# Riassumendo
 
-Il linguaggio che vorrei è object oriented puro. ```false``` è falsy, ```true``` è truthy, tutto il resto non è boolean. Negli array associativi (hash o dict, fate voi) si possono usare le stringhe come chiavi con notazione JSON. Su array o liste, non importa come si chiamino, si usano i metodi ```.each```, ```.map```, ```.reduce```, perché è object oriented. Ci vogliono gli array veri, alla C. Le stringhe devono essere immutabili e si interpolano ```"{così}"```. Ci vuole un'idea geniale che permetta di non scrivere ```end```, di non riempire il codice con graffe (già ne ha troppe Ruby) e non costringa ad usare l'indentazione semantica. Ci vogliono dei commenti veri. Ci vuole un ```case``` (ma... vedere poi), un ```try catch```, un ```do while```, niente sigil, l'obbligo di mettere spazi almeno attorno a ```=``` e (vezzo!) magari anche attorno agli operatori matematici così si potranno scrivere ```variabili-e-simboli-con-il-trattino``` (Lisp, COBOL, Forth, CSS).
+Mettendo insieme le sensazioni raccolte fino a qui, il linguaggio che vorrei è:
 
-I framework devono essere opinionati per ridurre il lavoro dello sviluppatore. Le opinioni sono tante, per ognuna di loro si possono sviluppare due framework in competizione tra di loro :-) Ci metterei un admin di default. Il database ha la precedenza quando si parla di dati, tant'è che ne farei un progetto a parte.
+* object oriented puro.
+
+* ```false``` è falsy, ```true``` è truthy, tutto il resto non è boolean.
+
+* Negli array associativi (hash o dict, fate voi) si possono usare le stringhe come chiavi con notazione JSON.
+
+* Su array o liste, non importa come si chiamino, si usano i metodi ```.each```, ```.map```, ```.reduce```, perché è object oriented.
+
+* Ha anche array veri, alla C.
+
+* Le stringhe devono essere immutabili e si interpolano ```"{così}"```.
+
+* Ci vuole un'idea geniale che permetta di non scrivere ```end```, di non riempire il codice con graffe (già ne ha troppe Ruby) e non costringa ad usare l'indentazione semantica. Gli editor possono nascondere gli ```end``` ed usarli per indentare in automatico ma non è sodisfacente. Probabilmente un ```end``` nascosto è peggio di uno spazio che non si vede.
+
+* Ha dei commenti veri.
+
+* Ha un ```case switch``` (ma... vedere poi a proposito di Elixir)
+
+* Ha un ```try catch``` e un ```do while```.
+
+* Non ha sigil e caratteri strani
+
+* Obbliga a mettere spazi almeno attorno a ```=``` e (vezzo!) magari anche attorno agli operatori matematici così si potranno scrivere ```variabili-e-simboli-con-il-trattino``` (Lisp, COBOL, Forth, CSS).
+
+I framework devono
+
+* essere opinionati per ridurre il lavoro dello sviluppatore. Le opinioni sono tante, per ognuna di loro si possono sviluppare due framework in competizione tra di loro :-)
+
+* includere un admin di default.
+
+A proposito di dati è il database ad avere la precedenza, tant'è che ne farei un progetto a parte.
 
 <a name="elixir"></a>
 # Elixir
