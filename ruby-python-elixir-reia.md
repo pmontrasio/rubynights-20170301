@@ -2221,14 +2221,13 @@ class ToBeTestedTestCase(TestCase):
 
 L'equivalente di RSpec è [mamba](https://github.com/nestorsalceda/mamba) che però non pare essere molto attivo.
 
-Gli equivalenti di Cucumber sembrano essere [behave](https://github.com/behave/behave) e [Lettuce](http://lettuce.it/).
+I test di integrazione in realtà sono indipendenti dal framework, perché vanno a pilotare il browser. Si potrebbero scrivere in un linguaggio qualsiasi. Poiché la norma è che sia lo stesso sviluppatore a scriverli, per comodità li si scrivono nel linguaggio con cui si sviluppa l'applicazione.
+
+Gli equivalenti Python di Cucumber sembrano essere [behave](https://github.com/behave/behave) e [Lettuce](http://lettuce.it/).
 Quello di Capybara è [Splinter](https://github.com/cobrateam/splinter).
 In [questa pagina](http://stackoverflow.com/questions/9485962/does-python-have-anything-like-capybara-cucumber) di Stack Overflow è un bell'indice a questi framework per Python.
 
 La caratteristica di Rails è di raggruppare tutti i test sotto un'unica directory, ```test``` per minitest, ```spec``` per rspec (al cui interno uso anche capybara), ```features``` per cucumber. Quella di Django è avere test sparsi per le directory, conseguenza della frammentazione del progetto in applicazioni. Sia in Rails che in Django si possono far girare tutti i test, solo quelli di una directory, solo un file. Entrambi hanno il concetto di ambiente di test, con database che viene azzerato e ricostruito per evitare side effect. Rails randomizza l'ordine dei test ma permette di riprodurre il particolare ordine che ha dato luogo a degli errori. [A quanto pare](https://code.djangoproject.com/ticket/24522) Django non lo fa.
-
-I test di integrazione in realtà sono indipendenti dal framework, perché vanno a pilotare il browser. Si potrebbero scrivere in un linguaggio qualsiasi. Poiché la norma è che sia lo stesso sviluppatore a scriverli, per comodità li si scrivono nel linguaggio con cui si sviluppa l'applicazione. Per Python l'equivalente di ```capybara``` è
-
 
 <a name="Un problema"></a>
 ## Bucce di banana
