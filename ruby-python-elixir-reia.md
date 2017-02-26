@@ -70,6 +70,8 @@ Licensed under the Creative Commons Attribution-ShareAlike 4.0 International (CC
   * [Supervision trees](#Supervision)
   * [Difetti](#Difetti)
 * [Reia](#Reia)
+  * [Esempi](#Esempi Reia)
+  * [Desiderata](#Desiderata)
 
 <a name=Introduzione></a>
 # Introduzione
@@ -2440,11 +2442,103 @@ Se il server vuole conservare uno stato, ad esempio contare il numero di messagg
 <a name="OO funzionale"></a>
 ## Object orientation funzionale
 
-L'invio e la ricezione di messaggi è un po' laboriosa. Ci sono dei moduli che permettono di implementare la
-https://github.com/pmontrasio/elixir-oo
+L'invio e la ricezione di messaggi è un po' laboriosa. Ci sono dei moduli che permettono di implementare un comportamento object oriented dei server, con anche la persistenza dello stato interno al server. E' il GenServer.
+
+Ci sono maggiori dettagli nei branch di https://github.com/pmontrasio/elixir-oo ma il modulo che segue implementa l'equivalente di una classe i cui oggetti istanziati girano in un proprio processo e rispondono a chiamate a metodi con il message passing ```send receive``` che abbiamo visto in precedenza. Sembrerà strano per un linguaggio funzionale, ma è un pattern standard di Elixir (e anche di Erlang, il linguaggio per cui è stata creata BEAM).
+
+Eliminando i commenti che trovate su [GitHub](https://github.com/pmontrasio/elixir-oo/blob/master/lib/counter.ex) il codice è questo:
+
+```
+defmodule Counter do
+  use GenServer
+
+  def start_link() do
+    GenServer.start_link(__MODULE__, 0)
+  end
+
+  def inc(pid) do
+    GenServer.cast(pid, :inc)
+  end
+
+  def value(pid) do
+    GenServer.call(pid, :value)
+  end
+
+  def handle_cast(:inc, counter) do
+    {:noreply, counter + 1}
+  end
+
+  def handle_call(:value, _client, counter) do
+    {:reply, counter, counter}
+  end
+
+end
+```
+
+I due metodi esposti sono ```inc``` e ```value```. Sono l'API esterna del GenServer.
+Notate come si sia dovuto scivere anche ```handle_cast``` e ```handle_call``` per la gestione dello stato. Sono l'API interna, chiamata dalle implementazioni di ```GenServer.call``` e ```GenServer.cast```.
+
+Il modulo si usa così:
+
+```
+{:ok, counter_1} = Counter.start_link()  # counter_1 = Counter.new
+Counter.inc(counter_1)                   # counter_1.inc
+IO.puts Counter.value(counter_1)         # puts counter_1.value
+Counter.inc(counter_1)                   # counter_1.inc
+IO.puts Counter.value(counter_1)         # puts counter_1.value
+```
+
+Consiglio di provare a scrivere il proprio GenServer e poi guardare [l'implementazione di Elixir](https://github.com/elixir-lang/elixir/blob/master/lib/elixir/lib/gen_server.ex).
 
 <a name="Supervision"></a>
 ## Supervision trees
+
+Capita che un processo termini per via di un errore, soprattutto se si usa pattern matching e non si gestiscono le condizioni di errore (comportamento idiomatico). Al modulo già visto si affiancano un'applicazione
+
+```
+defmodule CounterApp do
+  use Application
+  import Supervisor.Spec
+
+  def start(_type, _args) do
+    default_value = 0
+    children = [worker(Counter,[default_value, [name: :counter]])]
+    Supervisor.start_link(children, strategy: :one_for_one)
+  end
+
+end
+```
+
+e un supervisore
+
+```
+defmodule CounterSupervisor do
+  use Supervisor
+
+  def start_link(name) do
+    Supervisor.start_link(__MODULE__, [name: name])
+  end
+
+  def init([name: name]) do
+    children = [ worker(Counter, [name]) ]
+
+    supervise(children, strategy: :one_for_one)
+  end
+end
+```
+
+La magia sta nelle implementazioni del modulo ```Supervisor```. Niente vieta di scriversi tutto il codice da zero, per capire cosa c'è dietro a questo pattern. Per imparare è un'ottima idea.
+
+Si fa partire il supervisor, dandogli un parametro che identifichi il GenServer che andrà a creare nella funzione ```init```.
+
+```
+CounterSupervisor.start_link(Counter1) # counter1 = Counter.new
+Counter.inc(Counter1)                 # counter1.inc
+```
+
+Se per qualsiasi ragione ```Counter1``` dovesse cadere, il supervisore lo farebbe ripartire. Lo stato è perso a meno di averlo memorizzato. Elixir ha dei database in RAM ereditati da Erlang adibiti anche a questo scopo. Consiglio di iniziare con [questa pagina](http://erlang.org/doc/efficiency_guide/tablesDatabases.html) della documentazione di Erlang o con [questa comparazione](https://blog.codeship.com/elixir-ets-vs-redis/) tra quei database e Redis. La sintassi è si mappa quasi 1:1 con quella Elixir. È un ottimo esperimento per capire come la sintassi influisca sulla comprensibilità del codice.
+
+Perché si chiamano supervisor tree? Perché un supervisor può avere il suo proprio supervisor e così via, fino a quello che tiene in piedi tutta l'applicazione e che andando in errore la farebbe terminare. Quello si può far partire con l'init del sistema operativo.
 
 <a name="Macro"></a>
 ## Macro
@@ -2464,11 +2558,132 @@ Per approfondire leggete *Understanding Elixir Macros*: [Part 1 - Basics](http:/
 
 * Dover scrivere sempre ```Modulo.funzione``` è faticoso e il pipelining aiuta solo fino ad un certo punto. Il workaround è usare ```alias``` ma poiché non ci sono classi a dividere metodi nell'equivalente di namespace, le collisioni sono assicurate.
 
-* Far scrivere agli sviluppatori due volte i metodi di un genserver è una scelta di design incomprensibile. Sembra voler piegare lo sviluppatore alle necessità della macchina anziché il contrario.
+* Far scrivere agli sviluppatori due volte i metodi di un GenServer è una scelta di design incomprensibile. Sembra voler piegare lo sviluppatore alle necessità della macchina anziché il contrario.
 
 
-<a name="reia"></a>
+<a name="Reia"></a>
 # Reia
 
-C'era una volta, e non c'è più, un altro linguaggio basato su BEAM. Il suo nome era Reia, il suo autore è lo stesso Tony Arcieri di Celluloid che un brutto giorno l'ha abbandonato perché gli piaceva di più Elixir
-http://reia-lang.org/
+C'era una volta, e non c'è più, un altro linguaggio basato su BEAM. Il suo nome era [Reia](http://reia-lang.org/), il suo autore è lo stesso Tony Arcieri di Celluloid che un brutto giorno l'ha abbandonato perché gli piaceva di più Elixir.
+
+Reia è object oriented nel senso tradizionale, ossia definisce classi con  ```class Classe``` e le istanzia alla Python con ```oggetto = Classe()```. I metodi si chiamano con ```oggetto.metodo()```
+
+<a name="Esempi Reia">
+## Esempi
+
+Non sono rimasti molti esempi e per saperne di più bisogna scavare nella [wayback machine](http://web.archive.org/web/*/http://reia-lang.org/)
+
+Aveva le liste ```list = [3,4,5]``` e le tuple ```tuple = (1,2,3)``` con le parentesi tonde, commettendo forse lo stesso errore di Python. Come farà a distinguere ```(1)``` da ```(1)```? Qual è la tupla e qual è il numero 1 in un'espressione?
+
+Aveva i dict (li chiamava così) con la sintassi "vecchia" Ruby degli hash ```dict = {:foo => 1, :bar => 2, :baz => 3}```.
+
+I simboli alla Ruby ```:simbolo``` e ```:"simbolo con spazi"```.
+
+```false``` e ```nil``` sono falsy, tutto il resto è truthy.
+
+Le regexp sono first class citizens, come in Ruby ```%r/^.{3}/``` ma sembra che abbiano bisogno di un prefisso ```%r```.
+
+Ci sono lambda multilinea
+
+```
+multipler = fun(x, y) do
+  x * y
+end
+```
+
+Le classi hanno alcune scorciatoie nell'assegnamento delle variabili di istanza
+
+```
+class Adder
+  # Reia supports binding instance variables directly when they're passed
+  # as arguments to initialize
+  def initialize(@n); end
+
+  def plus(n)
+    @n + n
+  end
+end
+
+fortytwo = Adder(40).plus(2)
+```
+
+e ci sono le comprehension
+
+```
+numbers = [1,2,3]
+doubled = [n * 2 for n in numbers]
+```
+
+Aveva il ```try catch```, ma un ```case when```.
+
+Aveva il pattern matching sulla definizione delle funzioni, ma non mi è chiaro se l'avesse sugli "assegnamenti".
+
+Essendo un linguaggio BEAM ha i suoi tipici costrutti di concorrenza.
+
+```
+module Process
+  # Create a new process
+  def spawn(&block)
+    erl.proc_lib.spawn(block)
+  end
+
+  # Create a new process and links it to the current one
+  def spawn_link(&block)
+    erl.proc_lib.spawn_link(block)
+  end
+
+  # Retrieve the PID of the current process
+  def pid; erl.self(); end
+
+  # Link to another process
+  def link(pid); erl.link(pid); end
+end
+```
+
+Non è chiaro se ci fossero i blocchi alla Ruby o se si dovessero passare funzioni, anche anonime multilinea definite inline.
+
+<a name="Desiderata"></a>
+## Desiderata
+
+C'era ancora molto da lavorare su questo linguaggio, ma una cosa che mi sarebbe piaciuta molto avere è gli oggetti come GenServer, inseriti automaticamente in un supervision tree. Il metodo di una classe Reia sarebbe l'unione delle API pubbliche e private del GenServer Elixir.
+
+Se ricordate l'inizio di questo documento, in qualche modo sia Van Rossum che Matz rimarcavano come la somiglianza con i linguaggi precedenti aiuti l'adozione di un nuovo linguaggio. Un object oriented concorrente con supervision tree e pattern matching avrebbe portato molti sviluppatori a questo paradigma, molti di più di quanti non possa fare Elixir. È un vero peccato che sia stato abbandonato a favore di Elixir.
+
+Una possibile sintassi sarebbe stata
+
+```
+class Counter
+  # Per indicare la strategia di supervisioning
+  supervisor :one_for_one
+
+  def initialize
+    @count = 0
+  end
+
+  def inc
+    @count += 1
+    nil # così sappiamo che il server non deve ritornare niente al client
+    # si potrebbe usare anche una defasync
+  end
+
+  def value
+    @count
+  end
+end
+
+# Instanziando la classe si crea il processo, che va sotto il supervisor
+# dell'oggetto corrente
+counter = Counter()
+# Non dev'esser necessario fare una receive se non c'è nulla da ricevere
+counter.inc
+# Non dev'essere necessario passare esplicitamente il proprio pid per avere una risposta
+# né scrivere una receive. Ci deve pensare il linguaggio
+value = counter.value
+# Questo metodo puts di Reia va rivisto. Perché String dev'essere accoppiata all'output?
+"#{value}".puts()
+# Ci dev'essere modo di risalire al pid e al supervisor del processo
+counter.pid
+counter.supervisor
+self.pid
+self.supervisor
+```
