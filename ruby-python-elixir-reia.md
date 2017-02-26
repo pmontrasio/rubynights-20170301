@@ -53,7 +53,7 @@ Licensed under the Creative Commons Attribution-ShareAlike 4.0 International (CC
   * [Creazione progetti](#Creazione)
   * [Migrazioni DRY](#Migrazioni)
   * [Import automatico vs esplicito](#Import)
-  * [{{ }} e {% %}](#parentesi)
+  * [{{ }} e {% %}](#Parentesi)
   * [Templating](#Templating)
   * [Error reporting](#Error)
   * [Hot reload](#Hot)
@@ -63,6 +63,12 @@ Licensed under the Creative Commons Attribution-ShareAlike 4.0 International (CC
   * [Bucce di banana](#Un problema)
 * [Riassumendo](#riassumendo)
 * [Elixir](#Elixir)
+  * [Pattern matching](#Pattern matching)
+  * [Pipelinging](#Pipelining)
+  * [Concorrenza](#Concorrenza)
+  * [Object orientation funzionale](#OO funzionale)
+  * [Supervision trees](#Supervision)
+  * [Difetti](#Difetti)
 * [Reia](#Reia)
 
 <a name=Introduzione></a>
@@ -2015,7 +2021,7 @@ Anche Ruby richiede ```require``` di tutto, ma Rails risparmia fatica allo svilu
 
 Gli amici Pythonisti mi fanno notare che uno dei mantra di Python è "explicit is better than implicit", ma la coerenza non è di questo mondo. Un linguaggio esplicito come Python ha i decoratori ed uno che non disdegna essere implicito come Ruby invece non ne vuole sapere di introdurli. Nel caso di Ruby si tratterebbe di zucchero sintattico perché ci sono vari modi di crearli usando gli strumenti già presenti nel linguaggio. Ad esempio https://github.com/fredwu/ruby_decorators ne propone uno, con link ad altri due. Tuttavia un modo standard è sempre meglio che tanti l'uno diverso dall'altro. Va detto che l'esigenza non è molto sentita, forse per via dell'uso dei blocchi.
 
-<a name="parentesi"></a>
+<a name="Parentesi"></a>
 ## {{ }} e {% %}
 
 Il linguaggio di templating di Django usa ```{{ value }}```  per generare HTML e ```{% tag %}``` per comandi e templatetag (gli helper di Rails, organizzati meglio in Django).
@@ -2279,7 +2285,7 @@ Mettendo insieme le sensazioni raccolte fino a qui, il linguaggio che vorrei è:
 
 * Ha dei commenti veri.
 
-* Ha un ```case switch``` (ma... vedere poi a proposito di Elixir)
+* Ha un ```switch case``` (ma... vedere poi a proposito di Elixir)
 
 * Ha un ```try catch``` e un ```do while```.
 
@@ -2298,9 +2304,164 @@ A proposito di dati è il database ad avere la precedenza, tant'è che ne farei 
 <a name="elixir"></a>
 # Elixir
 
-http://elixir-lang.org/ Cosa manca a Ruby e a Python, cos'ha Elixir e cosa gli manca
+Ruby e Python possono piacere di più o di meno, ma gli manca qualcosa.
+
+Pur avendo entrambi supporto per il threading hanno entrambi il global interpreter lock e quindi sono sostanzialmente single core. Entrambi hanno implementazioni che fanno a meno del GIL, ma la natura del linguaggio non va oltre i modelli di concorrenza a thread degli anni '80.
+
+Python ha [Pykka](https://github.com/jodal/pykka/) che esplora il mondo della concorrenza actor model, ma senza alcune funzionalità importanti. Ruby ha [Celluloid](https://github.com/celluloid/celluloid). Nessuno dei due è mainstream ed i linguaggi non sono costruiti attorno a questo concetto.
+
+[Elixir](http://elixir-lang.org/) è un linguaggio funzionale con dynamic typing e pattern matching. Gira su BEAM, la VM di Erlang. Ha concorrenza actor based con message passing, supervision trees per intercettare e riavviare i processi terminati (immaginate systemd/upstart/init dentro al linguaggio) e la possibilità di far girare milioni di processi (del linguaggio, non dell'OS) su un computer normale.
+
+La sintassi è ispirata a Ruby, il che ha permesso di traghettarvi un certo numero di sviluppatori. Avrebbe avuto lo stesso successo con una sintassi inspirata a Python, ma non con una ispirata ai linguaggi funzionali tradizionali. Ha un framework web ([Phoenix]()) ispirato a Rails e anche questo ha aiutato a traghettare sviluppatori. La sintassi però è solo zucchero sintattico sopra la vera natura del linguaggio e chiunque si aspetti di programmare con un Ruby funzionale si scontra presto con la realtà.
+
+Questa sezione ha una struttura diversa da quelle precedenti. Vi riporto i tratti salienti di Elixir che vorrei vedere inclusi in un linguaggio ideale e qualche cenno su quel che non vorrei.
+
+<a name="pattern matching"></a>
+## Pattern matching
+
+L'operatore ```=``` in Elixir non è l'assegnamento ma il pattern matcher. Prende quel che trova a destra e prova a farne un match con quel che c'è a sinistra. Se a sinistra ci sono variabili, vi assegna i valori di destra. Se ci sono simboli, ha successo se a destra trova lo stesso simbolo. In caso contrario fallisce e termina il processo. Niente ```try catch```. A quello pensa il livello di supervision del linguaggio.
+
+Esempio
+
+```
+$ iex
+a = 1
+# 1
+:ok = :ok
+# :ok
+:ok = :nope
+# ** (MatchError) no match of right hand side value: :nope
+{:ok, a} = {:ok, 1}
+a
+# 1
+{:ok, a} = {:nope, 1}
+# ** (MatchError) no match of right hand side value: {:nope, 1}
+
+defmodule Prova do
+  def prova(n) do
+    if n < 10 do
+      {:ok, n * n}
+    else
+      :fail
+    end
+  end
+end
+
+{:ok, a} = Prova.prova(2)
+a
+# 4
+{:ok, a} = Prova.prova(20)
+# ** (MatchError) no match of right hand side value: :fail
+```
+
+Il pattern matching funziona anche nella definizione delle funzioni
+
+```
+defmodule Prova do
+  def prova(:ok) do
+    IO.puts "OK" # si deve indicare il modulo insieme alla funzione
+  end
+  def prova(:fail) do
+    IO.puts "FAIL"
+  end
+  def prova(_) do # underscore è la wild card
+    IO.puts "Né OK né FAIL"
+  end
+end
+
+Prova.prova :ok
+# OK
+Prova.prova :fail
+# FAIL
+Prova.prova :chissà
+# ** (SyntaxError) iex:5: unexpected token: "à" (column 19, codepoint U+00E0)
+Prova.prova :"chissà"
+Né OK né FAIL
+```
+
+Il pattern matching spesso fa le veci dello ```switch case``` che per altro esiste.
+
+<a name="Pipelining"></a>
+## Pipelining
+
+Lo abbiamo già visto ma lo ripeto per facilità:
+
+```
+$ iex
+[1, 2, 3, 4] \
+|> Enum.filter(fn(n) -> rem(n, 2) == 0 end) \
+|> Enum.map(fn(n) -> n * n end) \
+|> Enum.reduce(0, fn(n, sum) -> sum + n end)
+# 20
+```
+
+Permette di srotolare funzioni annidate per poterle leggere nell'ordine di esecuzione e non al contrario.
+
+```fn``` è una keyword, è la funzione anonima o lambda che dir si voglia.
+
+<a name="concorrenza"></a>
+## Concorrenza
+
+```
+defmodule Server do
+  def echo() do
+    receive do
+      {client, :end} ->
+          IO.puts "Exit"
+          send(client, :ok)
+      {client, message} ->
+         IO.puts "Ho ricevuto #{message}"
+         send(client, {:ok, message})
+         echo()
+    end
+  end
+end
+
+server = spawn fn -> Server.echo() end
+send(server, {self(), "ciao"})
+receive do
+  {:ok, message} -> IO.puts message
+end
+
+{:ok, "come"} = server.send(pid(), "come")
+{:ok, "va?"} = server.send(pid(), "va?")
+{:ok} = server.send :end
+```
+
+Notate la tail call optimization, per non andare out of stack. Elixir si accorge che la ricorsione qui è inutile e la ottimizza in un loop normale.
+
+
+<a name="OO funzionale"></a>
+## Object orientation funzionale
+
+https://github.com/pmontrasio/elixir-oo
+
+<a name="Supervision"></a>
+## Supervision trees
+
+<a name="Macro"></a>
+## Macro
+
+Solo un cenno al volo perché l'argomento è vasto e complesso.
+
+Si può modificare il sorgente in fase di compilazione. Una versione semplice di macro sono le ```#define``` del C. Con Elixir si può fare un po' di tutto. Lo stesso ```if else``` è una macro. Guardatene il sorgente a https://github.com/elixir-lang/elixir/blob/master/lib/elixir/lib/kernel.ex cercando ```defmacro if(condition, clauses) do```.
+
+Per approfondire leggete *Understanding Elixir Macros*: [Part 1 - Basics](http://theerlangelist.com/article/macros_1), [Part 2 - Micro Theory](http://theerlangelist.com/article/macros_2), [Part 3 - Getting into the AST](http://theerlangelist.com/article/macros_3), [Part 4 - Diving deeper](http://theerlangelist.com/article/macros_4), [Part 5 - Reshaping the AST](http://theerlangelist.com/article/macros_5), [Part 6 - In-place Code Generation](http://theerlangelist.com/article/macros_6).
+
+<a name="Difetti"></a>
+## Difetti di Elixir
+
+* Ha troppi ```do```. Sporcano il codice.
+
+* Tutte quelle varietà di ```def*``` sono un po' caotici. Per qualche ragione Ruby e Python se la cavano con un solo ```def```.
+
+* Dover scrivere sempre ```Modulo.funzione``` è faticoso e il pipelining aiuta solo fino ad un certo punto. Il workaround è usare ```alias``` ma poiché non ci sono classi a dividere metodi nell'equivalente di namespace, le collisioni sono assicurate.
+
+* Far scrivere agli sviluppatori due volte i metodi di un genserver è una scelta di design incomprensibile. Sembra voler piegare lo sviluppatore alle necessità della macchina anziché il contrario.
+
 
 <a name="reia"></a>
 # Reia
 
+C'era una volta, e non c'è più, un altro linguaggio basato su BEAM. Il suo nome era Reia, il suo autore è lo stesso Tony Arcieri di Celluloid che un brutto giorno l'ha abbandonato perché gli piaceva di più Elixir
 http://reia-lang.org/
