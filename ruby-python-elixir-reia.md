@@ -149,7 +149,7 @@ E prima di iniziare i ringraziamenti.
 Gli organizzatori:
 
 * Davide Ghezzi di Ruby Nights
-* Gianluca Randazzo, la mano dietro a tanti eventi a cui partecipo, tra cui Ruby Nights, e il contatto con Python Milano
+* [fusillicode](https://twitter.com/fusillicode), la mano dietro a tanti eventi a cui partecipo, tra cui Ruby Nights, e il contatto con Python Milano
 
 Python Milano, per le issue aperte su questo documento, le spiegazioni su Python e di certo anche tanta pazienza:
 
