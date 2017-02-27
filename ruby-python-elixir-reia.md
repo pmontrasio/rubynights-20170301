@@ -1661,6 +1661,8 @@ Il modo canonico di fare debugging in Ruby da command line è usare le gemme ```
 
 Per Python si può usare il package ```ipython```, già incontrato in precedenza, fermando l'esecuzione con ```IPython.embed()```. Purtroppo però non permette di fare esecuzione step by step. Si usa allora il package ```ipdb```, con ```ipdb.set_trace()```.
 
+La versione plain di ipdb è pdb, inclusa in Python. Una versione web è [wdb](https://github.com/Kozea/wdb).
+
 Sia Ruby che Python permettono di fare debugging remoto, collegandosi ad un interprete in esecuzione su un'altra macchina. Non serve una IDE per accedere a queste funzionalità, ma non entro nei dettagli.
 
 <a name="WAT"></a>
