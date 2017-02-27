@@ -64,7 +64,7 @@ Licensed under the Creative Commons Attribution-ShareAlike 4.0 International (CC
 * [Riassumendo](#riassumendo)
 * [Elixir](#Elixir)
   * [Pattern matching](#Pattern matching)
-  * [Pipelinging](#Pipelining)
+  * [Pipelining](#Pipelining)
   * [Concorrenza](#Concorrenza)
   * [Object orientation funzionale](#OO funzionale)
   * [Supervision trees](#Supervision)
@@ -130,7 +130,7 @@ In pratica ora disegnerebbe Ruby in modo diverso ma all'epoca farlo somigliare u
 
 > Funnily enough there are programming languages written entirely in Japanese. (Zhou [l'intervistatore]: In China there also are programming languages written entirely in Chinese.) In China too? I knew it! No matter how interesting these programming languages are, they will never influence anyone beyond the ones in their own country.
 
-http://fredwu.me/post/36493181321/an-interview-with-yukihiro-matz-matsumotohttp://fredwu.me/post/36493181321/an-interview-with-yukihiro-matz-matsumoto
+http://fredwu.me/post/36493181321/an-interview-with-yukihiro-matz-matsumoto
 https://en.wikipedia.org/wiki/Ruby_(programming_language)
 
 <a name=Premessa></a>
@@ -2478,7 +2478,7 @@ end
 ```
 
 I due metodi esposti sono ```inc``` e ```value```. Sono l'API esterna del GenServer.
-Notate come si sia dovuto scivere anche ```handle_cast``` e ```handle_call``` per la gestione dello stato. Sono l'API interna, chiamata dalle implementazioni di ```GenServer.call``` e ```GenServer.cast```.
+Notate come si sia dovuto scrivere anche ```handle_cast``` e ```handle_call``` per la gestione dello stato. Sono l'API interna, chiamata dalle implementazioni di ```GenServer.call``` e ```GenServer.cast``` che gestiscono rispettivamente le chiamate sincrone, che ritornano un risultato, da quelle asincrone, che non lo ritornano.
 
 Il modulo si usa così:
 
@@ -2491,6 +2491,8 @@ IO.puts Counter.value(counter_1)         # puts counter_1.value
 ```
 
 Consiglio di provare a scrivere il proprio GenServer e poi guardare [l'implementazione di Elixir](https://github.com/elixir-lang/elixir/blob/master/lib/elixir/lib/gen_server.ex).
+
+Ci sono altri due pattern standard (Elixir ed Erlang li chiamano behaviour). Il Task, che è un GenServer senza la parte che si occupa di gestire uno stato (solo le funzioni), e l'Agent, che è il GenServer senza la parte di esecuzione (solo lo stato).
 
 <a name="Supervision"></a>
 ## Supervision trees
@@ -2568,7 +2570,7 @@ Per approfondire leggete *Understanding Elixir Macros*: [Part 1 - Basics](http:/
 
 C'era una volta, e non c'è più, un altro linguaggio basato su BEAM. Il suo nome era [Reia](http://reia-lang.org/), il suo autore è lo stesso Tony Arcieri di Celluloid che un brutto giorno l'ha abbandonato perché gli piaceva di più Elixir.
 
-Reia è object oriented nel senso tradizionale, ossia definisce classi con  ```class Classe``` e le istanzia alla Python con ```oggetto = Classe()```. I metodi si chiamano con ```oggetto.metodo()```
+Reia è object oriented nel senso tradizionale, ossia definisce classi con  ```class Classe``` e le istanzia alla Python con ```oggetto = Classe()```. I metodi si chiamano con ```oggetto.metodo()```.
 
 <a name="Esempi Reia">
 ## Esempi
@@ -2576,6 +2578,15 @@ Reia è object oriented nel senso tradizionale, ossia definisce classi con  ```c
 Non sono rimasti molti esempi e per saperne di più bisogna scavare nella [wayback machine](http://web.archive.org/web/*/http://reia-lang.org/)
 
 Aveva le liste ```list = [3,4,5]``` e le tuple ```tuple = (1,2,3)``` con le parentesi tonde, commettendo forse lo stesso errore di Python. Come farà a distinguere ```(1)``` da ```(1)```? Qual è la tupla e qual è il numero 1 in un'espressione?
+
+In Python
+
+```
+(1,)+(2,)
+(1, 2)
+(1)+(2)
+3
+```
 
 Aveva i dict (li chiamava così) con la sintassi "vecchia" Ruby degli hash ```dict = {:foo => 1, :bar => 2, :baz => 3}```.
 
@@ -2647,9 +2658,9 @@ Non è chiaro se ci fossero i blocchi alla Ruby o se si dovessero passare funzio
 <a name="Desiderata"></a>
 ## Desiderata
 
-C'era ancora molto da lavorare su questo linguaggio, ma una cosa che mi sarebbe piaciuta molto avere è gli oggetti come GenServer, inseriti automaticamente in un supervision tree. Il metodo di una classe Reia sarebbe l'unione delle API pubbliche e private del GenServer Elixir.
+C'era ancora molto da lavorare su questo linguaggio, ma una cosa che mi sarebbe piaciuta molto avere sono gli oggetti come zucchero sintattico sopra il GenServer ed inseriti automaticamente in un supervision tree. Il metodo di una classe Reia sarebbe l'unione delle API pubbliche e private del GenServer Elixir.
 
-Se ricordate l'inizio di questo documento, in qualche modo sia Van Rossum che Matz rimarcavano come la somiglianza con i linguaggi precedenti aiuti l'adozione di un nuovo linguaggio. Un object oriented concorrente con supervision tree e pattern matching avrebbe portato molti sviluppatori a questo paradigma, molti di più di quanti non possa fare Elixir. È un vero peccato che sia stato abbandonato a favore di Elixir.
+Se ricordate l'inizio di questo documento, in qualche modo sia Van Rossum che Matz rimarcavano come la somiglianza con i linguaggi precedenti aiuti l'adozione di un nuovo linguaggio. Un linguaggio object oriented concorrente con supervision tree e pattern matching avrebbe portato molti sviluppatori a questo paradigma, molti di più di quanti non possa fare Elixir. È un vero peccato che sia stato abbandonato a favore di Elixir.
 
 Una possibile sintassi sarebbe stata
 
@@ -2662,10 +2673,9 @@ class Counter
     @count = 0
   end
 
-  def inc
+  # indichiamo che il server non deve ritornare niente al client
+  defasync inc
     @count += 1
-    nil # così sappiamo che il server non deve ritornare niente al client
-    # si potrebbe usare anche una defasync
   end
 
   def value
@@ -2673,8 +2683,8 @@ class Counter
   end
 end
 
-# Instanziando la classe si crea il processo, che va sotto il supervisor
-# dell'oggetto corrente
+# Instanziando la classe si crea il processo con il suo supervisor,
+# aggiunto sotto il supervisor dell'oggetto che lo istanzia
 counter = Counter()
 # Non dev'esser necessario fare una receive se non c'è nulla da ricevere
 counter.inc
@@ -2689,3 +2699,5 @@ counter.supervisor
 self.pid
 self.supervisor
 ```
+
+Di Task e di Agent si può fare a meno, ci basta il GenServer che è il caso generale.
