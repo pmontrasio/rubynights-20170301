@@ -2231,6 +2231,8 @@ In [questa pagina](http://stackoverflow.com/questions/9485962/does-python-have-a
 
 La caratteristica di Rails è di raggruppare tutti i test sotto un'unica directory, ```test``` per minitest, ```spec``` per rspec (al cui interno uso anche capybara), ```features``` per cucumber. Quella di Django è avere test sparsi per le directory, conseguenza della frammentazione del progetto in applicazioni. Sia in Rails che in Django si possono far girare tutti i test, solo quelli di una directory, solo un file. Entrambi hanno il concetto di ambiente di test, con database che viene azzerato e ricostruito per evitare side effect. Rails randomizza l'ordine dei test ma permette di riprodurre il particolare ordine che ha dato luogo a degli errori. [A quanto pare](https://code.djangoproject.com/ticket/24522) Django non lo fa.
 
+Infine, il testing non può prescindere dal test del test, ossia il test coverage. Con Ruby si usa spesso [simplecov](https://github.com/colszowka/simplecov), che supporta la struttura delle directory di Rails. Non ho esperienza di questi tool su Python, ma da quel che googlo il primo che proverò sarà [coverage.py](https://pypi.python.org/pypi/coverage).
+
 <a name="Un problema"></a>
 ## Bucce di banana
 
