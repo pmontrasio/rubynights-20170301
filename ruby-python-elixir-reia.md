@@ -42,6 +42,7 @@ Licensed under the Creative Commons Attribution-ShareAlike 4.0 International (CC
   * [Interpreti multipli](#Interpreti)
     * [rvm](#rvm)
     * [pyenv](#pyenv)
+    * [asdf](#asdf)
   * [Debugging](#debugging)
   * [WAT](#WAT)
 * [I framework web](#I framework)
@@ -1646,6 +1647,10 @@ finalmente = "interpolazione"
 f'{finalmente}'
 # 'interpolazione'
 ```
+
+## asdf
+
+C'è poi [asdf](https://github.com/asdf-vm/asdf) che gestisce molti linguaggi in un sol colpo. Non l'ho provato. Sappiatemi dire come funziona.
 
 <a name="Debugging"></a>
 ## Debugging
