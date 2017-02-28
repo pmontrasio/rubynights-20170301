@@ -2285,33 +2285,46 @@ Lesson learned: mai al programmatore l'occasione di sbagliare. La coglierà :-)
 
 Mettendo insieme le sensazioni raccolte fino a qui, il linguaggio che vorrei è:
 
-* object oriented puro.
+* Object oriented puro.
 
 * ```false``` è falsy, ```true``` è truthy, tutto il resto non è boolean.
+
+* Usa ```.``` per concatenare i metodi.
+
+* ```->``` e ```=>``` fanno perder tempo quando li si scrive e vanno aboliti. Li si potranno sostituire con ```:```
 
 * Negli array associativi (hash o dict, fate voi) si possono usare le stringhe come chiavi con notazione JSON.
 
 * Su array o liste, non importa come si chiamino, si usano i metodi ```.each```, ```.map```, ```.reduce```, perché è object oriented.
 
-* Ha anche array veri, alla C.
+* Ha anche array veri, alla C. Molto utili per stare nella cache della CPU.
 
-* Le stringhe devono essere immutabili e si interpolano ```"{così}"```.
+* Le stringhe devono essere immutabili.
+
+* Esistono due varietà di string literal: ```"{interpolabili}"``` e ```'non {interpolabili}'```. Niente ```u''```, ```f''```, ```r''```, etc. Sono sempre multilinea.
+
+* Le regexp sono ```/regexp/```.
+
+* Le parentesi sono opzionali perché facilita la scrittura di DSL comprensibili. Un DSL comprensibile ci permette di non dover inventare ed imparare altri linguaggi per scrivere le configurazioni.
+
+* Si può passare come argomento il nome di un metodo senza dover passare il simbolo corrispondente. Ruby avrebbe risolto il problema nonostante le parentesi opzionali se il default variasse a seconda del contesto: ```metodo arg``` equivale a ```metodo(arg)```, ma ```metodo(altro_metodo)``` equivale a passare ```altro_metodo``` come argomento senza chiamarlo. Per quello si sarebbe dovuto usare ```metodo(altro_metodo())```
 
 * Ci vuole un'idea geniale che permetta di non scrivere ```end```, di non riempire il codice con graffe (già ne ha troppe Ruby) e non costringa ad usare l'indentazione semantica. Gli editor possono nascondere gli ```end``` ed usarli per indentare in automatico ma non è sodisfacente. Probabilmente un ```end``` nascosto è peggio di uno spazio che non si vede.
 
 * Ha dei commenti veri.
 
-* Ha un ```switch case``` (ma... vedere poi a proposito di Elixir)
+* Ha uno ```switch case``` (ma... vedere poi a proposito di Elixir)
 
 * Ha un ```try catch``` e un ```do while```.
 
-* Non ha sigil e caratteri strani
+* Non ha sigil e caratteri strani.
 
 * Obbliga a mettere spazi almeno attorno a ```=``` e (vezzo!) magari anche attorno agli operatori matematici così si potranno scrivere ```variabili-e-simboli-con-il-trattino``` (Lisp, COBOL, Forth, CSS).
 
+
 I framework devono
 
-* essere opinionati per ridurre il lavoro dello sviluppatore. Le opinioni sono tante, per ognuna di loro si possono sviluppare due framework in competizione tra di loro :-)
+* essere opinionati per ridurre il lavoro dello sviluppatore. Le opinioni sono tante e per ognuna di loro si possono sviluppare due framework in competizione tra di loro :-)
 
 * includere un admin di default.
 
