@@ -2301,15 +2301,11 @@ Mettendo insieme le sensazioni raccolte fino a qui, il linguaggio che vorrei è:
 
 * Le stringhe devono essere immutabili.
 
-* Esistono due varietà di string literal: ```"{interpolabili}"``` e ```'non {interpolabili}'```. Niente ```u''```, ```f''```, ```r''```, etc. Sono sempre multilinea.
+* Esistono due varietà di string literal: ```"{interpolabili}"``` e ```'non {interpolabili}'```. Niente ```u''```, ```f''```, ```r''```, etc. Sono sempre UTF-8 e multilinea. Si può concedere un equivalente di ```%()``` o ```""" """``` per poter includere qualsiasi carattere nella stringa. Meglio quello Python perché ha una notazione simile a quella delle stringhe.
+
+* Niente ````command interpolation```` con i backtick. Pure bash ora preferisce ```$(command)```.
 
 * Le regexp sono ```/regexp/```.
-
-* Le parentesi sono opzionali perché facilita la scrittura di DSL comprensibili. Un DSL comprensibile ci permette di non dover inventare ed imparare altri linguaggi per scrivere le configurazioni.
-
-* Si può passare come argomento il nome di un metodo senza dover passare il simbolo corrispondente. Ruby avrebbe risolto il problema nonostante le parentesi opzionali se il default variasse a seconda del contesto: ```metodo arg``` equivale a ```metodo(arg)```, ma ```metodo(altro_metodo)``` equivale a passare ```altro_metodo``` come argomento senza chiamarlo. Per quello si sarebbe dovuto usare ```metodo(altro_metodo())```
-
-* Ci vuole un'idea geniale che permetta di non scrivere ```end```, di non riempire il codice con graffe (già ne ha troppe Ruby) e non costringa ad usare l'indentazione semantica. Gli editor possono nascondere gli ```end``` ed usarli per indentare in automatico ma non è sodisfacente. Probabilmente un ```end``` nascosto è peggio di uno spazio che non si vede.
 
 * Ha dei commenti veri.
 
@@ -2320,6 +2316,12 @@ Mettendo insieme le sensazioni raccolte fino a qui, il linguaggio che vorrei è:
 * Non ha sigil e caratteri strani.
 
 * Obbliga a mettere spazi almeno attorno a ```=``` e (vezzo!) magari anche attorno agli operatori matematici così si potranno scrivere ```variabili-e-simboli-con-il-trattino``` (Lisp, COBOL, Forth, CSS).
+
+* Le parentesi sono opzionali perché facilita la scrittura di DSL comprensibili. Un DSL comprensibile ci permette di non dover inventare ed imparare altri linguaggi per scrivere le configurazioni.
+
+* Si può passare come argomento il nome di un metodo senza dover passare il simbolo corrispondente. Ruby avrebbe risolto il problema nonostante le parentesi opzionali se il default variasse a seconda del contesto: ```metodo arg``` equivale a ```metodo(arg)```, ma ```metodo(altro_metodo)``` equivale a passare ```altro_metodo``` come argomento senza chiamarlo. Per quello si sarebbe dovuto usare ```metodo(altro_metodo())```
+
+* Ci vuole un'idea geniale che permetta di non scrivere ```end```, di non riempire il codice con graffe (già ne ha troppe Ruby) e non costringa ad usare l'indentazione semantica. Gli editor possono nascondere gli ```end``` ed usarli per indentare in automatico ma non è sodisfacente. Probabilmente un ```end``` nascosto è peggio di uno spazio che non si vede.
 
 
 I framework devono
