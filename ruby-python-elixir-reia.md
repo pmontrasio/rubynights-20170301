@@ -168,17 +168,17 @@ Invito anche a leggere tutte le issue https://github.com/pmontrasio/rubynights-2
 <a name="init.py"></a>
 ## \_\_init.py\_\_
 
-Il file ```__init.py__```, misterioso per i principianti, deve essere presente in una directory perché i file al suo interno vengano riconosciuti come package. Ogni altro linguaggio noto se la cava tranquillamente senza. Forse qui si vede l'età. Il design di Python è iniziato alla fine degli anni '80 e allora poteva sembrare una buona idea. Chi è arrivato dopo l'ha eliminato e ha fatto in altro modo. Quello a cui serve in Python è spiegato bene a http://chimera.labs.oreilly.com/books/1230000000393/ch10.html
+Il file `__init.py__`, misterioso per i principianti, deve essere presente in una directory perché i file al suo interno vengano riconosciuti come package. Ogni altro linguaggio noto se la cava tranquillamente senza. Forse qui si vede l'età. Il design di Python è iniziato alla fine degli anni '80 e allora poteva sembrare una buona idea. Chi è arrivato dopo l'ha eliminato e ha fatto in altro modo. Quello a cui serve in Python è spiegato bene a http://chimera.labs.oreilly.com/books/1230000000393/ch10.html
 
 L'idioma corrispondente Ruby è la creazione di una base class che importa i file nelle sotto directory. Un esempio piuttosto esteso è dato da https://github.com/rails/rails/blob/master/activerecord/lib/active_record.rb
 
 Come si vede non è necessario dare nomi criptici ai file per ottenere lo stesso risultato.
 
-Va detto che ```locate __init.py__ | grep directory/de/progetto``` trova istantaneamente tutti i moduli.
+Va detto che `locate __init.py__ | grep directory/del/progetto` trova istantaneamente tutti i moduli.
 
-La differenza fondamentale però è che Ruby non ha il concetto di package, ma solo quello di modulo. In effetti ad un Rubysta non è per nulla chiaro perché debba esistere il concetto di package dato che è sufficiente avere i moduli. Per contro Ruby è esplicito nel dichiarare moduli, usando ```module Name ... end```.
+La differenza fondamentale però è che Ruby non ha il concetto di package, ma solo quello di modulo. In effetti ad un Rubysta non è per nulla chiaro perché debba esistere il concetto di package dato che è sufficiente avere i moduli. Per contro Ruby è esplicito nel dichiarare moduli, usando `module Name ... end`.
 
-Mi segnalano, ma non ho toccato con mano, che dalla 3.3 ```__init__.py``` non è più realmente indispensabile.
+Mi segnalano, ma non ho toccato con mano, che dalla 3.3 `__init__.py` non è più realmente indispensabile.
 
 Data questa struttura
 
@@ -188,7 +188,7 @@ mymodule/__init__.py
 mymodule/utils.py
 ```
 
-Se è presente ```__init__.py``` allora ```mymodule``` è un modulo (ha un attributo ```mymodule.__path__``` e ```mymodule.__file__```).
+Se è presente `__init__.py` allora `mymodule` è un modulo (ha un attributo `mymodule.__path__` e `mymodule.__file__```).
 Se non è presente è un namespace (non ha quegli attributi). Il contenuto può essere distribuito in più directory e Python3 ne fa il merge.
 
 <a name="Mixed"></a>
@@ -200,9 +200,9 @@ Python è funzionale ed object oriented, anche se a Guido Van Rossum la parte fu
 <a name="Truthy"></a>
 ## Truthy e falsy
 
-In Python sono falsy ```None```,  ```False``` e, sopresa per chi viene da Ruby, ```0``` (di ogni tipo numerico), ogni sequenza vuota (```''```, ```()```, ```[]```), ogni map vuoto (```{}```), ogni oggetto di una classe che definisca dei  ```__nonzero__()``` o ```__len__()``` che ritornino ```0``` o ```False```.
+In Python sono falsy `None`,  `False` e, sopresa per chi viene da Ruby, `0` (di ogni tipo numerico), ogni sequenza vuota (```''`, `()`, `[]```), ogni map vuoto (```{}```), ogni oggetto di una classe che definisca dei  `__nonzero__()` o `__len__()` che ritornino `0` o `False`.
 
-In Ruby sono falsy ```nil``` e ```false```. Tutto il resto è truthy, con sorpresa per chi viene da Python.
+In Ruby sono falsy `nil` e `false`. Tutto il resto è truthy, con sorpresa per chi viene da Python.
 
 https://docs.python.org/2/library/stdtypes.html#truth-value-testing
 https://gist.github.com/jfarmer/2647362
@@ -210,7 +210,7 @@ https://gist.github.com/jfarmer/2647362
 <a name="Boolean"></a>
 ## Boolean
 
-Ruby usa la sintassi C per gli operatori booleani con il comportamento che ci si aspetta ```&& || !``` e una sintassi "umana" per quelli con un comportamento sorprendente ```and or not```. Gli ultimi vengono da Perl e in realtà non sono operatori booleani (alla faccia del principio di least surprise).
+Ruby usa la sintassi C per gli operatori booleani con il comportamento che ci si aspetta `&& || !` e una sintassi "umana" per quelli con un comportamento sorprendente `and or not`. Gli ultimi vengono da Perl e in realtà non sono operatori booleani (alla faccia del principio di least surprise).
 Invece si usano per modificare il flusso di controllo del programma, come in
 
 ```
@@ -235,7 +235,7 @@ false or true
 # true
 ```
 
-sembrano equivalenti, ma usandoli in un assegnamento ```=```, che è un operatore a maggior precedenza di ```or```
+sembrano equivalenti, ma usandoli in un assegnamento `=`, che è un operatore a maggior precedenza di `or`
 
 ```
 x = true || false; puts x
@@ -250,7 +250,7 @@ x = (false or true); puts x
 # true     # ma non vogliamo usare le parentesi attorno ad ogni espressione booleana
 ```
 
-Quanto a ```not```
+Quanto a `not`
 
 ```
 !true && false
@@ -265,7 +265,7 @@ Dettagli a
 * http://www.virtuouscode.com/2010/08/02/using-and-and-or-in-ruby/
 * http://www.virtuouscode.com/2014/08/26/how-to-use-rubys-english-andor-operators-without-going-nuts/
 
-Python usa ```and or not``` come operatori logici e non ci sono sorprese. Vince Python, anche per la praticità di scrittura.
+Python usa `and or not` come operatori logici e non ci sono sorprese. Vince Python, anche per la praticità di scrittura.
 
 <a name="Strutture"></a>
 ## Strutture dati di base
@@ -280,7 +280,7 @@ Hanno migliorato le performance di lookup degli hash anche in Ruby 2.4.
 https://blog.heroku.com/ruby-2-4-features-hashes-integers-rounding#hash-changes
 Gli elementi sono enumerati in ordine di inserimento.
 
-I range sono identici, a parte la sintassi: ```range(6)``` di Python è ```0..5``` di Ruby.
+I range sono identici, a parte la sintassi: `range(6)` di Python è `0..5` di Ruby.
 
 I set sono identici.
 
@@ -305,7 +305,7 @@ a => 1
 b => 2
 ```
 
-o in modo non idiomatico con ```for```
+o in modo non idiomatico con `for`
 
 ```
 hash = {a: 1, b: 2}
@@ -316,9 +316,9 @@ a => 1
 b => 2
 ```
 
-Non è idiomatico perché non si può passare un blocco a ```for``` e non lo si può concatenare con altre trasformazioni sui dati ritornati.
+Non è idiomatico perché non si può passare un blocco a `for` e non lo si può concatenare con altre trasformazioni sui dati ritornati.
 
-Le tuple in Ruby non esistono. Si possono usare OpenStruct o Struct ma è veramente raro usarle. In Ruby si usano array dove ho visto usare tuple in Python. Se proprio si vuole, si può rendere l'array immutabile come una tupla usando ```freeze```, ma in pratica non lo si fa mai.
+Le tuple in Ruby non esistono. Si possono usare OpenStruct o Struct ma è veramente raro usarle. In Ruby si usano array dove ho visto usare tuple in Python. Se proprio si vuole, si può rendere l'array immutabile come una tupla usando `freeze`, ma in pratica non lo si fa mai.
 
 Python
 ```
@@ -345,9 +345,9 @@ print netblocks.keys().sort()
 # None
 ```
 
-Perché ritorna ```None``` e non la lista ordinata? Perché ```.sort()``` modifica l'argomento e non lo ritorna.
+Perché ritorna `None` e non la lista ordinata? Perché `.sort()` modifica l'argomento e non lo ritorna.
 
-Quel che volevo era ```sorted```, una delle funzioni predefinite di Python.
+Quel che volevo era `sorted`, una delle funzioni predefinite di Python.
 
 ```
 sorted(netblocks.keys())
@@ -359,8 +359,8 @@ a
 # [u'1.2.3.0/24', u'1.3.0.0/16', u'2.2.4.0/24', u'3.2.3.0/24', u'4.2.3.0/24']
 ```
 
-```sorted``` è una funzione che accetta un iterable e vi può applicare una funzione di ordinamento.
-Quindi qualsiasi oggetto con un metodo ```__iter__``` può essere ordinato con la funzione sort.
+```sorted` è una funzione che accetta un iterable e vi può applicare una funzione di ordinamento.
+Quindi qualsiasi oggetto con un metodo `__iter__` può essere ordinato con la funzione sort.
 
 Venendo da Ruby non si capisce la necessità di avere metodo e funzione separati.
 
@@ -368,9 +368,9 @@ In Ruby una classe che vuole essere ordinabile farebbe un mixin con Enumerable, 
 
 Venendo da Python invece non si capisce perché ogni classe debba definire il proprio metodo sort, dandogli potenzialmente nomi diversi e causando fraintendimenti. Python ha un meccanismo del linguaggio per dare più ordine (pun intented). In Ruby non funzionerebbe per la mancanza di funzioni. Bisognerebbe avere metodi predefiniti di Kernel o di Object da sovrascrivere.
 
-Il metodo ```sort``` di array in Ruby non modifica l'array. Lo modifica ```sort!```
+Il metodo `sort` di array in Ruby non modifica l'array. Lo modifica `sort!`
 
-La convenzione è usare un ```!``` nel nome dei metodi che modificano l'oggetto su cui vengono chiamati.
+La convenzione è usare un `!` nel nome dei metodi che modificano l'oggetto su cui vengono chiamati.
 
 ```
 a = ['2.2.4.0/24', '3.2.3.0/24', '1.3.0.0/16', '1.2.3.0/24', '4.2.3.0/24']
@@ -427,16 +427,16 @@ for k,v in hash do
 end
 ```
 
-È più o meno l'unico caso in cui un rubista usa un ```for```, ma la tentazione di usare un ```each_pair``` è forte.
+È più o meno l'unico caso in cui un rubista usa un `for`, ma la tentazione di usare un `each_pair` è forte.
 
 
 <a name="Mutabilità"></a>
 ## Mutabilità e stringhe
 
-Le strutture dati Ruby sono mutabili, a meno che non venga invocato il metodo ```freeze``` su un oggetto.
+Le strutture dati Ruby sono mutabili, a meno che non venga invocato il metodo `freeze` su un oggetto.
 
-Le stringhe sono mutabili per default. Le si possono rendere immutabili con il metodo ```freeze```.
-Con Ruby 2.3 si può usare una pragma a inizio file (o in ```irb```) per renderle immutabili per default.
+Le stringhe sono mutabili per default. Le si possono rendere immutabili con il metodo `freeze`.
+Con Ruby 2.3 si può usare una pragma a inizio file (o in `irb```) per renderle immutabili per default.
 Saranno immutabili per default con Ruby 3.
 
 ```
@@ -451,7 +451,7 @@ RuntimeError: can't modify frozen String
 	from /home/montra/.rvm/rubies/ruby-2.3.0/bin/irb:11:in `<main>'
 ```
 
-Una stringa immutabile è praticamente identica ai simboli. Avendo già i simboli l'immutabilità delle stringhe non è un'esigenza particolarmente sentita, ma con il proliferare di hash con chiavi di tipo string (JSON) è sicuramente un beneficio per le prestazioni. Probabilmente viene utile anche in vista dell'introduzione della concorrenza tramite ```Guild``` http://olivierlacan.com/posts/concurrency-in-ruby-3-with-guilds/
+Una stringa immutabile è praticamente identica ai simboli. Avendo già i simboli l'immutabilità delle stringhe non è un'esigenza particolarmente sentita, ma con il proliferare di hash con chiavi di tipo string (JSON) è sicuramente un beneficio per le prestazioni. Probabilmente viene utile anche in vista dell'introduzione della concorrenza tramite `Guild` http://olivierlacan.com/posts/concurrency-in-ruby-3-with-guilds/
 
 A proposito dei mali della mutabilità:
 
@@ -494,7 +494,7 @@ In un lingua naturale, dove prevale il modo attivo invece avremmo in entrambi i 
 
 ed il linguaggi di programmazione corrispondente avrebbe i due metodi nella classe String. Ruby invece va al passivo.
 
-Esperti Python mi dicono che la join Python è ```string.join(iterable)``` e sarebbe stato strano forzare ogni iterable ad avere un metodo che ha a che fare con le stringhe. Meglio metterlo in string. In effetti in Ruby join è un metodo di Array e di nient'altro.
+Esperti Python mi dicono che la join Python è `string.join(iterable)` e sarebbe stato strano forzare ogni iterable ad avere un metodo che ha a che fare con le stringhe. Meglio metterlo in string. In effetti in Ruby join è un metodo di Array e di nient'altro.
 
 Python
 
@@ -528,7 +528,7 @@ SyntaxError: invalid syntax
 
 Non spiega cosa c'è che non va. E se sa che è syntax error per via dei due punti, perché non li aggiunge da solo? :-)
 
-Essendo rumore e non segnale, presto si impara a non vedere i due punti e alle volte capita che restano attaccati in fondo alle righe quando si fa refactoring e si passa ad esempio da un ```if expr:``` a ```return expr```
+Essendo rumore e non segnale, presto si impara a non vedere i due punti e alle volte capita che restano attaccati in fondo alle righe quando si fa refactoring e si passa ad esempio da un `if expr:` a `return expr`
 
 ```
 return match_version(vm, protocol_data):
@@ -536,7 +536,7 @@ return match_version(vm, protocol_data):
 SyntaxError: invalid syntax
 ```
 
-Sono pure meno visibili di una ```{```, anche perché si tendono a scrivere attaccati alla parentesi.
+Sono pure meno visibili di una `{`, anche perché si tendono a scrivere attaccati alla parentesi.
 
 Mi piacerebbe una PEP per renderli opzionali.
 
@@ -559,14 +559,14 @@ def find_version(product_matcher, protocol_data):
 IndentationError: unindent does not match any outer indentation level
 ```
 
-Ah, uno spazio "invisibile" a inizio linea nel ```def match_version```, eredità di un copia e incolla in cui non si è cancellato tutto quel che si doveva.
+Ah, uno spazio "invisibile" a inizio linea nel `def match_version`, eredità di un copia e incolla in cui non si è cancellato tutto quel che si doveva.
 
-Altra situazione, quando si copia codice dall'editor alla console interattiva è molto più rapido copiare tutta la linea inclusi gli spazi all'inizio. Peccato che si vada in errore. O si perde tempo a fare un copia e incolla preciso oppure si installa iPython ```pip install ipython```. Ma se occorre un extra per risolvere un problema del linguaggio vuol dire che il design iniziale non era buono. Per contro ```gem install pry``` aggiunge molte cose interessanti a ```irb```, ma si vive anche senza.
+Altra situazione, quando si copia codice dall'editor alla console interattiva è molto più rapido copiare tutta la linea inclusi gli spazi all'inizio. Peccato che si vada in errore. O si perde tempo a fare un copia e incolla preciso oppure si installa iPython `pip install ipython`. Ma se occorre un extra per risolvere un problema del linguaggio vuol dire che il design iniziale non era buono. Per contro `gem install pry` aggiunge molte cose interessanti a `irb`, ma si vive anche senza.
 
 <a name="do end"></a>
 ## do end
 
-Venendo da C e Java 12 anni fa ```do``` ```end``` mi facevano abbastanza schifo (si può scrivere?). Poi ci si abitua ma non tutto quello a cui ci si abitua fa bene (vedi rumore, inquinamento, etc). In realtà ```do``` si usa relativamente poco. Quel che affatica è ```end```.
+Venendo da C e Java 12 anni fa `do` `end` mi facevano abbastanza schifo (si può scrivere?). Poi ci si abitua ma non tutto quello a cui ci si abitua fa bene (vedi rumore, inquinamento, etc). In realtà `do` si usa relativamente poco. Quel che affatica è `end`.
 Facendo i conti ed anche omettendo le parentesi tonde e i punti e virgola obbligatori in C e Java
 
 C e Java
@@ -597,47 +597,46 @@ In Python si scrive di meno. Si paga il prezzo di possibili bug con gli spazi si
 
 Python obbliga lo sviluppatore ad indentare. Questa critica è sollevata da molti sviluppatori e francamente così formulata sorprende: tutti i linguaggi vanno indentati. Lo sviluppatore che non lo fa va messo al bando :-) A detta degli amici Pythonisti questo è un punto di forza di Python e lo comprendo. Lo svantaggio è che l'editor non ha mai abbastanza informazioni per indentare al nostro posto e dovendolo fare noi ci viene data un'ulteriore occasione per introdurre bug.
 
-Mi è capitato di recente di sistemare una decina di righe Python tra cui un ```if else```, cambiando i livelli di indentazione. Alla fine non ero sicuro se l'ultima riga dell'```else``` in origine fosse dentro o fuori l'```else```. L'avevo già spostata a sinistra o no? Ho dovuto salvare e fare un ```git diff``` per scoprirlo. Un linguaggio con graffe o ```end``` non dà di questi problemi.
+Mi è capitato di recente di sistemare una decina di righe Python tra cui un `if else`, cambiando i livelli di indentazione. Alla fine non ero sicuro se l'ultima riga dell'```else` in origine fosse dentro o fuori l'```else`. L'avevo già spostata a sinistra o no? Ho dovuto salvare e fare un `git diff` per scoprirlo. Un linguaggio con graffe o `end` non dà di questi problemi.
 
 
 <a name="Chiavi"></a>
 ## Chiavi stringa negli hash Ruby / dict Python
 
-Questo è meglio in Python, perché in Ruby si devono usare le frecce ```=>```
+Questo è meglio in Python, perché in Ruby si devono usare le frecce `=>`.
 
-In origine si poteva usare solo la freccia ```=>``` come in ```{:a => 1}```
-Poi con Ruby 2.0 è stata introdotta la scorciatoia in stile JavaScript ```{a: 1}```
-Purtroppo non funziona se come chiave si usano le stringhe
+In origine si poteva usare solo la freccia `=>` come in `{:a => 1}`.
+Poi con Ruby 2.0 è stata introdotta la scorciatoia in stile JavaScript `{a: 1}`.
+Purtroppo non funziona se come chiave si usano le stringhe.
 
 ```
-> hash1 = {a: 1} # simbolo
- => {:a=>1}
-> hash2 = {"a" => 1} # stringa
- => {"a"=>1}
-> hash3 = {:"a" => 1} # simbolo, ovviamente
- => {:a=>1}
-> hash4 = {"a": 1} # simbolo :-(
- => {:a=>1}
+hash1 = {a: 1} # simbolo
+# {:a=>1}
+hash2 = {"a" => 1} # stringa
+# {"a"=>1}
+hash3 = {:"a" => 1} # simbolo, ovviamente
+# {:a=>1}
+hash4 = {"a": 1} # simbolo :-(
+# {:a=>1}
 ```
 
 Mi sarei atteso che l'ultimo esempio inserisse una chiave di tipo stringa.
 
-Nota: ```:"stringa"``` è il simbolo ```:stringa``` e non una stringa. Si usa per poter usare spazi nel nome del simbolo come in ```:"simbolo con spazi"```. Simboli e stringhe sono diversi, anche se con le stringhe frozen per default in Ruby 2.3 non c'è molta differenza nelle prestazioni.
+Nota: `:"stringa"` è il simbolo `:stringa` e non una stringa. Si usa per poter usare spazi nel nome del simbolo come in `:"simbolo con spazi"`. Simboli e stringhe sono diversi, anche se con le stringhe frozen per default in Ruby 2.3 non c'è molta differenza nelle prestazioni.
 
 Da questo punto meglio Python che può usare le stringhe come chiavi e ci permette di copiare il JSON direttamente nel sorgente Python senza trasformare i due punti in frecce.
 
 ```
-$ python
-> dict1 = {"a": 1}
+dict1 = {"a": 1}
 ```
 
 Purtroppo non avendo i simboli in Python siamo costretti a perder tempo e inserire i doppi apici sempre.
 
 ```
-> dict2 = {a: 1}
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-NameError: name 'a' is not defined
+dict2 = {a: 1}
+# Traceback (most recent call last):
+#  File "<stdin>", line 1, in <module>
+# NameError: name 'a' is not defined
 ```
 
 In Ruby non accadrà https://bugs.ruby-lang.org/issues/4801
@@ -655,7 +654,8 @@ vulnerabilities = {
     "HighlyPossibleSqlInjection": {"value": 1, "description": "SQL Injection"},
     "Xss": {"value": 2, "description": "Temporary / Reflected XSS"}
     }
-print(vulnerabilities["Xss"]["value"]
+print(vulnerabilities["Xss"]["value"])
+# 2
 ```
 
 e questo è Ruby
@@ -665,10 +665,16 @@ vulnerabilities = {
          "HighlyPossibleSqlInjection": {"value": 1, "description": "SQL Injection"},
          "Xss": {"value": 2, "description": "Temporary / Reflected XSS"}
 }
- => {:HighlyPossibleSqlInjection=>{:value=>1, :description=>"SQL Injection"}, :Xss=>{:value=>2, :description=>"Temporary / Reflected XSS"}}
+puts vulnerabilities["Xss"]["value"]
+# NoMethodError: undefined method `[]' for nil:NilClass
+puts vulnerabilities[:Xss][:value]
+# 2
 ```
 
-Le chiavi sono simboli e potrebbe non essere quel che vogliamo se stiamo lavorando con del JSON. Rails però ha ```HashWithIndifferentAccess```
+Nonostante in apparenza Ruby con questa notazione ci permetta di usare stringhe come chiavi, le chiavi sono simboli. Non è bello definire l'hash in un modo ed accedere ai suoi valori in un altro.
+
+Inoltre è scomodo se stiamo lavorando con dei literal JSON e li copiamo nel sorgente Ruby da file JSON.
+Rails però ha `HashWithIndifferentAccess`
 http://api.rubyonrails.org/classes/ActiveSupport/HashWithIndifferentAccess.html
 Come ho già scritto, un linguaggio ha qualcosa che non va se bisogna aggiungergli dei tool esterni.
 
@@ -692,15 +698,21 @@ Meglio perché è molto più bello scrivere
 puts vulnerabilities.Xss.value
 ```
 
-oppure
+che
+
+```
+print(vulnerabilities["Xss"]["value"])
+```
+
+In un controller Rails usando le OpenStruct potremmo scrivere
 
 ```
 key = params[key]
 puts vulnerabilities[key].value
 ```
 
-Peggio perché la definizione di vulnerabilities non è altrettanto facile da leggere. Quegli ```OpenStruct.new``` sono rumore.
-Peggio anche perché creare una ```OpenStruct``` invalida la cache dei metodi
+Peggio perché la definizione di `vulnerabilities` non è altrettanto facile da leggere. Quegli `OpenStruct.new` sono rumore.
+Peggio anche perché creare una `OpenStruct` invalida la cache dei metodi
 https://github.com/charliesome/charlie.bz/blob/master/posts/things-that-clear-rubys-method-cache.md
 Se lo dovete fare fatelo solo quando l'applicazione parte non ad esempio ad ogni chiamata di una URL.
 
@@ -747,7 +759,7 @@ i_want_func = 'func1'
 globals()[i_want_func]()
 ```
 
-e c'è la tecnica object oriented di eliminare ```if``` e ```case``` con le classi.
+e c'è la tecnica object oriented di eliminare `if` e `case` con le classi.
 https://sourcemaking.com/refactoring/replace-conditional-with-polymorphism
 
 Il modo sano sarebbe stato
@@ -762,7 +774,7 @@ switch var:
   default: funzione_default(arg)
 ```
 
-che è più asciutto dell'equivalente Ruby con i ```when```.
+che è più asciutto dell'equivalente Ruby con i `when`.
 
 Notare che in Ruby si potrebbe scrivere
 
@@ -794,12 +806,12 @@ case var
 end
 ```
 
-Un difetto di Ruby? Avrebbe potuto usare ```switch``` e ```case``` come gli altri linguaggi.
+Un difetto di Ruby? Avrebbe potuto usare `switch` e `case` come gli altri linguaggi.
 
 <a name="Class"></a>
 ## Classi, self, aggiunta di metodi e variabili, mixin
 
-Python richiede il passaggio di ```self``` negli argomenti della definizione dei metodi delle classi.
+Python richiede il passaggio di `self` negli argomenti della definizione dei metodi delle classi.
 
 ```
 class Classe:
@@ -812,7 +824,7 @@ oggetto.metodo(1)
 # 1
 ```
 
-Tutti i linguaggi successivi ne fanno a meno. È lavoro dell'interprete assicurare la presenza di ```self``` e lo stesso sviluppatore che ricorda la sua presenza in Java o Ruby se la può ricordare anche Python.
+Tutti i linguaggi successivi ne fanno a meno. È lavoro dell'interprete assicurare la presenza di `self` e lo stesso sviluppatore che ricorda la sua presenza in Java o Ruby se la può ricordare anche Python.
 
 Si possono aggiungere variabili e metodi ad un oggetto, come si potrebbe fare in JavaScript
 
@@ -894,7 +906,7 @@ puts oggetto.m3
 # nuovo 3
 ```
 
-oppure per aggiungere solo un metodo si può chiamare il metodo privato ```define_method``` di ```Class```
+oppure per aggiungere solo un metodo si può chiamare il metodo privato `define_method` di `Class`
 
 ```
 # si usa send per arrivare al metodo privato
@@ -908,11 +920,11 @@ Classe.m5
 
 ```
 
-In Python la riapertura della classe non è possibile ma la notazione è più compatta non dovendo fare ```send``` a ```define_method```.
+In Python la riapertura della classe non è possibile ma la notazione è più compatta non dovendo fare `send` a `define_method`.
 
 È consigliabile leggersi tutta la documentazione di [Module](https://ruby-doc.org/core-2.4.0/Module.html) e di [Class](https://ruby-doc.org/core-2.4.0/Class.html)
 
-In Ruby è possibile importare metodi anche con il meccanismo dei mixin. Notare la differenza tra ```include``` ed ```extend```
+In Ruby è possibile importare metodi anche con il meccanismo dei mixin. Notare la differenza tra `include` ed `extend`
 
 ```
 module MixinInclude
@@ -974,7 +986,7 @@ Classe.for_the_class()
 
 Non so se sia concettualmente corretto che metodi di classe funzionino sulle istanze, ma così è.
 
-Googlate le annotazioni Python ```@staticmethod``` e ```@abc.abstractmethod``` e leggete [questo post](https://julien.danjou.info/blog/2013/guide-python-static-class-abstract-methods)
+Googlate le annotazioni Python `@staticmethod` e `@abc.abstractmethod` e leggete [questo post](https://julien.danjou.info/blog/2013/guide-python-static-class-abstract-methods)
 
 <a name="Pipe"></a>
 ## Pipe
@@ -983,7 +995,7 @@ Googlate le annotazioni Python ```@staticmethod``` e ```@abc.abstractmethod``` e
 [1, 2, 3].map { |x| x * x }
 ```
 
-C'è una ```|``` di troppo. Basterebbe
+C'è una `|` di troppo. Basterebbe
 
 ```
 [1, 2, 3].map { x | x * x }
@@ -1016,7 +1028,7 @@ Di certo nella forma breve non ci sono problemi.
 <a name="Operatore"></a>
 ## Operatore ternario
 
-Forse per mantenere consistenza con lo stile discorsivo degli operatori booleani ```and or not``` Python (solo dalla 2.5) ha introdotto questo operatore ternario
+Forse per mantenere consistenza con lo stile discorsivo degli operatori booleani `and or not` Python (solo dalla 2.5) ha introdotto questo operatore ternario
 
 ```
 a if condition else b
@@ -1033,7 +1045,7 @@ Da un lato apprezzo la consistenza dello stile, dall'altro non approvo il render
 <a name="Blocchi"></a>
 ## Blocchi
 
-Il passaggio di blocchi a metodi caratterizza profondamente Ruby. Python ha qualcosa di simile con ```with```
+Il passaggio di blocchi a metodi caratterizza profondamente Ruby. Python ha qualcosa di simile con `with`
 
 Un esempio da https://jeffknupp.com/blog/2016/03/07/python-with-context-managers/
 
@@ -1053,7 +1065,7 @@ File.open("file", "r") do |f|
 end
 ```
 
-```with as``` si mappa quasi 1:1 sul ```do |f|``` di Ruby e ```for in``` (che esiste anche in Ruby) è l'equivalente di ```each |line|```.
+```with as` si mappa quasi 1:1 sul `do |f|` di Ruby e `for in` (che esiste anche in Ruby) è l'equivalente di `each |line|`.
 
 
 <a name="Keyword"></a>
@@ -1075,13 +1087,13 @@ metodo(arg1, arg2: 2, arg3: 3)
 metodo(arg1, arg3: 3, arg2: 2)
 ```
 
-Funziona perché quando Ruby vede ```arg3: 3, arg2: 2``` lo collassa in un unico argomento di tipo Hash. L'ultima riga equivale a
+Funziona perché quando Ruby vede `arg3: 3, arg2: 2` lo collassa in un unico argomento di tipo Hash. L'ultima riga equivale a
 
 ```
 metodo(arg1, {arg3: 3, arg2: 2})
 ```
 
-Si può anche scrivere così, ma dover usare ```[0]``` per arrivare agli argomenti non è bello
+Si può anche scrivere così, ma dover usare `[0]` per arrivare agli argomenti non è bello
 
 ```
 def metodo(arg1, *options)
@@ -1137,7 +1149,7 @@ firstn(3)
 # [0, 1, 2]
 ```
 
-La chiamata a ```firstn(3)``` ritorna un Generator. ```firstn``` inizia davvero ad eseguire quando alla comprehension serve la prima ```x```. Arriva fino a ```yield num``` e ritorna ```0``` e resta sospesa. Poi la comprehension le chiede una seconda ```x``` e ```firstn``` riparte da dove era arrivata, incrementando ```num``` e ritornando ```1```.
+La chiamata a `firstn(3)` ritorna un Generator. `firstn` inizia davvero ad eseguire quando alla comprehension serve la prima `x`. Arriva fino a `yield num` e ritorna `0` e resta sospesa. Poi la comprehension le chiede una seconda `x` e `firstn` riparte da dove era arrivata, incrementando `num` e ritornando `1`.
 
 Lo stesso codice in Ruby fa una cosa diversa
 
@@ -1161,7 +1173,7 @@ LocalJumpError: no block given (yield)
        from /home/me/.rvm/rubies/ruby-2.3.0/bin/irb:11:in `<main>'
 ```
 
-Infatti in Ruby ```firstn``` parte e quando arriva a ```yield``` passa ```num``` ad un blocco di codice, che deve esserle stato passato come argomento. Ad esempio.
+Infatti in Ruby `firstn` parte e quando arriva a `yield` passa `num` ad un blocco di codice, che deve esserle stato passato come argomento. Ad esempio.
 
 ```
 firstn(3) {|x| puts x}
@@ -1181,7 +1193,7 @@ firstn(3) do |x|
 end
 ```
 
-Per creare un generatore in Ruby si usa la classe ```Enumerator```
+Per creare un generatore in Ruby si usa la classe `Enumerator```
 
 ```
 def firstn(n)
@@ -1204,9 +1216,9 @@ firstn(3).map {|x| x}
 # [0, 1, 2]
 ```
 
-come la ```[x for x in firstn(3)]``` di Python.
+come la `[x for x in firstn(3)]` di Python.
 
-Viceversa, l'equivalente di una ```yield``` Ruby in Python è il passaggio di una funzione come argomento ad un'altra
+Viceversa, l'equivalente di una `yield` Ruby in Python è il passaggio di una funzione come argomento ad un'altra
 
 ```
 def firstn(n, fun):
@@ -1245,14 +1257,14 @@ firstn(3, :pr)
 2
 ```
 
-È una conseguenza dell'aver reso facoltative le parentesi: ```pr``` è identico a ```pr()``` ed eseguirebbe il metodo andando in errore per la mancanza del parametro.
+È una conseguenza dell'aver reso facoltative le parentesi: `pr` è identico a `pr()` ed eseguirebbe il metodo andando in errore per la mancanza del parametro.
 
 ```
 firstn(3, pr)
 ArgumentError: wrong number of arguments (given 0, expected 1)
 ```
 
-In Python bisogna sempre passare come parametro una funzione definita esplicitamente, a meno che la funzione non si limiti a calcolare un'espressione. In quel caso si può usare una ```lambda```. Le lambda Python non possono contenere statement.
+In Python bisogna sempre passare come parametro una funzione definita esplicitamente, a meno che la funzione non si limiti a calcolare un'espressione. In quel caso si può usare una `lambda`. Le lambda Python non possono contenere statement.
 
 https://docs.python.org/2/reference/expressions.html#lambda
 https://docs.python.org/3/reference/expressions.html#lambda
@@ -1278,7 +1290,7 @@ fn(2) {|x| x + 1}
 <a name="comprehension"></a>
 # comprehension, filter, map, reduce
 
-Dove Ruby di solito itera su array con ```each``` o ```map```, Python usa la list comprehension.
+Dove Ruby di solito itera su array con `each` o `map`, Python usa la list comprehension.
 
 ```
 [x * x for x in [1, 2, 3, 4]]
@@ -1301,7 +1313,7 @@ Combinandoli
 ```
 
 La differenza rispetto alla notazione matematica è che la parte "applica f(x)" viene all'inizio rendendo un po' difficile la lettura.
-Python ha anche ```map``` e ```reduce```. Adottando la notazione funzionale classica la composizione si deve scrivere al contrario rispetto al flusso di esecuzione, come per l'appunto ```f(g(x))``` dove prima si calcola ```g(x)``` e poi ```f```.
+Python ha anche `map` e `reduce`. Adottando la notazione funzionale classica la composizione si deve scrivere al contrario rispetto al flusso di esecuzione, come per l'appunto `f(g(x))` dove prima si calcola `g(x)` e poi `f`.
 
 ```
 from functools import reduce
@@ -1316,7 +1328,7 @@ E' meno immediato da leggere rispetto a
 # 20
 ```
 
-Elixir (inizio a scriverne) evita il problema con lo zucchero sintattico dell'operatore ```|>```, che per altro non è comodo da scrivere.
+Elixir (inizio a scriverne) evita il problema con lo zucchero sintattico dell'operatore `|>`, che per altro non è comodo da scrivere.
 
 ```
 $ iex
@@ -1327,13 +1339,13 @@ $ iex
 # 20
 ```
 
-Dovendo scrivere ogni volta sia il nome del modulo ```Enum``` che ```end```, è il linguaggio più verboso dei tre.
+Dovendo scrivere ogni volta sia il nome del modulo `Enum` che `end`, è il linguaggio più verboso dei tre.
 
 
 <a name="do while"></a>
 ## L'orribile do while Ruby
 
-Non è possibile che un linguaggio non abbia un ```do while``` e costringa a scrivere codice come questo.
+Non è possibile che un linguaggio non abbia un `do while` e costringa a scrivere codice come questo.
 
 ```
 loop do
@@ -1347,11 +1359,11 @@ Si faceva di peggio solo in BASIC sugli home computer negli anni '80.
 <a name="Bizzarrie"></a>
 ## Bizzarrie rubiche
 
-Ricordo che come principiante Ruby ero molto perplesso di dover usare il raro ```begin ... end```, il non così raro ```=begin =end``` e i sigil ```@``` ```@@``` ```$```.
+Ricordo che come principiante Ruby ero molto perplesso di dover usare il raro `begin ... end`, il non così raro `=begin =end` e i sigil `@` `@@` `$`.
 
-Il commento multilinea di Ruby è una mostruosità. È normale che un linguaggio di scripting debba avere commenti a linea singola che inizio con ```#```, per poter fare ```#!/usr/bin/ruby``` su *NIX, ma non è incompatibile con i commenti multilinea tradizionali ```/* */``` né con altri single line ```//``` (per ```#``` ci vuole Shift o Alt, sono comunque 2 tasti).  Usare stringhe come commenti multilinea in Python è un trucco che funziona ma bizzarro. È una funzionalità di base di ogni linguaggio, strano che non ci sia.
+Il commento multilinea di Ruby è una mostruosità. È normale che un linguaggio di scripting debba avere commenti a linea singola che inizio con `#`, per poter fare `#!/usr/bin/ruby` su *NIX, ma non è incompatibile con i commenti multilinea tradizionali `/* */` né con altri single line `//` (per `#` ci vuole Shift o Alt, sono comunque 2 tasti).  Usare stringhe come commenti multilinea in Python è un trucco che funziona ma bizzarro. È una funzionalità di base di ogni linguaggio, strano che non ci sia.
 
-I sigil sono un po' strani. Non so come, ma Java riesce a farne a meno. In caso di ambiguità si deve usare ```self```, che ha anche Ruby. Java dichiara le variabili prima, ma usare ```attr``` non è cattiva pratica neppure in Ruby. Forse sono una di quelle cose di cui Matz diceva "there were many things that were borrowed from Perl - nowadays I think many of them weren’t necessary".
+I sigil sono un po' strani. Non so come, ma Java riesce a farne a meno. In caso di ambiguità si deve usare `self`, che ha anche Ruby. Java dichiara le variabili prima, ma usare `attr` non è cattiva pratica neppure in Ruby. Forse sono una di quelle cose di cui Matz diceva "there were many things that were borrowed from Perl - nowadays I think many of them weren’t necessary".
 
 
 <a name="Stile"></a>
@@ -1408,7 +1420,7 @@ Esempio d'uso dell'ORM di Django
         )
 ```
 
-I due underscore indicano che il Doc riferito dalla DocLine deve avere un id incluso in ```doc_ids```.
+I due underscore indicano che il Doc riferito dalla DocLine deve avere un id incluso in `doc_ids`.
 
 Lo stesso in Rails
 
@@ -1426,7 +1438,7 @@ Lo stesso in Rails
      end
 ```
 
-Rails se la cava semplicemente accorgendosi che ```doc_ids``` è un array e quindi è ovvio che va aggiunta la ```WHERE doc_id in SELECT IN (doc_ids)```. Va detto che la gemma ```squeel``` quasi va in quella direzione e c'è a chi piace.
+Rails se la cava semplicemente accorgendosi che `doc_ids` è un array e quindi è ovvio che va aggiunta la `WHERE doc_id in SELECT IN (doc_ids)`. Va detto che la gemma `squeel` quasi va in quella direzione e c'è a chi piace.
 
 Altri due ORM Python, SQLAlchemy e peewee, non usano underscore semantici.
 
@@ -1449,7 +1461,7 @@ end
 ```
 
 
-BTW, non fate ```rescue``` di ```Exception`` perché intercettereste ogni segnale ed errore. Provate questa:
+BTW, non fate `rescue` di `Exception`` perché intercettereste ogni segnale ed errore. Provate questa:
 
 ```
 loop do
@@ -1463,7 +1475,7 @@ loop do
 end
 ```
 
-A proposito, Python e Ruby: perché non usate un ```try catch``` come tutti?
+A proposito, Python e Ruby: perché non usate un `try catch` come tutti?
 
 <a name="La virgola"></a>
 ## La virgola che non si vede
@@ -1483,9 +1495,9 @@ Vista adesso?
 
 Senza virgola è solo un'espressione tra parentesi, con la virgola è una tupla di un elemento. Cattiva idea usare le parentesi tonde per tutte e due le cose.
 
-Le tuple in Elixir hanno le graffe ```{value}``` ed il problema si risolve da sè.
+Le tuple in Elixir hanno le graffe `{value}` ed il problema si risolve da sè.
 
-Ruby ne fa a meno, non ha tuple. Le ```Struct``` gli assomigliano ma devono essere dichiarate in anticipo e sono molto verbose.
+Ruby ne fa a meno, non ha tuple. Le `Struct` gli assomigliano ma devono essere dichiarate in anticipo e sono molto verbose.
 Inoltre possono avere dei metodi. Sono delle specie di classi.
 http://ruby-doc.org/core-2.4.0/Struct.html
 
@@ -1533,7 +1545,7 @@ secondo me si legge peggio di
 
 perché costringe a saltare con l'occhio a destra per capire cosa verrà inserito a sinistra.
 
-Sarebbe fantastico se si potesse fare a meno del ```#``` e si potesse scrivere solo
+Sarebbe fantastico se si potesse fare a meno del `#` e si potesse scrivere solo
 
 ```
 "Ciao {nome} {cognome}, come stai?"
@@ -1591,7 +1603,7 @@ class Color(Enum):
      blue = 3
 ```
 
-che ci riporta alla definizione di costanti. Se non altro sono compartimentati in classi e non c'è il rischio che un ```==``` tra due costanti a cui abbiamo dato maldestramente lo stesso valore generi bug.
+che ci riporta alla definizione di costanti. Se non altro sono compartimentati in classi e non c'è il rischio che un `==` tra due costanti a cui abbiamo dato maldestramente lo stesso valore generi bug.
 
 Dal codice Python che ho visto non c'è però un gran bisogno di usare simboli. In Ruby si usano spesso come chiavi di hash o per il passaggio di argomenti, ma Python ha altri meccanismi per quegli scenari.
 
@@ -1599,7 +1611,7 @@ Dal codice Python che ho visto non c'è però un gran bisogno di usare simboli. 
 <a name="Interpreti"></a>
 ## Interpreti multipli
 
-Per avere versioni multiple dell'interprete e delle gemme in Ruby si usano ```rvm``` o ```rbenv```. Per Python c'è ```pyenv```, un fork di ```rbenv``` modificato per Python.  Esiste anche ```virtualenv``` che però non è in grado di scaricare ed installare un interprete. Si occupa solo di isolare environment diversi per l'interprete usato per eseguirlo. È simile a ```bundle``` o ai gemset di ```rvm```.  Python 3.3 e successivi includono ```venv```, una versione interna di ```virtualenv```. Dopo aver selezionato un interprete con ```pyenv``` si può usare ```virtualenv``` per creare ambienti separati.
+Per avere versioni multiple dell'interprete e delle gemme in Ruby si usano `rvm` o `rbenv`. Per Python c'è `pyenv`, un fork di `rbenv` modificato per Python.  Esiste anche `virtualenv` che però non è in grado di scaricare ed installare un interprete. Si occupa solo di isolare environment diversi per l'interprete usato per eseguirlo. È simile a `bundle` o ai gemset di `rvm`.  Python 3.3 e successivi includono `venv`, una versione interna di `virtualenv`. Dopo aver selezionato un interprete con `pyenv` si può usare `virtualenv` per creare ambienti separati.
 
 <a name="rvm"></a>
 ### rvm
@@ -1657,9 +1669,9 @@ C'è poi [asdf](https://github.com/asdf-vm/asdf) che gestisce molti linguaggi in
 
 Le IDE hanno i loro metodi, che si appoggiano a quel che offre l'interprete.
 
-Il modo canonico di fare debugging in Ruby da command line è usare le gemme ```byebug``` o ```pry```. Se ne fanno i ```require``` (Rails ci pensa da solo) e si inseriscono i metodi ```byebug``` o ```binding.pry``` nel codice. Quando l'esecuzione li incontra si apre un REPL con lo stato dell'esecuzione e la possibilità di procedere passo a passo. Una volta si usava ```debugger``` (built in) ma è una soluzione inferiore. Non si usa da così tanto che non ricordo neppure il perché.
+Il modo canonico di fare debugging in Ruby da command line è usare le gemme `byebug` o `pry`. Se ne fanno i `require` (Rails ci pensa da solo) e si inseriscono i metodi `byebug` o `binding.pry` nel codice. Quando l'esecuzione li incontra si apre un REPL con lo stato dell'esecuzione e la possibilità di procedere passo a passo. Una volta si usava `debugger` (built in) ma è una soluzione inferiore. Non si usa da così tanto che non ricordo neppure il perché.
 
-Per Python si può usare il package ```ipython```, già incontrato in precedenza, fermando l'esecuzione con ```IPython.embed()```. Purtroppo però non permette di fare esecuzione step by step. Si usa allora il package ```ipdb```, con ```ipdb.set_trace()```.
+Per Python si può usare il package `ipython`, già incontrato in precedenza, fermando l'esecuzione con `IPython.embed()`. Purtroppo però non permette di fare esecuzione step by step. Si usa allora il package `ipdb`, con `ipdb.set_trace()`.
 
 La versione plain di ipdb è pdb, inclusa in Python. Una versione web è [wdb](https://github.com/Kozea/wdb).
 
@@ -1693,11 +1705,11 @@ In un progetto ben staffato che può andare avanti per anni invece può valer la
 <a name="Il routing"></a>
 ## Il routing
 
-Uno dei pregi di Rails basta guardare una URL per risalire rapidamente al file controller e al metodo che la implementa, e alla view che la presenta. Con Django e Web2Py bisogna per forza guardare il file delle rotte, che può essere spezzato in più file sparsi per le directory dell'applicazione. Si perde tempo. Si può installare https://github.com/django-extensions/django-extensions ma ci si chiede perché una funzionalità così importante non sia già nel core del progetto, soprattutto quando è così scomodo farlo a mano. Tutto sommato per via delle convenzioni di ```rake routes``` quasi si può fare a meno.
+Uno dei pregi di Rails basta guardare una URL per risalire rapidamente al file controller e al metodo che la implementa, e alla view che la presenta. Con Django e Web2Py bisogna per forza guardare il file delle rotte, che può essere spezzato in più file sparsi per le directory dell'applicazione. Si perde tempo. Si può installare https://github.com/django-extensions/django-extensions ma ci si chiede perché una funzionalità così importante non sia già nel core del progetto, soprattutto quando è così scomodo farlo a mano. Tutto sommato per via delle convenzioni di `rake routes` quasi si può fare a meno.
 
-Django può avere file ```urls.py``` sparsi per tutto il progetto, che è molto strano a chi è abituato ad avere tutto in ```config/routes.py```.
+Django può avere file `urls.py` sparsi per tutto il progetto, che è molto strano a chi è abituato ad avere tutto in `config/routes.py`.
 
-Ad onor del vero Rails può avere ```routes.rb``` dentro alle gemme (e pure controller, modelli, migrazioni, view), il concetto se si vuole è simile. Ma l'applicazione principale ha un solo file di rotte. Pure la sintassi è più umana.
+Ad onor del vero Rails può avere `routes.rb` dentro alle gemme (e pure controller, modelli, migrazioni, view), il concetto se si vuole è simile. Ma l'applicazione principale ha un solo file di rotte. Pure la sintassi è più umana.
 
 Rails già include http://www.django-rest-framework.org/api-guide/routers/ e con una sintassi più compatta grazie al poter passare blocchi di codice ai metodi e all'importare tutto.
 
@@ -1752,24 +1764,19 @@ https://github.com/django/deps/blob/master/draft/0201-simplified-routing-syntax.
 A proposito: Target=”_blank” — the most underestimated vulnerability ever
 https://medium.com/@jitbit/target-blank-the-most-underestimated-vulnerability-ever-96e328301f4c
 
-Immagine per il Phishing: Kenneth Lu
-https://www.flickr.com/photos/toasty/1276202472
-https://creativecommons.org/licenses/by/2.0/
-Scaricata in ```/home/montra/Downloads/1276202472_ce7e194cf2_o.jpg```
-
 Altro caso in cui la convenzione facilita lo sviluppatore:
 
 * vedi una stringa in una pagina HTML nel browser
 * la cerchi nel codice Django
-* la trovi in ```templates/console/editproject_everything.html```
+* la trovi in `templates/console/editproject_everything.html`
 
 Dove sarà la action corrispondente?
 
-è in ```console/views.py```, insieme a tante altre (1000+ righe nel progetto che ho ereditato), dentro a ```def edit(...)```
+È in `console/views.py`, insieme a tante altre (1000+ righe nel progetto che ho ereditato), dentro a `def edit(...)`.
 
-In Rails al file ```app/views/console/editproject_everything.html.erb``` avrebbe corrisposto ```app/controllers/console_controller.rb```, ```def editproject_everything```. Più facile.
+In Rails al file `app/views/console/editproject_everything.html.erb` avrebbe corrisposto `app/controllers/console_controller.rb`, `def editproject_everything`. Più facile.
 
-In realtà Rails ti avrebbe invitato a progettare un controller ```console``` con azioni restful e quindi ci sarebbe stato un altro controller ```projects``` con dentro una ```def edit_everything``` o meglio ancora una semplice ```def edit```. Il controller sarebbe stato generato dallo scaffolder e riempito di codice dallo sviluppatore. Più ordinato. Non è una coincidenza che non abbia mai visto progetto Rails con tutte le action in un unico controller.
+In realtà Rails ti avrebbe invitato a progettare un controller `console` con azioni restful e quindi ci sarebbe stato un altro controller `projects` con dentro una `def edit_everything` o meglio ancora una semplice `def edit`. Il controller sarebbe stato generato dallo scaffolder e riempito di codice dallo sviluppatore. Più ordinato. Non è una coincidenza che non abbia mai visto progetto Rails con tutte le action in un unico controller.
 
 Gli amici Pythonisti mi danno l'ottima notizia che ora esistono le class based views (ricordate che le views Django sono i controller Rails)
 
@@ -1790,7 +1797,7 @@ oltre che http://www.django-rest-framework.org/
 
 per cui questi problemi potrebbero essere già scomparsi. Una costante degli ultimi 10 anni è la cross-contamination di tutti i framework web.
 
-Django e Web2Py hanno dei default che invogliano ad avere un solo controller, la ```app_name/views.py``` di Django e il ```app_name/controllers/default.py``` di Web2py e questo è male. Sarà un caso ma mi sono sempre trovato di fronte a controller di 1000 o 2000 righe. Inducono il principiante in errore e quando arriva uno sviluppatore più esperto il cliente non ha soldi per il refactoring ma solo per le funzionalità per cui l'ha chiamato. Tuttavia, se il principio è dividere il progetto in tante piccole applicazioni, forse corrispondenti al blocco risorsa di Rails (modello + controller + views) allora ci può stare. Chi sbaglia è lo sviluppatore che costruisce un progetto mono applicazione.
+Django e Web2Py hanno dei default che invogliano ad avere un solo controller, la `app_name/views.py` di Django e il `app_name/controllers/default.py` di Web2py e questo è male. Sarà un caso ma mi sono sempre trovato di fronte a controller di 1000 o 2000 righe. Inducono il principiante in errore e quando arriva uno sviluppatore più esperto il cliente non ha soldi per il refactoring ma solo per le funzionalità per cui l'ha chiamato. Tuttavia, se il principio è dividere il progetto in tante piccole applicazioni, forse corrispondenti al blocco risorsa di Rails (modello + controller + views) allora ci può stare. Chi sbaglia è lo sviluppatore che costruisce un progetto mono applicazione.
 
 
 <a name="MVC"></a>
@@ -1801,7 +1808,7 @@ https://www.quora.com/Is-Ruby-on-Rails-a-truly-MVC-framework
 
 > One of the key characteristics of the MVC pattern is that the Observer pattern is used for the model to communicate state changes directly to the view which Ruby on Rails doesn't do
 
-Mi sembra più una questione di nomenclatura che di sostanza. Alla fine il codice in ```views.py``` di Django fa esattamente quel che fa il codice dei controller di Rails e i template Django sono esattamente uguali alle viste Rails, a parte il linguaggio di templating più limitato.
+Mi sembra più una questione di nomenclatura che di sostanza. Alla fine il codice in `views.py` di Django fa esattamente quel che fa il codice dei controller di Rails e i template Django sono esattamente uguali alle viste Rails, a parte il linguaggio di templating più limitato.
 
 A proposito, anche per Ruby c'è un linguaggio di templating con le restrizioni imposte dal linguaggio di Jango. Si tratta di Liquid di Shopify http://shopify.github.io/liquid/ che per evidenti ragioni non vuole che i suoi clienti possano far girare potenzialmente di tutto sui propri server.
 
@@ -1848,11 +1855,11 @@ mysite/mysite/urls.py
 mysite/manage.py
 ```
 
-Ha creato un progetto ```mysite``` con il minimo indispensabile. Non ci sono ancora né view né template.
+Ha creato un progetto `mysite` con il minimo indispensabile. Non ci sono ancora né view né template.
 
 Le applicazioni, in Django, sono delle librerie che vanno ad arricchire il progetto.
 Possono essere esterne o interne al progetto, utilizzando il file di requirements.txt.
-```mysite``` dell'esempio è una applicazione interna.
+```mysite` dell'esempio è una applicazione interna.
 Anche le applicazioni interno possono risiedere in un loro repository (ad esempio con https://git-scm.com/book/en/v2/Git-Tools-Submodules)
 
 Si aggiungono ad un progetto con
@@ -1873,7 +1880,7 @@ polls/tests.py
 
 Ogni applicazione ha le sue view, modelli, migrazioni, controller, test.
 
-Rails ha una sola applicazione in ```app``` con alberatura assai più estesa.
+Rails ha una sola applicazione in `app` con alberatura assai più estesa.
 
 ```
 $ rails new demo_rails --skip-bundle
@@ -1980,11 +1987,11 @@ demo_rails/log/.keep
 <a name="Migrazioni"></a>
 ## Migrazioni DRY
 
-Invece è davvero interessante come gli ORM Python cerchino di tenere DRY la modifica del DB. Si descrivono i modelli in Python in ```models/``` invece che in Ruby in ```db/migrations```. Significa avere la truth del modello in un solo file e non averla distribuita in più migrazioni non facilmente identificabili. Questo è positivo.
+Invece è davvero interessante come gli ORM Python cerchino di tenere DRY la modifica del DB. Si descrivono i modelli in Python in `models/` invece che in Ruby in `db/migrations`. Significa avere la truth del modello in un solo file e non averla distribuita in più migrazioni non facilmente identificabili. Questo è positivo.
 
-È poi Django a generare le migrazioni in base alle modifiche ai file dei modelli. I file dei modelli di Django si possono mettere ovunque, basta che ci sia un file ```models.py``` (devono stare tutti nello stesso file) e una directory ```migrations/``` con dentro un ```__init.py__```. Dovrebbe essere Django a creare la directory in automatico ma non è un grosso problema.
+È poi Django a generare le migrazioni in base alle modifiche ai file dei modelli. I file dei modelli di Django si possono mettere ovunque, basta che ci sia un file `models.py` (devono stare tutti nello stesso file) e una directory `migrations/` con dentro un `__init.py__`. Dovrebbe essere Django a creare la directory in automatico ma non è un grosso problema.
 
-Per fortuna i modelli si possono estrarre in file separati ed importarli dentro a ```models.py```, oppure li si possono importare direttamente, ad esempioil file ```models/unmodello.py``` si importa con ```from models.unmodello import UnModello```. Si veda l'esempio di https://github.com/divio/django-cms/tree/release/3.4.x/cms/models
+Per fortuna i modelli si possono estrarre in file separati ed importarli dentro a `models.py`, oppure li si possono importare direttamente, ad esempioil file `models/unmodello.py` si importa con `from models.unmodello import UnModello`. Si veda l'esempio di https://github.com/divio/django-cms/tree/release/3.4.x/cms/models
 
 A mio parere è un brutto default indurre lo sviluppatore a mettere tutti i modelli insieme. Rails obbliga a scriverli in file separati ed aiuta a crearli con lo scaffolding.
 
@@ -1996,18 +2003,18 @@ A mio parere è corretto che la truth sia il database, perché è lui l'owner de
 
 È pratico che le migrazioni siano comandate da una delle tante applicazioni che accederanno al database, ma non va bene. Anche se quella web di solito è l'applicazione principale, in un mondo che va verso i microservizi sarebbe meglio avere un repository a parte solo per la definizione e la gestione del database. Poter importare la truth dal database quindi è importante (reverse engineering).
 
-Notare che benché le migrazioni di Rails siano tutte in ```db/migrations``` e i modelli tutti in ```app/models```, anche con Rails si possono spargere file ovunque. Il metodo standard è creare gemme con le loro migrazioni, controller, modelli, viste, asset etc. È più laborioso che scrivere il codice tutto nell'app principale e quindi Rails non invoglia a farlo. Cattivo default?
+Notare che benché le migrazioni di Rails siano tutte in `db/migrations` e i modelli tutti in `app/models`, anche con Rails si possono spargere file ovunque. Il metodo standard è creare gemme con le loro migrazioni, controller, modelli, viste, asset etc. È più laborioso che scrivere il codice tutto nell'app principale e quindi Rails non invoglia a farlo. Cattivo default?
 
-Uno dei problemi con l'approccio di Django è che se per caso un modello sparisce per errore, poi ```manage.py makemigrations``` genera la ```DROP TABLE``` e si posso perdere i dati. Con Rails uno sviluppatore deve scrivere esplicitamente il comando di drop. Tipicamente l'errore avviene in sviluppo e non inficia la produzione, però può essere fastidioso. Per evitare problemi di qualsiasi tipo con Rails ho l'abitudine di scrivere un script di seeding che riempie il database da zero con dei dati da usare in sviluppo. Uso la gemma faker. Se anche dovessi fare il drop di una tabella lo posso ricostruire in fretta.
+Uno dei problemi con l'approccio di Django è che se per caso un modello sparisce per errore, poi `manage.py makemigrations` genera la `DROP TABLE` e si posso perdere i dati. Con Rails uno sviluppatore deve scrivere esplicitamente il comando di drop. Tipicamente l'errore avviene in sviluppo e non inficia la produzione, però può essere fastidioso. Per evitare problemi di qualsiasi tipo con Rails ho l'abitudine di scrivere un script di seeding che riempie il database da zero con dei dati da usare in sviluppo. Uso la gemma faker. Se anche dovessi fare il drop di una tabella lo posso ricostruire in fretta.
 
 Per disabilitare le migrazioni in Django
 https://docs.djangoproject.com/en/dev/ref/models/options/#managed
 
-Per verificarle si usa l'opzione ```--dry-run```
+Per verificarle si usa l'opzione `--dry-run`.
 
 Web2py ha un approccio molto rischioso alle migrazioni.
 
-Appena un modello modificato viene eseguito, magari perché si apre la console interattiva, fa la diff tra la definizione nel modello e la tabella e crea ed esegue il codice SQL che allinea la tabella alla definizione. Si possono disabilitare e lo consiglio tantissimo. Si indica ```migrate=False``` nel costruttore DAL del database.
+Appena un modello modificato viene eseguito, magari perché si apre la console interattiva, fa la diff tra la definizione nel modello e la tabella e crea ed esegue il codice SQL che allinea la tabella alla definizione. Si possono disabilitare e lo consiglio tantissimo. Si indica `migrate=False` nel costruttore DAL del database.
 
 
 <a name="Import"></a>
@@ -2026,17 +2033,17 @@ E infatti http://stackoverflow.com/questions/4863301/automatically-import-models
 
 Anche Phoenix di Elixir è così.
 
-Anche Ruby richiede ```require``` di tutto, ma Rails risparmia fatica allo sviluppatore.
+Anche Ruby richiede `require` di tutto, ma Rails risparmia fatica allo sviluppatore.
 
 Gli amici Pythonisti mi fanno notare che uno dei mantra di Python è "explicit is better than implicit", ma la coerenza non è di questo mondo. Un linguaggio esplicito come Python ha i decoratori ed uno che non disdegna essere implicito come Ruby invece non ne vuole sapere di introdurli. Nel caso di Ruby si tratterebbe di zucchero sintattico perché ci sono vari modi di crearli usando gli strumenti già presenti nel linguaggio. Ad esempio https://github.com/fredwu/ruby_decorators ne propone uno, con link ad altri due. Tuttavia un modo standard è sempre meglio che tanti l'uno diverso dall'altro. Va detto che l'esigenza non è molto sentita, forse per via dell'uso dei blocchi.
 
 <a name="Parentesi"></a>
 ## {{ }} e {% %}
 
-Il linguaggio di templating di Django usa ```{{ value }}```  per generare HTML e ```{% tag %}``` per comandi e templatetag (gli helper di Rails, organizzati meglio in Django).
+Il linguaggio di templating di Django usa `{{ value }}`  per generare HTML e `{% tag %}` per comandi e templatetag (gli helper di Rails, organizzati meglio in Django).
 Quando si passa da una all'altra ci sono due punti da modificare, a inizio e fine blocco.
 
-Con ERB ```<%= value %>``` ```<% block %>``` si fa una sola modifica e complessivamente si risparmia tempo perché il carattere extra ERB si recupera subito con i tanti tasti freccia schiacciati in meno.
+Con ERB `<%= value %>` `<% block %>` si fa una sola modifica e complessivamente si risparmia tempo perché il carattere extra ERB si recupera subito con i tanti tasti freccia schiacciati in meno.
 
 <a name="Templating"></a>
 ## Templating
@@ -2068,9 +2075,9 @@ vs
 <% end %>
 ```
 
-Notare tra l'altro il mismatch tra il nome del filtro ```zip``` nel template ed il nome della funzione nella templatetag ```zip_lists```. Il nome della funzione include il tipo degli argomenti. Non è il principio di least surprise.
+Notare tra l'altro il mismatch tra il nome del filtro `zip` nel template ed il nome della funzione nella templatetag `zip_lists`. Il nome della funzione include il tipo degli argomenti. Non è il principio di least surprise.
 
-La soluzione è preparare diversamente nella view la lista da mostrare, magari utilizzando named tuple per evitare di avere due liste di cui fare ```zip```.
+La soluzione è preparare diversamente nella view la lista da mostrare, magari utilizzando named tuple per evitare di avere due liste di cui fare `zip`.
 
 Web2py invece usa Python e quindi non si può dire che si tratti di una scelta comune a tutti i framework web di Python. Qui vincono Rails e Web2Py.
 
@@ -2086,7 +2093,7 @@ Gli errori di Web2py sono quasi inutili. Per qualche ragione non riesce a mostra
 
 Django fa un restart quando si salva un file. È veloce ma spesso il reload dello sviluppatore è più veloce ancora e si ha un errore e si deve ricaricare una seconda volta. Meglio il comportamento di Rails che resta appeso fino al reload (o lo fa ogni volta?) senza dare errori. Anche Web2py non dà problemi.
 Django inoltre pare consumare CPU mentre sta in attesa, forse proprio per tener d'occhio i file e ricaricare. Consuma la batteria e fa girare la ventola.
-Googlando un po' si scopre la soluzione. È ```pip install pynotify``` che usa inotify di Linux ed abbatte i tempi ed i consumi. Non funziona però se si fa girare Django in una VM (es: vagrant) con i sorgenti su un file system condiviso con l'OS host: il file system dello share non supporta bene inotify.
+Googlando un po' si scopre la soluzione. È `pip install pynotify` che usa inotify di Linux ed abbatte i tempi ed i consumi. Non funziona però se si fa girare Django in una VM (es: vagrant) con i sorgenti su un file system condiviso con l'OS host: il file system dello share non supporta bene inotify.
 Rails e Web2Py non hanno problemi già out of the box (usano subito inotify?). Bisognerebbe verificare se anche loro hanno problemi in una VM.
 
 <a name="Logging"></a>
@@ -2115,7 +2122,7 @@ http://capistranorb.com/
 http://nadarei.co/mina/
 
 Con Django e Web2Py non sembra esserci nulla di equivalente. Ho trovato fabistrano ma non pare essere mainstream.
-Ancora mi chiedo se esista un modo standard per fare deploy e rollback. ```git pull``` e ```rsync``` hanno degli svantaggi come il deploy di file che non hanno senso in produzione (es: i test). ```scp``` ha il problema di non cancellare i file. Il rollback è difficoltoso.
+Ancora mi chiedo se esista un modo standard per fare deploy e rollback. `git pull` e `rsync` hanno degli svantaggi come il deploy di file che non hanno senso in produzione (es: i test). `scp` ha il problema di non cancellare i file. Il rollback è difficoltoso.
 
 In realtà nulla vieta di usare Capistrano anche per Python ma è strano che non esista uno strumento nativo.
 
@@ -2126,7 +2133,7 @@ Il test non riguarda solo le applicazioni web, ma da sviluppatore web lo uso pra
 
 Ci sono vari framework di test. Questa sezione è sbilanciata come estensione verso il mondo Ruby per ragioni di esperienza. Non ci sono particolari differenze tra Ruby e Python per quel che ho visto fino ad ora.
 
-Rails nativamente usa [minitest](https://github.com/seattlerb/minitest) (vedere la [guida](http://guides.rubyonrails.org/testing.html)). Personalmente preferisco [rspec](http://rspec.info/) perché minitest la sua sintassi simil-rspec è arrivata dopo rspec (ma va!) e prima di allora rspec era semplicemente troppo più espressivo. Di rspec uso la vecchia sintassi ```.should``` anziché la nuova ```expect```, per questioni di leggibilità.
+Rails nativamente usa [minitest](https://github.com/seattlerb/minitest) (vedere la [guida](http://guides.rubyonrails.org/testing.html)). Personalmente preferisco [rspec](http://rspec.info/) perché minitest la sua sintassi simil-rspec è arrivata dopo rspec (ma va!) e prima di allora rspec era semplicemente troppo più espressivo. Di rspec uso la vecchia sintassi `.should` anziché la nuova `expect`, per questioni di leggibilità.
 
 Esempio basato sulla documentazione RSpec:
 
@@ -2146,7 +2153,7 @@ RSpec.describe Order do
 end
 ```
 
-Con ```minitest``` avremmo
+Con `minitest` avremmo
 
 ```
 class OrderTest < ActiveSupport::TestCase
@@ -2163,7 +2170,7 @@ class OrderTest < ActiveSupport::TestCase
 end
 ```
 
-Praticamente uguale, soprattutto usando ```minitest/spec```. C'è qualche differenza nel setup e teardown dei test e nell'uso delle fixtures. Personalmente uso [factory_girl](https://github.com/thoughtbot/factory_girl) per creare i record nel database e li popolo con dati usando [faker](https://github.com/stympy/faker). Non faccio quasi mai mocking, se non per schermare API esterne.
+Praticamente uguale, soprattutto usando `minitest/spec`. C'è qualche differenza nel setup e teardown dei test e nell'uso delle fixtures. Personalmente uso [factory_girl](https://github.com/thoughtbot/factory_girl) per creare i record nel database e li popolo con dati usando [faker](https://github.com/stympy/faker). Non faccio quasi mai mocking, se non per schermare API esterne.
 
 Ci sono poi i test di integrazione. Lo standard è usare capybara oppure cucumber.
 
@@ -2184,7 +2191,7 @@ it "signs in" do
 end
 ```
 
-Come odio dover perder tempo a scrivere ```with:``` tutte le volte. E che altro mai dovrebbe essere quel parametro?
+Come odio dover perder tempo a scrivere `with:` tutte le volte. E che altro mai dovrebbe essere quel parametro?
 
 [Cucumber](https://cucumber.io/) che implementa una sintassi in linguaggio naturale. Si scrive un test del tipo
 
@@ -2236,7 +2243,7 @@ Gli equivalenti Python di Cucumber sembrano essere [behave](https://github.com/b
 Quello di Capybara è [Splinter](https://github.com/cobrateam/splinter).
 In [questa pagina](http://stackoverflow.com/questions/9485962/does-python-have-anything-like-capybara-cucumber) di Stack Overflow è un bell'indice a questi framework per Python.
 
-La caratteristica di Rails è di raggruppare tutti i test sotto un'unica directory, ```test``` per minitest, ```spec``` per rspec (al cui interno uso anche capybara), ```features``` per cucumber. Quella di Django è avere test sparsi per le directory, conseguenza della frammentazione del progetto in applicazioni. Sia in Rails che in Django si possono far girare tutti i test, solo quelli di una directory, solo un file. Entrambi hanno il concetto di ambiente di test, con database che viene azzerato e ricostruito per evitare side effect. Rails randomizza l'ordine dei test ma permette di riprodurre il particolare ordine che ha dato luogo a degli errori. [A quanto pare](https://code.djangoproject.com/ticket/24522) Django non lo fa.
+La caratteristica di Rails è di raggruppare tutti i test sotto un'unica directory, `test` per minitest, `spec` per rspec (al cui interno uso anche capybara), `features` per cucumber. Quella di Django è avere test sparsi per le directory, conseguenza della frammentazione del progetto in applicazioni. Sia in Rails che in Django si possono far girare tutti i test, solo quelli di una directory, solo un file. Entrambi hanno il concetto di ambiente di test, con database che viene azzerato e ricostruito per evitare side effect. Rails randomizza l'ordine dei test ma permette di riprodurre il particolare ordine che ha dato luogo a degli errori. [A quanto pare](https://code.djangoproject.com/ticket/24522) Django non lo fa.
 
 Infine, il testing non può prescindere dal test del test, ossia il test coverage. Con Ruby si usa spesso [simplecov](https://github.com/colszowka/simplecov), che supporta la struttura delle directory di Rails. Non ho esperienza di questi tool su Python, ma da quel che googlo il primo che proverò sarà [coverage.py](https://pypi.python.org/pypi/coverage).
 
@@ -2287,41 +2294,41 @@ Mettendo insieme le sensazioni raccolte fino a qui, il linguaggio che vorrei è:
 
 * Object oriented puro.
 
-* ```false``` è falsy, ```true``` è truthy, tutto il resto non è boolean.
+* `false` è falsy, `true` è truthy, tutto il resto non è boolean.
 
-* Usa ```.``` per concatenare i metodi.
+* Usa `.` per concatenare i metodi.
 
-* ```->``` e ```=>``` fanno perder tempo quando li si scrive e vanno aboliti. Li si potranno sostituire con ```:```
+* `->` e `=>` fanno perder tempo quando li si scrive e vanno aboliti. Li si potranno sostituire con `:`.
 
 * Negli array associativi (hash o dict, fate voi) si possono usare le stringhe come chiavi con notazione JSON.
 
-* Su array o liste, non importa come si chiamino, si usano i metodi ```.each```, ```.map```, ```.reduce```, perché è object oriented.
+* Su array o liste, non importa come si chiamino, si usano i metodi `.each`, `.map`, `.reduce`, perché è object oriented.
 
 * Ha anche array veri, alla C. Molto utili per stare nella cache della CPU.
 
 * Le stringhe devono essere immutabili.
 
-* Esistono due varietà di string literal: ```"{interpolabili}"``` e ```'non {interpolabili}'```. Niente ```u''```, ```f''```, ```r''```, etc. Sono sempre UTF-8 e multilinea. Si può concedere un equivalente di ```%()``` o ```""" """``` per poter includere qualsiasi carattere nella stringa. Meglio quello Python perché ha una notazione simile a quella delle stringhe.
+* Esistono due varietà di string literal: `"{interpolabili}"` e `'non {interpolabili}'`. Niente `u''`, `f''`, `r''`, etc. Sono sempre UTF-8 e multilinea. Si può concedere un equivalente di `%()` o `""" """` per poter includere qualsiasi carattere nella stringa. Meglio quello Python perché ha una notazione simile a quella delle stringhe.
 
-* Niente ````command interpolation```` con i backtick. Pure bash ora preferisce ```$(command)```.
+* Niente `` `command interpolation` `` con i backtick. Pure bash ora preferisce `$(command)`.
 
-* Le regexp sono ```/regexp/```.
+* Le regexp sono `/regexp/`.
 
 * Ha dei commenti veri.
 
-* Ha uno ```switch case``` (ma... vedere poi a proposito di Elixir)
+* Ha uno `switch case` (ma... vedere poi a proposito di Elixir)
 
-* Ha un ```try catch``` e un ```do while```.
+* Ha un `try catch` e un `do while`.
 
 * Non ha sigil e caratteri strani.
 
-* Obbliga a mettere spazi almeno attorno a ```=``` e (vezzo!) magari anche attorno agli operatori matematici così si potranno scrivere ```variabili-e-simboli-con-il-trattino``` (Lisp, COBOL, Forth, CSS).
+* Obbliga a mettere spazi almeno attorno a `=` e (vezzo!) magari anche attorno agli operatori matematici così si potranno scrivere `variabili-e-simboli-con-il-trattino` (Lisp, COBOL, Forth, CSS).
 
 * Le parentesi sono opzionali perché facilita la scrittura di DSL comprensibili. Un DSL comprensibile ci permette di non dover inventare ed imparare altri linguaggi per scrivere le configurazioni.
 
-* Si può passare come argomento il nome di un metodo senza dover passare il simbolo corrispondente. Ruby avrebbe risolto il problema nonostante le parentesi opzionali se il default variasse a seconda del contesto: ```metodo arg``` equivale a ```metodo(arg)```, ma ```metodo(altro_metodo)``` equivale a passare ```altro_metodo``` come argomento senza chiamarlo. Per quello si sarebbe dovuto usare ```metodo(altro_metodo())```
+* Si può passare come argomento il nome di un metodo senza dover passare il simbolo corrispondente. Ruby avrebbe risolto il problema nonostante le parentesi opzionali se il default variasse a seconda del contesto: `metodo arg` equivale a `metodo(arg)`, ma `metodo(altro_metodo)` equivale a passare `altro_metodo` come argomento senza chiamarlo. Per quello si sarebbe dovuto usare `metodo(altro_metodo())`.
 
-* Ci vuole un'idea geniale che permetta di non scrivere ```end```, di non riempire il codice con graffe (già ne ha troppe Ruby) e non costringa ad usare l'indentazione semantica. Gli editor possono nascondere gli ```end``` ed usarli per indentare in automatico ma non è sodisfacente. Probabilmente un ```end``` nascosto è peggio di uno spazio che non si vede.
+* Ci vuole un'idea geniale che permetta di non scrivere `end`, di non riempire il codice con graffe (già ne ha troppe Ruby) e non costringa ad usare l'indentazione semantica. Gli editor possono nascondere gli `end` ed usarli per indentare in automatico ma non è sodisfacente. Probabilmente un `end` nascosto è peggio di uno spazio che non si vede.
 
 
 I framework devono
@@ -2350,7 +2357,7 @@ Questa sezione ha una struttura diversa da quelle precedenti. Vi riporto i tratt
 <a name="pattern matching"></a>
 ## Pattern matching
 
-L'operatore ```=``` in Elixir non è l'assegnamento ma il pattern matcher. Prende quel che trova a destra e prova a farne un match con quel che c'è a sinistra. Se a sinistra ci sono variabili, vi assegna i valori di destra. Se ci sono simboli, ha successo se a destra trova lo stesso simbolo. In caso contrario fallisce e termina il processo. Niente ```try catch```. A quello pensa il livello di supervision del linguaggio.
+L'operatore `=` in Elixir non è l'assegnamento ma il pattern matcher. Prende quel che trova a destra e prova a farne un match con quel che c'è a sinistra. Se a sinistra ci sono variabili, vi assegna i valori di destra. Se ci sono simboli, ha successo se a destra trova lo stesso simbolo. In caso contrario fallisce e termina il processo. Niente `try catch`. A quello pensa il livello di supervision del linguaggio.
 
 Esempio
 
@@ -2410,7 +2417,7 @@ Prova.prova :"chissà"
 Né OK né FAIL
 ```
 
-Il pattern matching spesso fa le veci dello ```switch case``` che per altro esiste.
+Il pattern matching spesso fa le veci dello `switch case` che per altro esiste.
 
 <a name="Pipelining"></a>
 ## Pipelining
@@ -2428,7 +2435,7 @@ $ iex
 
 Permette di srotolare funzioni annidate per poterle leggere nell'ordine di esecuzione e non al contrario.
 
-```fn``` è una keyword, è la funzione anonima o lambda che dir si voglia.
+```fn` è una keyword, è la funzione anonima o lambda che dir si voglia.
 
 <a name="concorrenza"></a>
 ## Concorrenza
@@ -2461,14 +2468,14 @@ end
 
 Notate la tail call optimization, per non andare out of stack. Elixir si accorge che la ricorsione qui è inutile e la ottimizza in un loop normale.
 
-Se il server vuole conservare uno stato, ad esempio contare il numero di messaggi ricevuti, lo deve passare come argomento di ```echo()```.
+Se il server vuole conservare uno stato, ad esempio contare il numero di messaggi ricevuti, lo deve passare come argomento di `echo()`.
 
 <a name="OO funzionale"></a>
 ## Object orientation funzionale
 
 L'invio e la ricezione di messaggi è un po' laboriosa. Ci sono dei moduli che permettono di implementare un comportamento object oriented dei server, con anche la persistenza dello stato interno al server. E' il GenServer.
 
-Ci sono maggiori dettagli nei branch di https://github.com/pmontrasio/elixir-oo ma il modulo che segue implementa l'equivalente di una classe i cui oggetti istanziati girano in un proprio processo e rispondono a chiamate a metodi con il message passing ```send receive``` che abbiamo visto in precedenza. Sembrerà strano per un linguaggio funzionale, ma è un pattern standard di Elixir (e anche di Erlang, il linguaggio per cui è stata creata BEAM).
+Ci sono maggiori dettagli nei branch di https://github.com/pmontrasio/elixir-oo ma il modulo che segue implementa l'equivalente di una classe i cui oggetti istanziati girano in un proprio processo e rispondono a chiamate a metodi con il message passing `send receive` che abbiamo visto in precedenza. Sembrerà strano per un linguaggio funzionale, ma è un pattern standard di Elixir (e anche di Erlang, il linguaggio per cui è stata creata BEAM).
 
 Eliminando i commenti che trovate su [GitHub](https://github.com/pmontrasio/elixir-oo/blob/master/lib/counter.ex) il codice è questo:
 
@@ -2499,8 +2506,8 @@ defmodule Counter do
 end
 ```
 
-I due metodi esposti sono ```inc``` e ```value```. Sono l'API esterna del GenServer.
-Notate come si sia dovuto scrivere anche ```handle_cast``` e ```handle_call``` per la gestione dello stato. Sono l'API interna, chiamata dalle implementazioni di ```GenServer.call``` e ```GenServer.cast``` che gestiscono rispettivamente le chiamate sincrone, che ritornano un risultato, da quelle asincrone, che non lo ritornano.
+I due metodi esposti sono `inc` e `value`. Sono l'API esterna del GenServer.
+Notate come si sia dovuto scrivere anche `handle_cast` e `handle_call` per la gestione dello stato. Sono l'API interna, chiamata dalle implementazioni di `GenServer.call` e `GenServer.cast` che gestiscono rispettivamente le chiamate sincrone, che ritornano un risultato, da quelle asincrone, che non lo ritornano.
 
 Il modulo si usa così:
 
@@ -2553,16 +2560,16 @@ defmodule CounterSupervisor do
 end
 ```
 
-La magia sta nelle implementazioni del modulo ```Supervisor```. Niente vieta di scriversi tutto il codice da zero, per capire cosa c'è dietro a questo pattern. Per imparare è un'ottima idea.
+La magia sta nelle implementazioni del modulo `Supervisor`. Niente vieta di scriversi tutto il codice da zero, per capire cosa c'è dietro a questo pattern. Per imparare è un'ottima idea.
 
-Si fa partire il supervisor, dandogli un parametro che identifichi il GenServer che andrà a creare nella funzione ```init```.
+Si fa partire il supervisor, dandogli un parametro che identifichi il GenServer che andrà a creare nella funzione `init`.
 
 ```
 CounterSupervisor.start_link(Counter1) # counter1 = Counter.new
-Counter.inc(Counter1)                 # counter1.inc
+Counter.inc(Counter1)                  # counter1.inc
 ```
 
-Se per qualsiasi ragione ```Counter1``` dovesse cadere, il supervisore lo farebbe ripartire. Lo stato è perso a meno di averlo memorizzato. Elixir ha dei database in RAM ereditati da Erlang adibiti anche a questo scopo. Consiglio di iniziare con [questa pagina](http://erlang.org/doc/efficiency_guide/tablesDatabases.html) della documentazione di Erlang o con [questa comparazione](https://blog.codeship.com/elixir-ets-vs-redis/) tra quei database e Redis. La sintassi è si mappa quasi 1:1 con quella Elixir. È un ottimo esperimento per capire come la sintassi influisca sulla comprensibilità del codice.
+Se per qualsiasi ragione `Counter1` dovesse cadere, il supervisore lo farebbe ripartire. Lo stato è perso a meno di averlo memorizzato. Elixir ha dei database in RAM ereditati da Erlang adibiti anche a questo scopo. Consiglio di iniziare con [questa pagina](http://erlang.org/doc/efficiency_guide/tablesDatabases.html) della documentazione di Erlang o con [questa comparazione](https://blog.codeship.com/elixir-ets-vs-redis/) tra quei database e Redis. La sintassi è si mappa quasi 1:1 con quella Elixir. È un ottimo esperimento per capire come la sintassi influisca sulla comprensibilità del codice.
 
 Perché si chiamano supervisor tree? Perché un supervisor può avere il suo proprio supervisor e così via, fino a quello che tiene in piedi tutta l'applicazione e che andando in errore la farebbe terminare. Quello si può far partire con l'init del sistema operativo.
 
@@ -2571,18 +2578,18 @@ Perché si chiamano supervisor tree? Perché un supervisor può avere il suo pro
 
 Solo un cenno al volo perché l'argomento è vasto e complesso.
 
-Si può modificare il sorgente in fase di compilazione. Una versione semplice di macro sono le ```#define``` del C. Con Elixir si può fare un po' di tutto. Lo stesso ```if else``` è una macro. Guardatene il sorgente a https://github.com/elixir-lang/elixir/blob/master/lib/elixir/lib/kernel.ex cercando ```defmacro if(condition, clauses) do```.
+Si può modificare il sorgente in fase di compilazione. Una versione semplice di macro sono le `#define` del C. Con Elixir si può fare un po' di tutto. Lo stesso `if else` è una macro. Guardatene il sorgente a https://github.com/elixir-lang/elixir/blob/master/lib/elixir/lib/kernel.ex cercando `defmacro if(condition, clauses) do`.
 
 Per approfondire leggete *Understanding Elixir Macros*: [Part 1 - Basics](http://theerlangelist.com/article/macros_1), [Part 2 - Micro Theory](http://theerlangelist.com/article/macros_2), [Part 3 - Getting into the AST](http://theerlangelist.com/article/macros_3), [Part 4 - Diving deeper](http://theerlangelist.com/article/macros_4), [Part 5 - Reshaping the AST](http://theerlangelist.com/article/macros_5), [Part 6 - In-place Code Generation](http://theerlangelist.com/article/macros_6).
 
 <a name="Difetti"></a>
 ## Difetti di Elixir
 
-* Ha troppi ```do```. Sporcano il codice.
+* Ha troppi `do`. Sporcano il codice.
 
-* Tutte quelle varietà di ```def*``` sono un po' caotici. Per qualche ragione Ruby e Python se la cavano con un solo ```def```.
+* Tutte quelle varietà di `def*` sono un po' caotici. Per qualche ragione Ruby e Python se la cavano con un solo `def`.
 
-* Dover scrivere sempre ```Modulo.funzione``` è faticoso e il pipelining aiuta solo fino ad un certo punto. Il workaround è usare ```alias``` ma poiché non ci sono classi a dividere metodi nell'equivalente di namespace, le collisioni sono assicurate.
+* Dover scrivere sempre `Modulo.funzione` è faticoso e il pipelining aiuta solo fino ad un certo punto. Il workaround è usare `alias` ma poiché non ci sono classi a dividere metodi nell'equivalente di namespace, le collisioni sono assicurate.
 
 * Far scrivere agli sviluppatori due volte i metodi di un GenServer è una scelta di design incomprensibile. Sembra voler piegare lo sviluppatore alle necessità della macchina anziché il contrario.
 
@@ -2592,14 +2599,14 @@ Per approfondire leggete *Understanding Elixir Macros*: [Part 1 - Basics](http:/
 
 C'era una volta, e non c'è più, un altro linguaggio basato su BEAM. Il suo nome era [Reia](http://reia-lang.org/), il suo autore è lo stesso Tony Arcieri di Celluloid che un brutto giorno l'ha abbandonato perché gli piaceva di più Elixir.
 
-Reia è object oriented nel senso tradizionale, ossia definisce classi con  ```class Classe``` e le istanzia alla Python con ```oggetto = Classe()```. I metodi si chiamano con ```oggetto.metodo()```.
+Reia è object oriented nel senso tradizionale, ossia definisce classi con  `class Classe` e le istanzia alla Python con `oggetto = Classe()`. I metodi si chiamano con `oggetto.metodo()`.
 
 <a name="Esempi Reia">
 ## Esempi
 
 Non sono rimasti molti esempi e per saperne di più bisogna scavare nella [wayback machine](http://web.archive.org/web/*/http://reia-lang.org/)
 
-Aveva le liste ```list = [3,4,5]``` e le tuple ```tuple = (1,2,3)``` con le parentesi tonde, commettendo forse lo stesso errore di Python. Come farà a distinguere ```(1)``` da ```(1)```? Qual è la tupla e qual è il numero 1 in un'espressione?
+Aveva le liste `list = [3,4,5]` e le tuple `tuple = (1,2,3)` con le parentesi tonde, commettendo forse lo stesso errore di Python. Come farà a distinguere `(1)` da `(1)```? Qual è la tupla e qual è il numero 1 in un'espressione?
 
 In Python
 
@@ -2610,13 +2617,13 @@ In Python
 3
 ```
 
-Aveva i dict (li chiamava così) con la sintassi "vecchia" Ruby degli hash ```dict = {:foo => 1, :bar => 2, :baz => 3}```.
+Aveva i dict (li chiamava così) con la sintassi "vecchia" Ruby degli hash `dict = {:foo => 1, :bar => 2, :baz => 3}`.
 
-I simboli alla Ruby ```:simbolo``` e ```:"simbolo con spazi"```.
+I simboli alla Ruby `:simbolo` e `:"simbolo con spazi"`.
 
-```false``` e ```nil``` sono falsy, tutto il resto è truthy.
+```false` e `nil` sono falsy, tutto il resto è truthy.
 
-Le regexp sono first class citizens, come in Ruby ```%r/^.{3}/``` ma sembra che abbiano bisogno di un prefisso ```%r```.
+Le regexp sono first class citizens, come in Ruby `%r/^.{3}/` ma sembra che abbiano bisogno di un prefisso `%r`.
 
 Ci sono lambda multilinea
 
@@ -2649,7 +2656,7 @@ numbers = [1,2,3]
 doubled = [n * 2 for n in numbers]
 ```
 
-Aveva il ```try catch```, ma un ```case when```.
+Aveva il `try catch`, ma un `case when`.
 
 Aveva il pattern matching sulla definizione delle funzioni, ma non mi è chiaro se l'avesse sugli "assegnamenti".
 
