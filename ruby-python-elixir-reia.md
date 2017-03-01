@@ -2,8 +2,6 @@ Licensed under the Creative Commons Attribution-ShareAlike 4.0 International (CC
 
 # Indice
 
-(sequenza da ristrutturare)
-
 * [Introduzione](#introduzione)
 * [Età ed eredità](#Età)
 * [Premessa](#Premessa)
