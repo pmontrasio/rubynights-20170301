@@ -119,7 +119,9 @@ Python. Implementazione iniziata nel dicembre dell'1989. Prima release febbraio 
 > * unconventional terminology intended to make beginners more comfortable but instead threw off more experienced users
 
 [http://www.onlamp.com/pub/a/python/2002/06/04/guido.html](http://www.onlamp.com/pub/a/python/2002/06/04/guido.html)
+
 [https://en.wikipedia.org/wiki/History_of_Python](https://en.wikipedia.org/wiki/History_of_Python)
+
 [https://en.wikipedia.org/wiki/ABC_(programming_language)](https://en.wikipedia.org/wiki/ABC_(programming_language)
 
 Ruby. Progettazione iniziata il 24 febbraio 1993. Prima release il 21 dicembre 1995.
@@ -132,6 +134,7 @@ In pratica ora disegnerebbe Ruby in modo diverso ma all'epoca farlo somigliare u
 > Funnily enough there are programming languages written entirely in Japanese. (Zhou [l'intervistatore]: In China there also are programming languages written entirely in Chinese.) In China too? I knew it! No matter how interesting these programming languages are, they will never influence anyone beyond the ones in their own country.
 
 http://fredwu.me/post/36493181321/an-interview-with-yukihiro-matz-matsumoto
+
 https://en.wikipedia.org/wiki/Ruby_(programming_language)
 
 <a name=Premessa></a>
@@ -140,6 +143,7 @@ https://en.wikipedia.org/wiki/Ruby_(programming_language)
 Questo documento è soprattutto un confronto tra Ruby e Python. È nato come un insieme disordinato di appunti presi mentre iniziavo ad usare Flask, Django e Web2Py venendo da 10 anni di Rails. Li ho riordinati per una presentazione a Ruby Nights, il gruppo dei rubisti di Milano. Per non farlo diventare una sterile battaglia Ruby contro Python decisa in anticipo dal "campo di battaglia" e dal mio passato di sviluppatore, insieme agli organizzatori di Ruby Nights abbiamo coinvolto la community Python di Milano. Leggendo i miei appunti hanno sollevato molte obiezioni e mi hanno portato a studiare di più Python e in certi casi anche Ruby. Questo documento di sicuro conserva la traccia delle mie preferenze, ma spero che ora sia molto più equilibrato. È stato un percorso di apprendimento interessante che passa per i framework web dei due linguaggi (è innegabile che Ruby si usi soprattutto per Rails) e arriva ad Elixir, un linguaggio ispirato a Ruby con una digressione su Reia, un altro linguaggio ispirato a Ruby che avrebbe meritato miglior sorte.
 
 https://www.meetup.com/Ruby-Nights-Milano/
+
 https://www.meetup.com/Python-Milano/
 
 <a name="Ringraziamenti"></a>
@@ -174,7 +178,7 @@ L'idioma corrispondente Ruby è la creazione di una base class che importa i fil
 
 Come si vede non è necessario dare nomi criptici ai file per ottenere lo stesso risultato.
 
-Va detto che `locate __init.py__ | grep directory/del/progetto` trova istantaneamente tutti i moduli.
+Va detto che `find . -name __init.py` trova istantaneamente tutti i moduli.
 
 La differenza fondamentale però è che Ruby non ha il concetto di package, ma solo quello di modulo. In effetti ad un Rubysta non è per nulla chiaro perché debba esistere il concetto di package dato che è sufficiente avere i moduli. Per contro Ruby è esplicito nel dichiarare moduli, usando `module Name ... end`.
 
