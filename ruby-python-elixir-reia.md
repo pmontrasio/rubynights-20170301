@@ -178,7 +178,7 @@ L'idioma corrispondente Ruby è la creazione di una base class che importa i fil
 
 Come si vede non è necessario dare nomi criptici ai file per ottenere lo stesso risultato.
 
-Va detto che `find . -name __init.py` trova istantaneamente tutti i moduli.
+Va detto che `find . -name __init__.py` trova istantaneamente tutti i moduli.
 
 La differenza fondamentale però è che Ruby non ha il concetto di package, ma solo quello di modulo. In effetti ad un Rubysta non è per nulla chiaro perché debba esistere il concetto di package dato che è sufficiente avere i moduli. Per contro Ruby è esplicito nel dichiarare moduli, usando `module Name ... end`.
 
