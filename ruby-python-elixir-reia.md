@@ -1365,6 +1365,15 @@ Il commento multilinea di Ruby è una mostruosità. È normale che un linguaggio
 
 I sigil sono un po' strani. Non so come, ma Java riesce a farne a meno. In caso di ambiguità si deve usare `self`, che ha anche Ruby. Java dichiara le variabili prima, ma usare `attr` non è cattiva pratica neppure in Ruby. Forse sono una di quelle cose di cui Matz diceva "there were many things that were borrowed from Perl - nowadays I think many of them weren’t necessary".
 
+Da Perl sono arrivati anche gli `if` e gli `unless` suffissi, come in
+
+```
+while condition do
+  var = something()
+  next if var.nil? # oppure unless var
+  something_else(var)
+end
+```
 
 <a name="Stile"></a>
 ## Stile
@@ -1473,6 +1482,21 @@ loop do
     print "how to terminate this?"
   end
 end
+```
+
+Però Ruby ha il single liner. Dove in Python si scrive
+
+```
+try:
+  values["numero"] = int(from_db[0])
+except:
+  values["numero"] = 0
+```
+
+moltiplicato magari 10 volte (mi è appena capitato di leggerlo), in Ruby si può condensare in una riga
+
+```
+values["numero"] = from_db[0].to_i rescue 0
 ```
 
 A proposito, Python e Ruby: perché non usate un `try catch` come tutti?
