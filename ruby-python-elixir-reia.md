@@ -123,7 +123,7 @@ Python. Implementazione iniziata nel dicembre dell'1989. Prima release febbraio 
 [https://en.wikipedia.org/wiki/ABC_(programming_language)](https://en.wikipedia.org/wiki/ABC_(programming_language)
 
 Ruby. Progettazione iniziata il 24 febbraio 1993. Prima release il 21 dicembre 1995.
-Ruby è ispirato a Smaltalk e a Perl. È interessante come per certi versi Matz confermi il secondo dei pensieri di Van Rossum
+Ruby è ispirato a Smalltalk e a Perl. È interessante come per certi versi Matz confermi il secondo dei pensieri di Van Rossum
 
 > before the ruby idioms were formed, there were many things that were borrowed from Perl - nowadays I think many of them weren’t necessary thanks to the ruby and rails idioms.
 
@@ -190,7 +190,7 @@ mymodule/__init__.py
 mymodule/utils.py
 ```
 
-Se è presente `__init__.py` allora `mymodule` è un modulo (ha un attributo `mymodule.__path__` e `mymodule.__file__```).
+Se è presente `__init__.py` allora `mymodule` è un modulo (ha un attributo `mymodule.__path__` e `mymodule.__file__`).
 Se non è presente è un namespace (non ha quegli attributi). Il contenuto può essere distribuito in più directory e Python3 ne fa il merge.
 
 <a name="Mixed"></a>
@@ -202,7 +202,7 @@ Python è funzionale ed object oriented, anche se a Guido Van Rossum la parte fu
 <a name="Truthy"></a>
 ## Truthy e falsy
 
-In Python sono falsy `None`,  `False` e, sopresa per chi viene da Ruby, `0` (di ogni tipo numerico), ogni sequenza vuota (```''`, `()`, `[]```), ogni map vuoto (```{}```), ogni oggetto di una classe che definisca dei  `__nonzero__()` o `__len__()` che ritornino `0` o `False`.
+In Python sono falsy `None`,  `False` e, sopresa per chi viene da Ruby, `0` (di ogni tipo numerico), ogni sequenza vuota (`''`, `()`, `[]`), ogni map vuoto (`{}`), ogni oggetto di una classe che definisca dei  `__nonzero__()` o `__len__()` che ritornino `0` o `False`.
 
 In Ruby sono falsy `nil` e `false`. Tutto il resto è truthy, con sorpresa per chi viene da Python.
 
@@ -249,7 +249,7 @@ x = false || true; puts x
 x = false or true; puts x
 # false     # OPS!
 x = (false or true); puts x
-# true     # ma non vogliamo usare le parentesi attorno ad ogni espressione booleana
+# true      # ma non vogliamo usare le parentesi attorno ad ogni espressione booleana
 ```
 
 Quanto a `not`
@@ -258,7 +258,7 @@ Quanto a `not`
 !true && false
 # false
 not true && false # equivale a not (true && false)
-# true     # OPS
+# true            # OPS!
 ```
 
 Dettagli a
@@ -361,7 +361,7 @@ a
 # [u'1.2.3.0/24', u'1.3.0.0/16', u'2.2.4.0/24', u'3.2.3.0/24', u'4.2.3.0/24']
 ```
 
-```sorted` è una funzione che accetta un iterable e vi può applicare una funzione di ordinamento.
+`sorted` è una funzione che accetta un iterable e vi può applicare una funzione di ordinamento.
 Quindi qualsiasi oggetto con un metodo `__iter__` può essere ordinato con la funzione sort.
 
 Venendo da Ruby non si capisce la necessità di avere metodo e funzione separati.
@@ -599,7 +599,7 @@ In Python si scrive di meno. Si paga il prezzo di possibili bug con gli spazi si
 
 Python obbliga lo sviluppatore ad indentare. Questa critica è sollevata da molti sviluppatori e francamente così formulata sorprende: tutti i linguaggi vanno indentati. Lo sviluppatore che non lo fa va messo al bando :-) A detta degli amici Pythonisti questo è un punto di forza di Python e lo comprendo. Lo svantaggio è che l'editor non ha mai abbastanza informazioni per indentare al nostro posto e dovendolo fare noi ci viene data un'ulteriore occasione per introdurre bug.
 
-Mi è capitato di recente di sistemare una decina di righe Python tra cui un `if else`, cambiando i livelli di indentazione. Alla fine non ero sicuro se l'ultima riga dell'```else` in origine fosse dentro o fuori l'```else`. L'avevo già spostata a sinistra o no? Ho dovuto salvare e fare un `git diff` per scoprirlo. Un linguaggio con graffe o `end` non dà di questi problemi.
+Mi è capitato di recente di sistemare una decina di righe Python tra cui un `if else`, cambiando i livelli di indentazione. Alla fine non ero sicuro se l'ultima riga dell'`else` in origine fosse dentro o fuori l'`else`. L'avevo già spostata a sinistra o no? Ho dovuto salvare e fare un `git diff` per scoprirlo. Un linguaggio con graffe o `end` non dà di questi problemi.
 
 
 <a name="Chiavi"></a>
@@ -988,7 +988,7 @@ Classe.for_the_class()
 
 Non so se sia concettualmente corretto che metodi di classe funzionino sulle istanze, ma così è.
 
-Googlate le annotazioni Python `@staticmethod` e `@abc.abstractmethod` e leggete [questo post](https://julien.danjou.info/blog/2013/guide-python-static-class-abstract-methods)
+Googlate le annotazioni Python `@staticmethod` e `@abc.abstractmethod` e leggete [questo post](https://julien.danjou.info/blog/2013/guide-python-static-class-abstract-methods).
 
 <a name="Pipe"></a>
 ## Pipe
@@ -1067,7 +1067,7 @@ File.open("file", "r") do |f|
 end
 ```
 
-```with as` si mappa quasi 1:1 sul `do |f|` di Ruby e `for in` (che esiste anche in Ruby) è l'equivalente di `each |line|`.
+`with as` si mappa quasi 1:1 sul `do |f|` di Ruby e `for in` (che esiste anche in Ruby) è l'equivalente di `each |line|`.
 
 
 <a name="Keyword"></a>
@@ -1383,20 +1383,20 @@ end
 La raccomandazione di usare la notazione arg=valore senza spazi per i keyword argument e i parametri di default è cattiva perché confonde ed involontariamente provoca la scrittura di codice come questo
 
 ```
-db(db.rigaordinipo.id==vars.idriga[i]).update(quantita=vars.quantita[i])
+db(db.ordini.id==vars.idriga[i]).update(quantita=vars.quantita[i])
 ```
 
 mentre lo stile consigliato sarebbe invece
 
 ```
-db(db.rigaordinipo.id == vars.idriga[i]).update(quantita=vars.quantita[i])
+db(db.ordini.id == vars.idriga[i]).update(quantita=vars.quantita[i])
 ```
 
 Cambiare stile nella stessa riga non è banale e una qualsiasi tra
 
 ```
-legacy_db(legacy_db.rigaordinipo.id==vars.idriga[i]).update(quantita=vars.quantita[i])
-legacy_db(legacy_db.rigaordinipo.id == vars.idriga[i]).update(quantita = vars.quantita[i])
+db(db.ordini.id==vars.idriga[i]).update(quantita=vars.quantita[i])
+db(db.ordini.id == vars.idriga[i]).update(quantita = vars.quantita[i])
 ```
 
 sembra più consistente. A me piace la seconda con gli spazi ovunque.
@@ -2461,7 +2461,7 @@ $ iex
 
 Permette di srotolare funzioni annidate per poterle leggere nell'ordine di esecuzione e non al contrario.
 
-```fn` è una keyword, è la funzione anonima o lambda che dir si voglia.
+`fn` è una keyword, è la funzione anonima o lambda che dir si voglia.
 
 <a name="concorrenza"></a>
 ## Concorrenza
