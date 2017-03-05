@@ -516,7 +516,7 @@ Questione di stili.
 
 Tra i due contendenti si segnala Java che ha risolto il problema con la sua solita grazia, introducendo in Java 8 la classe StringJoiner.
 http://download.java.net/lambda/b81/docs/api/java/util/StringJoiner.html
-Introduce però anche il metodo String.join che va ad affiancare String.split e quindi forse ne esce come inaspettato vincitore.
+Introduce però anche il metodo `String.join` che va ad affiancare `String.split` e quindi forse ne esce come inaspettato vincitore.
 https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#join-java.lang.CharSequence-java.lang.Iterable-
 
 <a name="I"></a>
@@ -2532,8 +2532,9 @@ defmodule Counter do
 end
 ```
 
-I due metodi esposti sono `inc` e `value`. Sono l'API esterna del GenServer.
-Notate come si sia dovuto scrivere anche `handle_cast` e `handle_call` per la gestione dello stato. Sono l'API interna, chiamata dalle implementazioni di `GenServer.call` e `GenServer.cast` che gestiscono rispettivamente le chiamate sincrone, che ritornano un risultato, da quelle asincrone, che non lo ritornano.
+I due metodi esposti sono `inc` e `value`. Sono l'API esterna del GenServer. Queste funzioni girano nel processo client. Se qualcosa va storto qui sarà il client ad andare in crash e sarà il suo supervisore ad intervenire (vedete la prossima sezione).
+
+Notate come si sia dovuto scrivere anche `handle_cast` e `handle_call` per la gestione dello stato. Sono l'API interna, chiamata dalle implementazioni di `GenServer.call` e `GenServer.cast` che gestiscono rispettivamente le chiamate sincrone, che ritornano un risultato, da quelle asincrone, che non lo ritornano. Queste funzioni girano nel processo server. Il modulo GenServer si occupa di dividere le funzioni tra i vari processi.
 
 Il modulo si usa così:
 
@@ -2617,7 +2618,7 @@ Per approfondire leggete *Understanding Elixir Macros*: [Part 1 - Basics](http:/
 
 * Dover scrivere sempre `Modulo.funzione` è faticoso e il pipelining aiuta solo fino ad un certo punto. Il workaround è usare `alias` ma poiché non ci sono classi a dividere metodi nell'equivalente di namespace, le collisioni sono assicurate.
 
-* Far scrivere agli sviluppatori due volte i metodi di un GenServer è una scelta di design incomprensibile. Sembra voler piegare lo sviluppatore alle necessità della macchina anziché il contrario.
+* Far scrivere agli sviluppatori due volte i metodi di un GenServer è una scelta di design comprensibile per quel che riguarda la separazione tra processo client e processo server. Non è chiarissima dal punto di vista della sintassi. Preferisco qualcosa che renda immediatamente chiaro il contesto in cui girano le singole funzioni. Questo viene direttamente da Erlang ed Elixir non ha apportato miglioramenti.
 
 
 <a name="Reia"></a>
@@ -2647,7 +2648,7 @@ Aveva i dict (li chiamava così) con la sintassi "vecchia" Ruby degli hash `dict
 
 I simboli alla Ruby `:simbolo` e `:"simbolo con spazi"`.
 
-```false` e `nil` sono falsy, tutto il resto è truthy.
+`false` e `nil` sono falsy, tutto il resto è truthy.
 
 Le regexp sono first class citizens, come in Ruby `%r/^.{3}/` ma sembra che abbiano bisogno di un prefisso `%r`.
 
@@ -2754,5 +2755,7 @@ counter.supervisor
 self.pid
 self.supervisor
 ```
+
+Tutto il codice in quella classe gira nel processo server. Lato client c'è la chiamata. Se `counter.inc` non dovesse aver successo perché ad esempio il suo parametro non fa match con quello del server (l'oggetto), allora sarebbe il client ad andare in crash (non ci sono parametri nell'esempio ma dovrei aver reso l'idea).
 
 Di Task e di Agent si può fare a meno, ci basta il GenServer che è il caso generale.
