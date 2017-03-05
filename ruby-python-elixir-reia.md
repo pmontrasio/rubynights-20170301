@@ -7,7 +7,7 @@ Licensed under the Creative Commons Attribution-ShareAlike 4.0 International (CC
 * [Premessa](#Premessa)
 * [Ringraziamenti](#Ringraziamenti)
 * [Python e Ruby](#I linguaggi)
-  * [\_\_init.py\_\_](#init.py)
+  * [\_\_init\_\_.py](#init.py)
   * [Mixed paradigm](#Mixed)
   * [Truthy e falsy](#Truthy)
   * [Boolean](#Boolean)
@@ -168,9 +168,9 @@ Invito anche a leggere tutte le issue https://github.com/pmontrasio/rubynights-2
 # Python e Ruby
 
 <a name="init.py"></a>
-## \_\_init.py\_\_
+## \_\_init\_\_.py
 
-Il file `__init.py__`, misterioso per i principianti, deve essere presente in una directory perché i file al suo interno vengano riconosciuti come package. Ogni altro linguaggio noto se la cava tranquillamente senza. Forse qui si vede l'età. Il design di Python è iniziato alla fine degli anni '80 e allora poteva sembrare una buona idea. Chi è arrivato dopo l'ha eliminato e ha fatto in altro modo. Quello a cui serve in Python è spiegato bene a http://chimera.labs.oreilly.com/books/1230000000393/ch10.html
+Il file `__init__.py`, misterioso per i principianti, deve essere presente in una directory perché i file al suo interno vengano riconosciuti come package. Ogni altro linguaggio noto se la cava tranquillamente senza. Forse qui si vede l'età. Il design di Python è iniziato alla fine degli anni '80 e allora poteva sembrare una buona idea. Chi è arrivato dopo l'ha eliminato e ha fatto in altro modo. Quello a cui serve in Python è spiegato bene a http://chimera.labs.oreilly.com/books/1230000000393/ch10.html
 
 L'idioma corrispondente Ruby è la creazione di una base class che importa i file nelle sotto directory. Un esempio piuttosto esteso è dato da https://github.com/rails/rails/blob/master/activerecord/lib/active_record.rb
 
@@ -2015,7 +2015,7 @@ demo_rails/log/.keep
 
 Invece è davvero interessante come gli ORM Python cerchino di tenere DRY la modifica del DB. Si descrivono i modelli in Python in `models/` invece che in Ruby in `db/migrations`. Significa avere la truth del modello in un solo file e non averla distribuita in più migrazioni non facilmente identificabili. Questo è positivo.
 
-È poi Django a generare le migrazioni in base alle modifiche ai file dei modelli. I file dei modelli di Django si possono mettere ovunque, basta che ci sia un file `models.py` (devono stare tutti nello stesso file) e una directory `migrations/` con dentro un `__init.py__`. Dovrebbe essere Django a creare la directory in automatico ma non è un grosso problema.
+È poi Django a generare le migrazioni in base alle modifiche ai file dei modelli. I file dei modelli di Django si possono mettere ovunque, basta che ci sia un file `models.py` (devono stare tutti nello stesso file) e una directory `migrations/` con dentro un `__init__.py`. Dovrebbe essere Django a creare la directory in automatico ma non è un grosso problema.
 
 Per fortuna i modelli si possono estrarre in file separati ed importarli dentro a `models.py`, oppure li si possono importare direttamente, ad esempioil file `models/unmodello.py` si importa con `from models.unmodello import UnModello`. Si veda l'esempio di https://github.com/divio/django-cms/tree/release/3.4.x/cms/models
 
