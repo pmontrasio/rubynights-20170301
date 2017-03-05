@@ -721,7 +721,7 @@ Se lo dovete fare fatelo solo quando l'applicazione parte non ad esempio ad ogni
 <a name="Switch"></a>
 ## Switch / case
 
-Python non ce l'ha e quindi si trovano alle volte blocchi di 100 linee come queste
+Python non ce l'ha e non lo vuole ([PEP 3103](https://www.python.org/dev/peps/pep-3103/)) e così si trovano alle volte blocchi di 100 linee come queste
 
 ```
 if var == "uno":
