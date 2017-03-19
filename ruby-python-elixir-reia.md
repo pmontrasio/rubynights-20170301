@@ -2042,6 +2042,7 @@ Web2py ha un approccio molto rischioso alle migrazioni.
 
 Appena un modello modificato viene eseguito, magari perché si apre la console interattiva, fa la diff tra la definizione nel modello e la tabella e crea ed esegue il codice SQL che allinea la tabella alla definizione. Si possono disabilitare e lo consiglio tantissimo. Si indica `migrate=False` nel costruttore DAL del database.
 
+Un'opinione tutto sommato simile alla mia è quella di https://blog.staffjoy.com/dont-migrate-databases-automatically-5039ab061365 in cui suggeriscono di separare le migrazioni del db dai rilasci di codice.
 
 <a name="import"></a>
 ## Import automatico vs esplicito
