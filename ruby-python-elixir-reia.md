@@ -57,7 +57,7 @@ Licensed under the Creative Commons Attribution-ShareAlike 4.0 International (CC
   * [Error reporting](#error)
   * [Hot reload](#hot)
   * [Logging](#logging)
-  * [Il deploy](#il deploy)
+  * [Il deploy](#il-deploy)
   * [Testing](#testing)
   * [Bucce di banana](#unproblema)
 * [Riassumendo](#riassumendo)
