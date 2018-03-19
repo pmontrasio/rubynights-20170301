@@ -45,7 +45,7 @@ Licensed under the Creative Commons Attribution-ShareAlike 4.0 International (CC
   * [WAT](#wat)
 * [I framework web](#iframework)
   * [Molte opinioni vs poche opinioni](#molte-opinioni)
-* [Il routing](#il-routing)
+  * [Il routing](#il-routing)
   * [MVC vs MVT](#mvc)
   * [Admin](#admin)
   * [ORM](#orm)
@@ -57,7 +57,7 @@ Licensed under the Creative Commons Attribution-ShareAlike 4.0 International (CC
   * [Error reporting](#error)
   * [Hot reload](#hot)
   * [Logging](#logging)
-  * [Il deploy](#il deploy)
+  * [Il deploy](#il-deploy)
   * [Testing](#testing)
   * [Bucce di banana](#unproblema)
 * [Riassumendo](#riassumendo)
@@ -2551,7 +2551,7 @@ Se il server vuole conservare uno stato, ad esempio contare il numero di messagg
 
 L'invio e la ricezione di messaggi è un po' laboriosa. Ci sono dei moduli che permettono di implementare un comportamento object oriented dei server, con anche la persistenza dello stato interno al server. E' il GenServer.
 
-Ci sono maggiori dettagli nei branch di https://github.com/pmontrasio/elixir-oo ma il modulo che segue implementa l'equivalente di una classe i cui oggetti istanziati girano in un proprio processo e rispondono a chiamate a metodi con il message passing `send receive` che abbiamo visto in precedenza. Sembrerà strano per un linguaggio funzionale, ma è un pattern standard di Elixir (e anche di Erlang, il linguaggio per cui è stata creata BEAM).
+Ci sono maggiori dettagli nei branch di https://github.com/pmontrasio/elixir-oo ma il modulo che segue implementa l'equivalente di una classe i cui oggetti istanziati girano in un proprio processo e rispondono a chiamate a metodi con il message passing `send` `receive` che abbiamo visto in precedenza. Sembrerà strano per un linguaggio funzionale, ma è un pattern standard di Elixir (e anche di Erlang, il linguaggio per cui è stata creata BEAM).
 
 Eliminando i commenti che trovate su [GitHub](https://github.com/pmontrasio/elixir-oo/blob/master/lib/counter.ex) il codice è questo:
 
@@ -2668,7 +2668,7 @@ Per approfondire leggete *Understanding Elixir Macros*: [Part 1 - Basics](http:/
 
 * Dover scrivere sempre `Modulo.funzione` è faticoso e il pipelining aiuta solo fino ad un certo punto. Il workaround è usare `alias` ma poiché non ci sono classi a dividere metodi nell'equivalente di namespace, le collisioni sono assicurate.
 
-* Far scrivere agli sviluppatori due volte i metodi di un GenServer è una scelta di design comprensibile per quel che riguarda la separazione tra processo client e processo server. Non è chiarissima dal punto di vista della sintassi. Preferisco qualcosa che renda immediatamente chiaro il contesto in cui girano le singole funzioni. Questo viene direttamente da Erlang ed Elixir non ha apportato miglioramenti.
+* Far scrivere agli sviluppatori due volte i metodi di un GenServer è una scelta di design comprensibile per quel che riguarda la separazione tra processo client e processo server. Non è chiarissima dal punto di vista della sintassi. Preferisco qualcosa che renda immediatamente chiaro il contesto in cui girano le singole funzioni. Questo viene direttamente da Erlang ed Elixir non ha apportato miglioramenti. Esiste però un modulo esterno molto interessante che risolve molti di questi problemi e si avvicina a quello che vorrei: [ExActor](https://github.com/sasa1977/exactor). 
 
 
 <a name="reia"></a>
