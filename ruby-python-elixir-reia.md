@@ -1,4 +1,4 @@
-Licensed under the Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) https://creativecommons.org/licenses/by-sa/4.0/
+Licensed under the Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) <https://creativecommons.org/licenses/by-sa/4.0/>
 
 # Indice
 
@@ -116,11 +116,11 @@ Python. Implementazione iniziata nel dicembre dell'1989. Prima release febbraio 
 > * it was too early for such a high-level language
 > * unconventional terminology intended to make beginners more comfortable but instead threw off more experienced users
 
-[http://www.onlamp.com/pub/a/python/2002/06/04/guido.html](http://www.onlamp.com/pub/a/python/2002/06/04/guido.html)
+<http://www.onlamp.com/pub/a/python/2002/06/04/guido.html>
 
-[https://en.wikipedia.org/wiki/History_of_Python](https://en.wikipedia.org/wiki/History_of_Python)
+<https://en.wikipedia.org/wiki/History_of_Python>
 
-[https://en.wikipedia.org/wiki/ABC_(programming_language)](https://en.wikipedia.org/wiki/ABC_(programming_language)
+<https://en.wikipedia.org/wiki/ABC_(programming_language)>
 
 Ruby. Progettazione iniziata il 24 febbraio 1993. Prima release il 21 dicembre 1995.
 Ruby è ispirato a Smalltalk e a Perl. È interessante come per certi versi Matz confermi il secondo dei pensieri di Van Rossum
@@ -131,18 +131,18 @@ In pratica ora disegnerebbe Ruby in modo diverso ma all'epoca farlo somigliare u
 
 > Funnily enough there are programming languages written entirely in Japanese. (Zhou [l'intervistatore]: In China there also are programming languages written entirely in Chinese.) In China too? I knew it! No matter how interesting these programming languages are, they will never influence anyone beyond the ones in their own country.
 
-http://fredwu.me/post/36493181321/an-interview-with-yukihiro-matz-matsumoto
+<http://fredwu.me/post/36493181321/an-interview-with-yukihiro-matz-matsumoto>
 
-https://en.wikipedia.org/wiki/Ruby_(programming_language)
+<https://en.wikipedia.org/wiki/Ruby_(programming_language)>
 
 <a name="premessa"></a>
 # Premessa
 
 Questo documento è soprattutto un confronto tra Ruby e Python. È nato come un insieme disordinato di appunti presi mentre iniziavo ad usare Flask, Django e Web2Py venendo da 10 anni di Rails. Li ho riordinati per una presentazione a Ruby Nights, il gruppo dei rubisti di Milano. Per non farlo diventare una sterile battaglia Ruby contro Python decisa in anticipo dal "campo di battaglia" e dal mio passato di sviluppatore, insieme agli organizzatori di Ruby Nights abbiamo coinvolto la community Python di Milano. Leggendo i miei appunti hanno sollevato molte obiezioni e mi hanno portato a studiare di più Python e in certi casi anche Ruby. Questo documento di sicuro conserva la traccia delle mie preferenze, ma spero che ora sia molto più equilibrato. È stato un percorso di apprendimento interessante che passa per i framework web dei due linguaggi (è innegabile che Ruby si usi soprattutto per Rails) e arriva ad Elixir, un linguaggio ispirato a Ruby con una digressione su Reia, un altro linguaggio ispirato a Ruby che avrebbe meritato miglior sorte.
 
-https://www.meetup.com/Ruby-Nights-Milano/
+<https://www.meetup.com/Ruby-Nights-Milano/>
 
-https://www.meetup.com/Python-Milano/
+<https://www.meetup.com/Python-Milano/>
 
 <a name="ringraziamenti"></a>
 # Ringraziamenti
@@ -161,7 +161,7 @@ Python Milano, per le issue aperte su questo documento, le spiegazioni su Python
 * Pietro Brunetti
 * Raffaele Salmaso
 
-Invito anche a leggere tutte le issue https://github.com/pmontrasio/rubynights-20170301/issues che il gruppo Python ha aperto sul documento originale. Contengono molte annotazioni e spunti interessanti che è stato possibile riportare qui solo in parte.
+Invito anche a leggere tutte le issue <https://github.com/pmontrasio/rubynights-20170301/issues> che il gruppo Python ha aperto sul documento originale. Contengono molte annotazioni e spunti interessanti che è stato possibile riportare qui solo in parte.
 
 
 <a name="i-linguaggi"></a>
@@ -170,9 +170,9 @@ Invito anche a leggere tutte le issue https://github.com/pmontrasio/rubynights-2
 <a name="init.py"></a>
 ## \_\_init\_\_.py
 
-Il file `__init__.py`, misterioso per i principianti, deve essere presente in una directory perché i file al suo interno vengano riconosciuti come package. Ogni altro linguaggio noto se la cava tranquillamente senza. Forse qui si vede l'età. Il design di Python è iniziato alla fine degli anni '80 e allora poteva sembrare una buona idea. Chi è arrivato dopo l'ha eliminato e ha fatto in altro modo. Quello a cui serve in Python è spiegato bene a http://chimera.labs.oreilly.com/books/1230000000393/ch10.html
+Il file `__init__.py`, misterioso per i principianti, deve essere presente in una directory perché i file al suo interno vengano riconosciuti come package. Ogni altro linguaggio noto se la cava tranquillamente senza. Forse qui si vede l'età. Il design di Python è iniziato alla fine degli anni '80 e allora poteva sembrare una buona idea. Chi è arrivato dopo l'ha eliminato e ha fatto in altro modo. Quello a cui serve in Python è spiegato bene a <http://chimera.labs.oreilly.com/books/1230000000393/ch10.html>.
 
-L'idioma corrispondente Ruby è la creazione di una base class che importa i file nelle sotto directory. Un esempio piuttosto esteso è dato da https://github.com/rails/rails/blob/master/activerecord/lib/active_record.rb
+L'idioma corrispondente Ruby è la creazione di una base class che importa i file nelle sotto directory. Un esempio piuttosto esteso è dato da <https://github.com/rails/rails/blob/master/activerecord/lib/active_record.rb>.
 
 Come si vede non è necessario dare nomi criptici ai file per ottenere lo stesso risultato.
 
@@ -206,8 +206,8 @@ In Python sono falsy `None`,  `False` e, sopresa per chi viene da Ruby, `0` (di 
 
 In Ruby sono falsy `nil` e `false`. Tutto il resto è truthy, con sorpresa per chi viene da Python.
 
-https://docs.python.org/2/library/stdtypes.html#truth-value-testing
-https://gist.github.com/jfarmer/2647362
+<https://docs.python.org/2/library/stdtypes.html#truth-value-testing>
+<https://gist.github.com/jfarmer/2647362>
 
 <a name="boolean"></a>
 ## Boolean
@@ -222,7 +222,7 @@ if error
 end
 ```
 
-Nella pratica si sconsiglia di usarli. Le uniche volte in cui capita di incontrarli è quando un principiante ne fraintende l'uso li impiega in espressioni booleane introducendo bug incomprensibili causati dalla mancata conoscenza della reale precedenza dei due set di  operatori. https://ruby-doc.org/core-2.4.0/doc/syntax/precedence_rdoc.html
+Nella pratica si sconsiglia di usarli. Le uniche volte in cui capita di incontrarli è quando un principiante ne fraintende l'uso li impiega in espressioni booleane introducendo bug incomprensibili causati dalla mancata conoscenza della reale precedenza dei due set di  operatori. <https://ruby-doc.org/core-2.4.0/doc/syntax/precedence_rdoc.html>
 
 Esempio:
 
@@ -263,9 +263,9 @@ not true && false # equivale a not (true && false)
 
 Dettagli a
 
-* http://www.prestonlee.com/2010/08/04/ruby-on-the-perl-origins-of-and-versus-and-and-or/
-* http://www.virtuouscode.com/2010/08/02/using-and-and-or-in-ruby/
-* http://www.virtuouscode.com/2014/08/26/how-to-use-rubys-english-andor-operators-without-going-nuts/
+* <http://www.prestonlee.com/2010/08/04/ruby-on-the-perl-origins-of-and-versus-and-and-or/>
+* <http://www.virtuouscode.com/2010/08/02/using-and-and-or-in-ruby/>
+* <http://www.virtuouscode.com/2014/08/26/how-to-use-rubys-english-andor-operators-without-going-nuts/>
 
 Python usa `and or not` come operatori logici e non ci sono sorprese. Vince Python, anche per la praticità di scrittura.
 
@@ -279,14 +279,14 @@ Ruby ha array, range, hash. Non ha tuple. I set sono nella standard library e no
 Le liste di Python equivalgono agli array di Ruby. I dict sono hash.
 I dict dalla versione 3.6 di Python sono ordinati e le performance di lookup sono migliorate.
 Hanno migliorato le performance di lookup degli hash anche in Ruby 2.4.
-https://blog.heroku.com/ruby-2-4-features-hashes-integers-rounding#hash-changes
+<https://blog.heroku.com/ruby-2-4-features-hashes-integers-rounding#hash-changes>
 Gli elementi sono enumerati in ordine di inserimento.
 
 I range sono identici, a parte la sintassi: `range(6)` di Python è `0..5` di Ruby.
 
 I set sono identici.
 
-Python ha anche degli array, ma sono un modulo a parte e possono contenere solo oggetti di uno stesso tipo, che va dichiarato in fase di creazione https://docs.python.org/2/library/array.html
+Python ha anche degli array, ma sono un modulo a parte e possono contenere solo oggetti di uno stesso tipo, che va dichiarato in fase di creazione <https://docs.python.org/2/library/array.html>
 
 ```
 import array
@@ -295,9 +295,9 @@ x[2]
 # 3
 ```
 
-Questo aiuta le performance in casi di oggetti tutti dello stesso tipo. Forse è una delle ragioni per cui c'è un NumPy e non un NumRuby. A dir la verità c'è SciRuby https://github.com/SciRuby/sciruby ma non se la passa altrettanto bene.
+Questo aiuta le performance in casi di oggetti tutti dello stesso tipo. Forse è una delle ragioni per cui c'è un NumPy e non un NumRuby. A dir la verità c'è SciRuby <https://github.com/SciRuby/sciruby> ma non se la passa altrettanto bene. Un'altra ragione è che Python ha un'ottimizzazione che gli permette di non dover spostare byte tra le sue strutture dati e quelle C: gli array giganti delle elaborazioni numeriche restano "fermi" e si guadagna moltissimo.
 
-In Ruby array e hash sono iterabili praticamente con gli stessi metodi di Enumerator https://ruby-doc.org/core-2.4.0/Enumerator.html
+In Ruby array e hash sono iterabili praticamente con gli stessi metodi di Enumerator <https://ruby-doc.org/core-2.4.0/Enumerator.html>
 Esempio sugli hash.
 
 ```
@@ -337,7 +337,7 @@ Ruby
 <a name="funzioni"></a>
 ## Funzioni predefinite
 
-https://docs.python.org/2/library/functions.html
+<https://docs.python.org/2/library/functions.html>
 Python ha molte funzioni predefinite. Dati gli anni, forse è stato disegnato così sul modello della standard library C. Una certa somiglianza con un linguaggio più noto aiuta la diffusione nei primi anni di vita di un linguaggio.
 
 Scrivo
@@ -453,15 +453,15 @@ RuntimeError: can't modify frozen String
 	from /home/montra/.rvm/rubies/ruby-2.3.0/bin/irb:11:in `<main>'
 ```
 
-Una stringa immutabile è praticamente identica ai simboli. Avendo già i simboli l'immutabilità delle stringhe non è un'esigenza particolarmente sentita, ma con il proliferare di hash con chiavi di tipo string (JSON) è sicuramente un beneficio per le prestazioni. Probabilmente viene utile anche in vista dell'introduzione della concorrenza tramite `Guild` http://olivierlacan.com/posts/concurrency-in-ruby-3-with-guilds/
+Una stringa immutabile è praticamente identica ai simboli. Avendo già i simboli l'immutabilità delle stringhe non è un'esigenza particolarmente sentita, ma con il proliferare di hash con chiavi di tipo string (JSON) è sicuramente un beneficio per le prestazioni. Probabilmente viene utile anche in vista dell'introduzione della concorrenza tramite `Guild` <http://olivierlacan.com/posts/concurrency-in-ruby-3-with-guilds/>
 
 A proposito dei mali della mutabilità:
 
 * ecco un bug dell'interprete introdotto (ma poi risolto) proprio per venire a patti con la mutabilità degli array.
-  http://accidentallyquadratic.tumblr.com/post/157496054437/ruby-reject
+    <http://accidentallyquadratic.tumblr.com/post/157496054437/ruby-reject>
 
 * ecco una vulnerabilità a cui ci si può esporre con stringhe mutabili
-  http://stackoverflow.com/questions/15274874/how-does-java-string-being-immutable-increase-security
+  <http://stackoverflow.com/questions/15274874/how-does-java-string-being-immutable-increase-security>
 
 <a name="string"></a>
 ## String join e split
@@ -515,9 +515,9 @@ Ruby
 Questione di stili.
 
 Tra i due contendenti si segnala Java che ha risolto il problema con la sua solita grazia, introducendo in Java 8 la classe StringJoiner.
-http://download.java.net/lambda/b81/docs/api/java/util/StringJoiner.html
+<http://download.java.net/lambda/b81/docs/api/java/util/StringJoiner.html>
 Introduce però anche il metodo `String.join` che va ad affiancare `String.split` e quindi forse ne esce come inaspettato vincitore.
-https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#join-java.lang.CharSequence-java.lang.Iterable-
+<https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#join-java.lang.CharSequence-java.lang.Iterable->
 
 <a name="i-due-punti"></a>
 ## I due punti
@@ -641,7 +641,7 @@ dict2 = {a: 1}
 # NameError: name 'a' is not defined
 ```
 
-In Ruby non accadrà https://bugs.ruby-lang.org/issues/4801
+In Ruby non accadrà <https://bugs.ruby-lang.org/issues/4801>
 
 > Iff {'key': 'value'} means {:key => 'value'} I have no objection.
 > Matz
@@ -677,7 +677,7 @@ Nonostante in apparenza Ruby con questa notazione ci permetta di usare stringhe 
 
 Inoltre è scomodo se stiamo lavorando con dei literal JSON e li copiamo nel sorgente Ruby da file JSON.
 Rails però ha `HashWithIndifferentAccess`
-http://api.rubyonrails.org/classes/ActiveSupport/HashWithIndifferentAccess.html
+<http://api.rubyonrails.org/classes/ActiveSupport/HashWithIndifferentAccess.html>
 Come ho già scritto, un linguaggio ha qualcosa che non va se bisogna aggiungergli dei tool esterni.
 
 Però in Ruby puro possiamo un po' meglio e un po' peggio rispetto a Python
@@ -715,7 +715,7 @@ puts vulnerabilities[key].value
 
 Peggio perché la definizione di `vulnerabilities` non è altrettanto facile da leggere. Quegli `OpenStruct.new` sono rumore.
 Peggio anche perché creare una `OpenStruct` invalida la cache dei metodi
-https://github.com/charliesome/charlie.bz/blob/master/posts/things-that-clear-rubys-method-cache.md
+<https://github.com/charliesome/charlie.bz/blob/master/posts/things-that-clear-rubys-method-cache.md>
 Se lo dovete fare fatelo solo quando l'applicazione parte non ad esempio ad ogni chiamata di una URL.
 
 <a name="switch"></a>
@@ -762,7 +762,7 @@ globals()[i_want_func]()
 ```
 
 e c'è la tecnica object oriented di eliminare `if` e `case` con le classi.
-https://sourcemaking.com/refactoring/replace-conditional-with-polymorphism
+<https://sourcemaking.com/refactoring/replace-conditional-with-polymorphism>
 
 Il modo sano sarebbe stato
 
@@ -1049,7 +1049,7 @@ Da un lato apprezzo la consistenza dello stile, dall'altro non approvo il render
 
 Il passaggio di blocchi a metodi caratterizza profondamente Ruby. Python ha qualcosa di simile con `with`
 
-Un esempio da https://jeffknupp.com/blog/2016/03/07/python-with-context-managers/
+Un esempio da <https://jeffknupp.com/blog/2016/03/07/python-with-context-managers/>
 
 ```
 with open('what_are_context_managers.txt', 'r') as infile:
@@ -1268,8 +1268,9 @@ ArgumentError: wrong number of arguments (given 0, expected 1)
 
 In Python bisogna sempre passare come parametro una funzione definita esplicitamente, a meno che la funzione non si limiti a calcolare un'espressione. In quel caso si può usare una `lambda`. Le lambda Python non possono contenere statement.
 
-https://docs.python.org/2/reference/expressions.html#lambda
-https://docs.python.org/3/reference/expressions.html#lambda
+<https://docs.python.org/2/reference/expressions.html#lambda>
+
+<https://docs.python.org/3/reference/expressions.html#lambda>
 
 ```
 def fn(n, fun):
@@ -1400,7 +1401,7 @@ db(db.ordini.id == vars.idriga[i]).update(quantita = vars.quantita[i])
 ```
 
 sembra più consistente. A me piace la seconda con gli spazi ovunque.
-https://www.python.org/dev/peps/pep-0008/
+<https://www.python.org/dev/peps/pep-0008/>
 
 A parte vecchio codice PHP non avevo mai più visto così tante righe come queste prima di iniziare a leggere programmi Python altrui.
 
@@ -1453,6 +1454,48 @@ Rails se la cava semplicemente accorgendosi che `doc_ids` è un array e quindi �
 
 Altri due ORM Python, SQLAlchemy e peewee, non usano underscore semantici.
 
+Altra testimonianza della passione del mondo Python per la verbosità:
+
+```
+class Author(models.Model):
+    # ...
+
+class Book(models.Model):
+    author = models.ForeignKey(Author)
+    # ...
+
+for book in author.books_set.all():
+    # ...
+```
+
+quando in Rails si può scrivere semplicemente
+
+```
+for book in authors.books
+    # ...
+end
+```
+
+Non che sia idiomatico. Si preferisce il leggermente più lungo
+
+```
+author.books.each do |book|
+    # ...
+end
+```
+
+Ognuno ha le sue perversioni. Va notato che inoltre in Rails va dichiarata la relazione in entrambe le classi.
+
+```
+class Author < ActiveRecord::Base
+    has_many :books
+    # ...
+
+class Book < ActiveRecord::Base
+    belongs_to :author
+    # ...
+```
+
 <a name="eccezioni"></a>
 ## Eccezioni
 
@@ -1464,15 +1507,15 @@ try:
 except SomeException as e:
   print(e)
 
-begin # meglio un try, più esplicito
+begin # meglio un try, individua più immediatamente di che si tratta
   something that, might, break
-rescue SomeException => e # perché non rescue SomeException |e|  come per i blocchi?
+rescue SomeException => e # perché non rescue SomeException do |e|  come per i blocchi?
   puts e
 end
 ```
 
 
-BTW, non fate `rescue` di `Exception`` perché intercettereste ogni segnale ed errore. Provate questa:
+BTW, non fate `rescue` di `Exception` perché intercettereste ogni segnale ed errore. Provate questa:
 
 ```
 loop do
@@ -1525,7 +1568,7 @@ Le tuple in Elixir hanno le graffe `{value}` ed il problema si risolve da sè.
 
 Ruby ne fa a meno, non ha tuple. Le `Struct` gli assomigliano ma devono essere dichiarate in anticipo e sono molto verbose.
 Inoltre possono avere dei metodi. Sono delle specie di classi.
-http://ruby-doc.org/core-2.4.0/Struct.html
+<http://ruby-doc.org/core-2.4.0/Struct.html>
 
 
 <a name="pretty"></a>
@@ -1551,19 +1594,20 @@ p records[0] # o puts records[0].inspect
 ## Unicode
 
 Meglio non parlarne perché con Python 3 il problema è risolto. Chi deve continuare a lavorare con Python 2 ogni tanto soffre.
-Di Ruby 1.8 si sono quasi perse le tracce.
+In Ruby l'ultma versione con problemi Unicode è la 1.8, di cui si sono quasi perse le tracce.
 
 
 <a name="interpolazione"></a>
 ## Interpolazione di stringhe
 
-La forma Python
+Le forme Python
 
 ```
 "Ciao {} {}, come stai?".format(nome, cognome)
+"Ciao %s %s, come stai?".format(nome, cognome)
 ```
 
-secondo me si legge peggio di
+secondo me si leggono peggio di
 
 ```
 "Ciao #{nome} #{cognome}, come stai?"
@@ -1577,15 +1621,20 @@ Sarebbe fantastico se si potesse fare a meno del `#` e si potesse scrivere solo
 "Ciao {nome} {cognome}, come stai?"
 ```
 
-e con la [PEP-498](https://www.python.org/dev/peps/pep-0498/) finalmente Python ci è arrivato nella versione 3.6 sia pure con la complicazione delle f-string.
+e con la [PEP-498](https://www.python.org/dev/peps/pep-0498/) finalmente Python ci è arrivato. Nella versione 3.6, sia pure con l'introduzione f-string (la mania pytonica di complicare!) si può scrivere
 
 ```
 f'Ciao {nome} {cognome}, come stai?'
 ```
 
-Per qualche ragione il compilatore non è in grado di capire da solo quel che il programmatore vuole fare.
+Per qualche ragione il compilatore non è in grado di capire da solo quel che il programmatore vuole fare. Ruby segue l'approccio inverso: se non si vuole interpolare si quota esplicitamente la stringa
 
-Per le versioni precedenti si possono usare i named placeholder https://pyformat.info/ che però non compiono il passo fino in fondo.
+```
+%q("#{ciao}")
+ => "\"\#{ciao}\""
+```
+
+Per le versioni precedenti di Python si possono usare i named placeholder <https://pyformat.info/> che però non compiono il passo fino in fondo.
 
 ```
 '{first} {last}'.format(first=primo, last=ultimo')
@@ -1603,7 +1652,7 @@ class Plant(object):
 
 Mi chiedo però perché fin dal 1989 Python non abbia implementato l'unica soluzione sana, senza copiare la printf C.
 
-Se non altro i parametrized formats https://pyformat.info/#param_align sembrano avere qualcosa di più di http://ruby-doc.org/core-2.4.0/Kernel.html#method-i-sprintf
+Se non altro i parametrized formats <https://pyformat.info/#param_align> sembrano avere qualcosa di più di <http://ruby-doc.org/core-2.4.0/Kernel.html#method-i-sprintf>
 
 <a name="simboli"></a>
 ## Simboli
@@ -1612,7 +1661,7 @@ Python non ha i simboli e quindi bisogna definire costanti anche se non ci inter
 
 Probabilmente conviene usare gli enum.
 
-Sfortunatamente questa sintassi è stata bocciata perché explicit is better than implicit https://www.python.org/dev/peps/pep-0435/
+Sfortunatamente questa sintassi è stata bocciata perché explicit is better than implicit <https://www.python.org/dev/peps/pep-0435/>
 
 ```
 class Color(Enum):
@@ -1708,13 +1757,13 @@ Sia Ruby che Python permettono di fare debugging remoto, collegandosi ad un inte
 
 Ruby
 
-https://www.destroyallsoftware.com/talks/wat
-http://lucumr.pocoo.org/2008/7/1/whitespace-sensitivity/ (ironicamente)
+<https://www.destroyallsoftware.com/talks/wat>
+<http://lucumr.pocoo.org/2008/7/1/whitespace-sensitivity/> (ironicamente)
 
 Python
 
-https://youtu.be/sH4XF6pKKmk
-https://github.com/cosmologicon/pywat
+<https://youtu.be/sH4XF6pKKmk>
+<https://github.com/cosmologicon/pywat>
 
 <a name="i-framework"></a>
 # I framework web
